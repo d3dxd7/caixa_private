@@ -5,6 +5,9 @@ import base64
 import sqlite3 # Teste com SQLITE3
 import pyodbc
 import bd
+import mysql.connector
+from mysql.connector import Error
+
 
 #
 # class fucs():
@@ -216,17 +219,46 @@ class telaTkinter:
     def registrar(self):
         id_usuario = self.user_input_id_user.get()
         nome_email = self.user_input_user.get()
-        senha = self.user_input_pass
-        # senha_confirmar = self.user_input_pass_confirmar.get()
-        # if senha == senha_confirmar:
-        #     pass
-        # else:
-        #     messagebox.showinfo(title=('Digite igual a primeira senha'), message=(f'{RED}Digite igual a primeira senha'))
-        bd.cursor.execute(""""
-        INSERT INTO Clientes (id_usuario, nome_usuario, senha) VALUES(?, ?, ?)
-        """,(id_usuario, nome_email, senha))
-        bd.conectar.commit()
-        messagebox.showinfo(title="Informacoes do Registro", message="Registrado com Sucesso!")
+        senha = self.user_input_pass.get()
+        confirma_senha = self.user_input_pass_confirmar.get()
+        self.dados = id_usuario + ',\'' + nome_email + '\',' + ',\'' + senha + '\','+ ',\'' +confirma_senha +',\'' + ')'
+        self.declaracao = """INSET TO Clientes(
+        id_usuario, nome_usuario, senha, confirma_senha)
+        VALUES("""
+        self.sql = self.dados + self.declaracao
+
+        # Tentar conexao com Banco de Dados!
+        try:
+            con = mysql.connector.connect(
+                host="127.0.0.1",
+                user="root",
+                passwd="1234567",
+                database="pythonsql",
+                auth_plugin="mysql_native_password",
+            )
+            cursor = con.cursor()
+            inserirdados = self.sql
+            cursor.execute(inserirdados)
+            con.commit()
+            print(cursor.rowcount, f'{CYAN}')
+            cursor.close()
+            messagebox.showinfo(title="Informacoes do Registro", message="Registrado com Sucesso!")
+        except Error as erro:
+            print("Falha de Dados MySQL:".format(erro))
+        finally:
+            if (con.is_connected()):
+                con.close()
+
+        # # senha_confirmar = self.user_input_pass_confirmar.get()
+        # # if senha == senha_confirmar:
+        # #     pass
+        # # else:
+        # #     messagebox.showinfo(title=('Digite igual a primeira senha'), message=(f'{RED}Digite igual a primeira senha'))
+        # con_mysql.cursor.execute(""""
+        # INSERT INTO Clientes (id_usuario, nome_usuario, senha) VALUES(?, ?, ?)
+        # """,(id_usuario, nome_email, senha))
+        # con_mysql.conectar.commit()
+
 
 
 # Base 64 Imagens Global
