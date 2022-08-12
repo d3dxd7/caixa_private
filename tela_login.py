@@ -1,66 +1,42 @@
+import tkinter
 from tkinter import ttk
 from tkinter import *
 from tkinter import messagebox
 import base64
-import sqlite3 # Teste com SQLITE3
-import pyodbc
-import bd
 import mysql.connector
 from mysql.connector import Error
-
-
-#
-# class fucs():
-#     def conecta_BD(self):
-#         self.conn = sqlite3.connect("clientes.bd"); print('Conectado banco de Dados')
-#         self.cursor = self.conn.cursor()
-#
-#     def desconecta_BD(self):
-#         self.conn.close(); print('Descontado do banco de dados')
-#
-#     def montaTable(self):
-#         self.conecta_BD(); print('Conectado ao Banco de Dados')
-#         self.cursor.execute("""
-#             CREATE TABLE IF IS NOT EXISTS clientes (
-#                 cod INTEGER PRIMARY KEY,
-#                 usuario CHAR(40) NOT NULL,
-#                 senha INTEGER(16) NOT NULL,
-#         )""")
-#         self.conn.commit(); print('CREATE BANK DATA')
-#         self.desconecta_BD()
 # Cores
 RED = "\033[1;31m"
 BLUE = "\033[1;34m"
 CYAN = "\033[1;36m"
 GREEN = "\033[0;32m"
-
-# class banco_dados:
-#     def dados_conexao(self):
-#         self.dados_conect = (
-#             "Driver = {SQL Server};"
-#             "Server=DESKTOP-MMITH5A;"
-#             "DataBase=PythonSQL;"
-#         )
-#     def conectar(self):
-#         self.conexao = pyodbc.connect(self.dados_conexao())
-#         self.cursor = self.conexao
-#         print('Conexao bem sucedida')
-#     def desconectar_banco(self):
-#         self.cursor.close()
-#
-#     def inserirDados(self):
-#         self.conectar()
-#         self.inserir_dados = """(
-#         INSERT INTO Clientes(
-#         id_usuario,
-#         nome_usuario,
-#         senha)VALUES (?, ?, ?))"""
-#         self.cursor.execute(self.inserir_dados)
-#         self.cursor.commit()
-#         self.desconectar_banco(); print(f'{GREEN}Banco de Dados Desconectado')
-
-
 class telaTkinter:
+    # Funcao Do Login
+    def login(self):
+        self.nome_usuario = self.user_input_user_log.get()
+        self.senha = self.user_input_pass_log.get()
+        sql = "select * from clientes where nome_usuario = %s and senha = %s "  # Comando para Puxar os Dados do Cadastro
+        con = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            passwd="1234567",
+            database="pythonsql",
+            auth_plugin="mysql_native_password",
+        )
+        cursor = con.cursor()
+        cursor.execute(sql, [(self.nome_usuario), (self.senha)])
+        resultado = cursor.fetchall()
+        sucess =f'{GREEN}Usuario Logado com Sucesso!'
+        print(f'{RED}''#' * len(sucess)) # Insere '#' multiplicado * len= tamanho(string)
+        print(sucess)
+        print(f'{RED}''#' * len(sucess))
+        if resultado:
+            messagebox.showinfo("","Logado Com Sucesso!")
+            self.tela_programa() # Abri Proxima tela
+            self.tela.destroy() # Fecha a tela de Login
+        else:
+            messagebox.showerror("","Usuario ou Senha Invalido")
+
     # Config da tela 1
     def main_win(self, tela_tk):
         self.tela = tela_tk
@@ -95,15 +71,15 @@ class telaTkinter:
                                fg='white')
         userLabel_user.place(x=1, y=86)
         # Posicao
-        user_input_user = Entry(right_Frame, width=30)
-        user_input_user.place(x=138, y=92)
+        self.user_input_user_log = Entry(right_Frame, width=30)
+        self.user_input_user_log.place(x=138, y=92)
 
         #    ========= Senha ========
         userLabel_pass = Label(right_Frame, text='Senha', font=('Century Gothic', 15), bg='MIDNIGHTBLUE', fg='white')
         userLabel_pass.place(x=27, y=137)
         # Posicao
-        user_input_pass = Entry(right_Frame, width=30, show='*')
-        user_input_pass.place(x=138, y=142)
+        self.user_input_pass_log = Entry(right_Frame, width=30, show='*')
+        self.user_input_pass_log.place(x=138, y=142)
 
 
     # Config dos Botoes IMAGEN E FUNCOES
@@ -122,7 +98,7 @@ class telaTkinter:
         register_btn = register_btn.subsample(5, 4)
 
         # ======== Button ==========
-        btn_login = Button(right_Frame, image=entrar_btn, text='Entrar', font=('Century Gothic', 10), command='')
+        btn_login = Button(right_Frame, image=entrar_btn, text='Entrar', font=('Century Gothic', 10), command=self.login)
         btn_login.place(x=130, y=200, width=70, height=30)
 
         btn_senha = Button(right_Frame, image=register_btn, text='Cadastrar', font=('Century Gothic', 10),
@@ -174,13 +150,13 @@ class telaTkinter:
                                   fg='WHITE')
         msg_registro_LTDA.place(x=100, y=285)
 
-        # ======== Input Usuario ID_USUARIO =========
-        self.userLabel_userID = Label(right_Frame, text='ID Usuario nº', font=('Century Gothic', 15), bg='MIDNIGHTBLUE',
-                               fg='white')
-        self.userLabel_userID.place(x=7, y=60)
-        # Posicao
-        self.user_input_id_user = Entry(right_Frame, width=10)
-        self.user_input_id_user.place(x=138, y=65)
+        # # ======== Input Usuario ID_USUARIO =========
+        # self.userLabel_userID = Label(right_Frame, text='ID Usuario nº', font=('Century Gothic', 15), bg='MIDNIGHTBLUE',
+        #                        fg='white')
+        # self.userLabel_userID.place(x=7, y=60)
+        # # Posicao
+        # self.user_input_id_user = Entry(right_Frame, width=10, di)
+        # self.user_input_id_user.place(x=138, y=65)
 
 
         # ======== Input Usuario/Email NOME_USUARIO =========
@@ -201,10 +177,10 @@ class telaTkinter:
         #    ========= Confirmar Senha ========
         self.userLabel_pass_c = Label(right_Frame, text='Confirmar Senha', font=('Century Gothic', 12), bg='MIDNIGHTBLUE',
                                fg='white')
-        self.userLabel_pass_c.place(x=3, y=186)
+        self.userLabel_pass_c.place(x=3, y=176)
         # Posicao
         self.user_input_pass_confirmar = Entry(right_Frame, width=30, show='*')
-        self.user_input_pass_confirmar.place(x=138, y=190)
+        self.user_input_pass_confirmar.place(x=138, y=180)
 
         # ======== Button =========
         # ======== Button Confirmar register =========
@@ -215,49 +191,91 @@ class telaTkinter:
         self.btn_voltar = Button(right_Frame, text='Voltar', font=('Century Gothic', 10), command=self.tela_2.destroy)
         self.btn_voltar.place(x=173, y=268, width=70, height=30)
 
-        #Funcao do registro
+        # # ======== Button CheckBox ==========
+        # self.checkbox_adm = checkbox = IntVar
+        # self.checkbox_admin = tkinter.Checkbutton(right_Frame, variable=self.checkbox_adm, onvalue=1, offvalue=0, command="",bg='MIDNIGHTBLUE')
+        # self.checkbox_admin.place(x=138, y=200)
+        # self.msg_check_admin = Label(right_Frame, text='E ADM?', font=('Century Gothic', 10), bg='MIDNIGHTBLUE',
+        #                        fg='white')
+        # self.msg_check_admin.place(x=30, y=200)
+
+    # def checkbox(self):
+
+
+    #Funcao do registro
     def registrar(self):
-        id_usuario = self.user_input_id_user.get()
         nome_email = self.user_input_user.get()
         senha = self.user_input_pass.get()
         confirma_senha = self.user_input_pass_confirmar.get()
-        self.dados = id_usuario + ',\'' + nome_email + '\',' + ',\'' + senha + '\','+ ',\'' +confirma_senha +',\'' + ')'
-        self.declaracao = """INSET TO Clientes(
-        id_usuario, nome_usuario, senha, confirma_senha)
+        # admin = self.checkbox_admin.getvar(self.checkbox_adm)
+        self.dados = '\'' + nome_email + '\',''\'' + senha + '\',' '\'' + confirma_senha + '\'' ')'
+        self.declaracao = """INSERT INTO Clientes(
+        nome_usuario, senha, confirma_senha)
         VALUES("""
-        self.sql = self.dados + self.declaracao
-
+        self.sql = self.declaracao + self.dados
+        print(self.sql)
         # Tentar conexao com Banco de Dados!
         try:
-            con = mysql.connector.connect(
-                host="127.0.0.1",
-                user="root",
-                passwd="1234567",
-                database="pythonsql",
-                auth_plugin="mysql_native_password",
-            )
-            cursor = con.cursor()
-            inserirdados = self.sql
-            cursor.execute(inserirdados)
-            con.commit()
-            print(cursor.rowcount, f'{CYAN}')
-            cursor.close()
-            messagebox.showinfo(title="Informacoes do Registro", message="Registrado com Sucesso!")
+            if (nome_email == "" and senha == "" and confirma_senha == "" and self.checkbox_admin.get() == "0"):
+                messagebox.showerror(title='Erro de Registro', message='Campos Nao Preencidos, '
+                                                                            f'Cadastro Invalido!')
+            elif (senha != confirma_senha):
+                messagebox.showwarning(title='Erro Senha Invalida', message='As Senhas Nao Conferem')
+            else:
+                con = mysql.connector.connect(
+                    host="localhost",
+                    user="root",
+                    passwd="1234567",
+                    database="pythonsql",
+                    auth_plugin="mysql_native_password",
+                )
+                cursor = con.cursor()
+                inserirdados = self.sql
+                cursor.execute(inserirdados)
+                con.commit()
+                print(cursor.rowcount, f'{CYAN}')
+                cursor.close()
+                messagebox.showinfo(title="Informacoes do Registro", message="Registrado com Sucesso!")
         except Error as erro:
             print("Falha de Dados MySQL:".format(erro))
         finally:
             if (con.is_connected()):
                 con.close()
+                self.tela_2.destroy()
+        # Tela Funcoes
+    # def logout(self):
+    #     self.main_win(tela_tk=self.tela)
+    #     self.programa.destroy()
+    def tela_programa(self, tela_programa = None):
+        self.programa = Tk()
+        self.programa.geometry('600x300+600+153')
+        self.programa.resizable(False,False)
+        self.programa.title(f'Nome Usuario:[ {self.nome_usuario} ] Programa de Caixa Fluxo ')
 
-        # # senha_confirmar = self.user_input_pass_confirmar.get()
-        # # if senha == senha_confirmar:
-        # #     pass
-        # # else:
-        # #     messagebox.showinfo(title=('Digite igual a primeira senha'), message=(f'{RED}Digite igual a primeira senha'))
-        # con_mysql.cursor.execute(""""
-        # INSERT INTO Clientes (id_usuario, nome_usuario, senha) VALUES(?, ?, ?)
-        # """,(id_usuario, nome_email, senha))
-        # con_mysql.conectar.commit()
+        #Frame Esquerdo
+        left_Frame = Frame(self.programa, width=198, height=300, bg='MIDNIGHTBLUE', relief='raised')
+        left_Frame.pack(side=LEFT)
+
+        #Frame Direito
+        right_Frame = Frame(self.programa, width=400, height=300, bg='MIDNIGHTBLUE', relief='raised')
+        right_Frame.pack(side=RIGHT)
+        tamanho_nome_usuario = len(self.nome_usuario)
+        # ========= Tela Quando o Usuario esta Logado Programa ========
+        msg_programa_bemvindo = Label(right_Frame, text=f'Seja Bem-Vindo', font=('Century Gothic', 30), bg='MIDNIGHTBLUE',fg='white')
+        msg_programa_bemvindo.place(x=50, y=10)
+        msg_programa = Label(right_Frame, text=f'Usuario: ', font=('Century Gothic', 20), bg='MIDNIGHTBLUE',fg='white')
+        msg_programa.place(x=50, y=100)
+        msg_programa_usuario = Label(right_Frame, text=f'{self.nome_usuario}', font=('Century Gothic', 20), bg='MIDNIGHTBLUE', fg='green')
+        msg_programa_usuario.place(x=150, y=100)
+        msg_programa_usuario = Label(left_Frame, text=f'Status ON', font=('Century Gothic', 20),bg='MIDNIGHTBLUE', fg='green')
+        msg_programa_usuario.place(x=30, y=10)
+
+
+        #Button CheckBox
+        # self.btn_voltar = Button(self.programa, text='Voltar', font=('Century Gothic', 10), command="")
+        # self.btn_voltar.place(x=173, y=268, width=70, height=30)
+
+
 
 
 
@@ -273,7 +291,7 @@ icone_senha = 'iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAABGdBTUEAALGPC/xhB
 #####################
 #  Telas do Tkinter #
 #####################
-    # Inicio da Main_win
+# Inicio da Main_win
 main_screen = telaTkinter()  # Nesta classe
 tela = Tk()
 main_screen.main_win(tela)  # Acessa este atributo da caracteristica telaTkinter()
