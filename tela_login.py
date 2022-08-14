@@ -11,28 +11,36 @@ BLUE = "\033[1;34m"
 CYAN = "\033[1;36m"
 GREEN = "\033[0;32m"
 class telaTkinter:
+    #Banco de Dados
+    def banco_connect(self):
+        self.con = mysql.connector.connect(
+            host='localhost',
+            user='root',
+            passwd='1234567',
+            database='pythonsql',
+            auth_plugin='mysql_native_password',
+            autocommit=True
+        )
+        self.cursor = self.con.cursor()
+        print(f'{GREEN}Conected')
+    def banco_desconecta(self):
+        self.con.close();print(f'{RED}Desconected')
+
     # Funcao Do Login
     def login(self):
         self.nome_usuario = self.user_input_user_log.get()
         self.senha = self.user_input_pass_log.get()
         sql = "select * from clientes where nome_usuario = %s and senha = %s "  # Comando para Puxar os Dados do Cadastro
-        con = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            passwd="1234567",
-            database="pythonsql",
-            auth_plugin="mysql_native_password",
-        )
-        cursor = con.cursor()
-        cursor.execute(sql, [(self.nome_usuario), (self.senha)])
-        resultado = cursor.fetchall()
+        self.banco_connect()
+        self.cursor.execute(sql, [(self.nome_usuario), (self.senha)])
+        resultado = self.cursor.fetchall()
         sucess =f'{GREEN}Usuario Logado com Sucesso!'
         print(f'{RED}''#' * len(sucess)) # Insere '#' multiplicado * len= tamanho(string)
         print(sucess)
         print(f'{RED}''#' * len(sucess))
         if resultado:
             messagebox.showinfo(f'{self.nome_usuario}','Logado Com Sucesso!')
-            self.tela_programa() # Abri Proxima tela
+            self.tela_menus() # Abri Proxima tela
             self.tela.destroy() # Fecha a tela de Login
         else:
             messagebox.showerror("","Usuario ou Senha Invalido")
@@ -41,7 +49,81 @@ class telaTkinter:
         msg_pop.geometry('600x300+600+153')
         msg_pop.title('Bem Vindo')
         Label(msg_pop, text=f'Bem Vindo! {self.nome_usuario}',font=('Mistral 18 bold'))
-        Label.place(x=150,y=80)
+        Label.place(x=150, y=80)
+
+    def registrar(self):
+        nome_email = self.user_input_user.get()
+        senha = self.user_input_pass.get()
+        confirma_senha = self.user_input_pass_confirmar.get()
+        # admin = self.is_checked.get()
+        # self.admin = admin
+        self.dados = '\'' + nome_email + '\',''\'' + senha + '\',' '\'' + confirma_senha + '\'' ')'
+        self.declaracao = """INSERT INTO Clientes(
+        nome_usuario, senha, confirma_senha)
+        VALUES("""  # , admin
+        self.sql = self.declaracao + self.dados
+        print(self.sql)
+        # Tentar conexao com Banco de Dados!
+        try:
+            if (nome_email == "" and senha == "" and confirma_senha == ""):
+                messagebox.showerror(title='Erro de Registro', message='Campos Nao Preencidos, '
+                                                                       f'Cadastro Invalido!')
+            elif (senha != confirma_senha):
+                messagebox.showwarning(title='Erro Senha Invalida', message='As Senhas Nao Conferem')
+            else:
+                self.banco_connect()
+                inserirdados = self.sql
+                self.cursor.execute(inserirdados)  # self.admin
+                self.con.commit()
+                print(self.cursor.rowcount, f'{CYAN}')
+                self.banco_desconecta()
+                messagebox.showinfo(title="Informacoes do Registro", message="Registrado com Sucesso!")
+                self.tela_2.destroy()
+        except Error as erro:
+            print("Falha de Dados MySQL:".format(erro))
+        finally:
+            if (self.con.is_connected()):
+                self.con.close()
+                self.tela_2.destroy()
+    def registrar_fun_bd(self):
+        nome_func = self.user_input_func.get()
+        data_nasc = self.user_input_nascimento.get()
+        # admin = self.is_checked.get()
+        # self.admin = admin # ''\'' + data_nasc + '\''
+        self.dados = '\'' + nome_func + '\',''\'' + data_nasc + '\''')'
+        self.declaracao = """INSERT INTO funcionario(
+                nome_funcionario, data_nascimento)
+                VALUES("""  # , admin
+        self.sql = self.declaracao + self.dados
+        print(self.sql)
+        # Tentar conexao com Banco de Dados!
+        try:
+            if (nome_func == "" and data_nasc == ""):
+                messagebox.showerror(title='Erro de Registro Funcionario', message='Campos Nao Preencidos, '
+                                                                       f'Cadastro Invalido!')
+            else:
+                self.banco_connect()
+                inserirdados = self.sql
+                self.cursor.execute(inserirdados)  # self.admin
+                self.con.commit()
+                print(self.cursor.rowcount, f'{CYAN}')
+                self.banco_desconecta()
+                messagebox.showinfo(title="Informacoes do Registro", message="Funcionario Registrado com Sucesso!")
+        except Error as erro:
+            print("Falha de Dados MySQL:".format(erro))
+        finally:
+            if (self.con.is_connected()):
+                self.con.close()
+                self.tela_2.destroy()
+
+    #Frames
+    def frames(self):
+        #Frame Esquerdo
+        self.left_Frame = Frame(self.programa, width=198, height=300, bg='MIDNIGHTBLUE', relief='raised')
+        self.left_Frame.pack(side=LEFT)
+        #Frame Direito
+        self.right_Frame = Frame(self.programa, width=400, height=300, bg='MIDNIGHTBLUE', relief='raised')
+        self.right_Frame.pack(side=RIGHT)
     # Config da tela 1
     def main_win(self, tela_tk):
         self.tela = tela_tk
@@ -52,12 +134,10 @@ class telaTkinter:
 
         #Variaveis de imagens code64_Base64
 
-        # ======== widgets ==========
         left_Frame = Frame(self.tela, width=198, height=300, bg='MIDNIGHTBLUE', relief='raised')
         left_Frame.pack(side=LEFT)
         right_Frame = Frame(self.tela, width=400, height=300, bg='MIDNIGHTBLUE', relief='raised')
         right_Frame.pack(side=RIGHT)
-
         # ========= Bem Vindo ========
         bemvindo_Label = Label(right_Frame, text='Tela Login', font=('Century Gothic', 30), bg='MIDNIGHTBLUE',
                                fg='white')
@@ -107,15 +187,12 @@ class telaTkinter:
         btn_login.place(x=130, y=200, width=70, height=30)
 
         btn_senha = Button(right_Frame, image=register_btn, text='Cadastrar', font=('Century Gothic', 10),
-                           command=self.two_win)
+                           command=self.tela_registro)
         btn_senha.place(x=210, y=200, width=100, height=30)
 
         mainloop()
-
-
-
-
-    def two_win(self, tela_2 = None):
+    # Config da tela 2
+    def tela_registro(self, tela_2 = None):
         self.tela_2 = Toplevel()
         self.tela_2.geometry('600x300+600+153')
         self.tela_2.resizable(False,False)
@@ -157,14 +234,6 @@ class telaTkinter:
         msg_registro_LTDA = Label(left_Frame, font=('Century Gothic', 7), text='LTDA Fluxo de Caixa', bg='GREEN',
                                   fg='WHITE')
         msg_registro_LTDA.place(x=100, y=285)
-
-        # # ======== Input Usuario ID_USUARIO =========
-        # self.userLabel_userID = Label(right_Frame, text='ID Usuario nº', font=('Century Gothic', 15), bg='MIDNIGHTBLUE',
-        #                        fg='white')
-        # self.userLabel_userID.place(x=7, y=60)
-        # # Posicao
-        # self.user_input_id_user = Entry(right_Frame, width=10, di)
-        # self.user_input_id_user.place(x=138, y=65)
 
 
         # ======== Input Usuario/Email NOME_USUARIO =========
@@ -210,92 +279,14 @@ class telaTkinter:
         self.msg_check_admin = Label(right_Frame, text='E ADM?', font=('Century Gothic', 10), bg='MIDNIGHTBLUE',
                                fg='white')
         self.msg_check_admin.place(x=30, y=200)
-
-
-
-    #Funcao do registro
-    def registrar(self):
-        nome_email = self.user_input_user.get()
-        senha = self.user_input_pass.get()
-        confirma_senha = self.user_input_pass_confirmar.get()
-        # admin = self.is_checked.get()
-        # self.admin = admin
-        self.dados = '\'' + nome_email + '\',''\'' + senha + '\',' '\'' + confirma_senha + '\'' ')'
-        self.declaracao = """INSERT INTO Clientes(
-        nome_usuario, senha, confirma_senha)
-        VALUES("""    # , admin
-        self.sql = self.declaracao + self.dados
-        print(self.sql)
-        # Tentar conexao com Banco de Dados!
-        try:
-            if (nome_email == "" and senha == "" and confirma_senha == ""):
-                messagebox.showerror(title='Erro de Registro', message='Campos Nao Preencidos, '
-                                                                            f'Cadastro Invalido!')
-            elif (senha != confirma_senha):
-                messagebox.showwarning(title='Erro Senha Invalida', message='As Senhas Nao Conferem')
-            # elif self.is_checked.get() == 1:
-            #     print(f'{RED}E um Administrador')
-            else:
-                con = mysql.connector.connect(
-                    host="localhost",
-                    user="root",
-                    passwd="1234567",
-                    database="pythonsql",
-                    auth_plugin="mysql_native_password",
-                )
-                cursor = con.cursor()
-                inserirdados = self.sql
-                cursor.execute(inserirdados) # self.admin
-                con.commit()
-                print(cursor.rowcount, f'{CYAN}')
-                cursor.close()
-                messagebox.showinfo(title="Informacoes do Registro", message="Registrado com Sucesso!")
-        except Error as erro:
-            print("Falha de Dados MySQL:".format(erro))
-        finally:
-            if (con.is_connected()):
-                # con.close()
-                self.tela_2.destroy()
-
-    # Funcao BTN DELETAR
-    def deletar(self):
-        con = mysql.connector.connect(
-            host='localhost',
-            user='root',
-            passwd='1234567',
-            database='pythonsql',
-            auth_plugin='mysql_native_password',
-            autocommit=True
-        )
-        id = self.btn_colocar_id_input.get()
-        inteiro_id = int(id)
-        cursor = con.cursor()
-        deletar = """DELETE FROM pythonsql.clientes WHERE
-           id_usuario = %s"""
-        sql_delete = deletar
-        cursor.execute(sql_delete, ([inteiro_id]))
-        con.commit()
-        #Tela do POPUP
-        top = Toplevel(self.programa)
-        top.geometry('300x300+600+153')
-        top.title('DELECTED')
-        Label(top, text=f'ID=: {self.btn_colocar_id_input.get()} , DELETADO COM SUCESSO!',bg='GREEN').place(x=10, y=80)
-        print(f'{RED} Dados Deletados' ,cursor.rowcount, "Mostrar Deletado")
-        # Tela Funcoes
-    # def logout(self):
-    #     self.main_win(tela_tk=self.tela)
-    #     self.programa.destroy()
-    def tela_programa(self, tela_programa = None):
+    # Tela Programa
+    def tela_menus(self, tela_programa = None):   # TELA QUANDO LOGADO
         self.programa = Tk()
         self.programa.geometry('600x300+600+153')
         self.programa.resizable(False,False)
         self.programa.title(f'Nome Usuario:[ {self.nome_usuario} ] Programa de Caixa Fluxo ')
-
-        #Frame Esquerdo
         left_Frame = Frame(self.programa, width=198, height=300, bg='MIDNIGHTBLUE', relief='raised')
         left_Frame.pack(side=LEFT)
-
-        #Frame Direito
         right_Frame = Frame(self.programa, width=400, height=300, bg='MIDNIGHTBLUE', relief='raised')
         right_Frame.pack(side=RIGHT)
         tamanho_nome_usuario = len(self.nome_usuario)
@@ -317,19 +308,346 @@ class telaTkinter:
         btn_confirmar = PhotoImage(data=base64.b64decode(btn_confirmar_img))
         btn_confirmar = btn_confirmar.subsample(5, 3)
 
+        # ======== Button MENUS Cadastrar Funcionario =========
+        btn_menu_reg_fun = Button(right_Frame, text='Registrar Funcionario', command=self.menu_registro_funcionario)
+        btn_menu_reg_fun.place(x=1, y=100)#, width=500, height=20
+
+        # ======== Button MENUS Apagar Registro Funcionario=========
+        btn_menu_reg_fun = Button(right_Frame, text='Apagar Funcionario', command=self.menu_registro_funcioniario_apagar_func)
+        btn_menu_reg_fun.place(x=1, y=135)  # , width=500, height=20
+
+        # ======== Button MENUS Valores Caixa =========
+        btn_menu_reg_fun = Button(right_Frame, text='Valor Produto',
+                                  command=self.menu_valores)
+        btn_menu_reg_fun.place(x=1, y=170)  # , width=500, height=20
+
 
         # BTN PARA INSERIR ID E DELETAR APENAS PARA TESTE
         btn_colocar_id_msg = Label(right_Frame, text='CLEAR ID', bg='RED')
         btn_colocar_id_msg.place(x=30, y=273, height=20)
         self.btn_colocar_id_input = Entry(right_Frame,width=5 )
         self.btn_colocar_id_input.place(x=88, y=273)
-        btn_colocar_id_click = Button(right_Frame,bg='RED',text='Confirmar', command=self.deletar)
+        btn_colocar_id_click = Button(right_Frame,bg='RED',text='Confirmar', command=self.deletar_id)
         btn_colocar_id_click.place(x=125, y=273, height=21)
+
+    # Telas do Menu
+    def menu_registro_funcionario(self):
+        self.registro_fun = Tk()
+        self.registro_fun.title('Registrar Funcionario')
+        self.registro_fun.resizable(False, False)
+        self.registro_fun.geometry('600x300+600+153')
+
+        # Frames
+        # Frame Esquerdo
+        left_Frame = Frame(self.registro_fun, width=198, height=300, bg='MIDNIGHTBLUE', relief='raised')
+        left_Frame.pack(side=LEFT)
+        right_Frame = Frame(self.registro_fun, width=400, height=300, bg='MIDNIGHTBLUE', relief='raised')
+        right_Frame.pack(side=RIGHT)
+
+        msg_dados_fun = Label(right_Frame, text='Insira os Dados \n Funcionario', font=('Century Gothic', 20),bg='MIDNIGHTBLUE',fg='white')
+        msg_dados_fun.place(x=100, y=1)
+
+        #  ======== Mensagem Registro Frame 1 Left =========
+        msg_registro_fun_esquerda = Label(left_Frame, font=('Century Gothic', 20), text='Registro \nFuncionarios',bg='MIDNIGHTBLUE',fg='white')
+        msg_registro_fun_esquerda.place(x=25, y=1)
+        # ======== Mensagem Abaixo da Informacao Frame 1 Left =========
+        msg_registro_info_esquerda = Label(left_Frame, font=('Century Gothic', 10), text='- voce ira efetuar registro\n'
+                                                                                         '- seus Funcionarios\n'
+                                                                                         '- seus dados estao protegidos'
+                                           , bg='MIDNIGHTBLUE', fg='white')
+        msg_registro_info_esquerda.place(x=15, y=110)
+        msg_registro_LTDA_esquerda = Label(left_Frame, font=('Century Gothic', 7), text='LTDA Fluxo de Caixa',bg='GREEN',fg='WHITE')
+        msg_registro_LTDA_esquerda.place(x=100, y=285)
+
+        # ========= Input Nome Funcionario ========
+        userLabel_user = Label(right_Frame, text='Nome Funcionario', font=('Century Gothic', 12), bg='MIDNIGHTBLUE', fg='white')
+        userLabel_user.place(x=1, y=92)
+        # Posicao
+        self.user_input_func = Entry(right_Frame, width=30)
+        self.user_input_func.place(x=138, y=98)
+
+        #    ========= Input Data Nascimento ========
+        userLabel_nascimento = Label(right_Frame, text='Data Nascimento', font=('Century Gothic', 12), bg='MIDNIGHTBLUE', fg='white')
+        userLabel_nascimento.place(x=1, y=137)
+        # Posicao
+        self.user_input_nascimento = Entry(right_Frame, width=30)
+        self.user_input_nascimento.place(x=138, y=141, width=70)
+
+        #Botao Confirmar Registro de Funcionario Banco de Dados
+        btn_confirmar_reg = Button(right_Frame, text='Confirmar Registro', font=('Century Gothic', 10), command=self.registrar_fun_bd)
+        btn_confirmar_reg.place(x=145, y=230, width=130, height=30)
+
+        # ======== Button Voltar =========
+        btn_voltar = Button(right_Frame, text='Voltar', font=('Century Gothic', 10), command=self.destroy_tela_registro_func)
+        btn_voltar.place(x=173, y=268, width=70, height=30)
+    def menu_registro_funcioniario_apagar_func(self):
+        self.registro_fun_apagar = Tk()
+        self.registro_fun_apagar.title('Apgar Registro de Funcionario')
+        self.registro_fun_apagar.resizable(False, False)
+        self.registro_fun_apagar.geometry('600x300+600+153')
+
+        # Frames
+        # Frame Esquerdo
+        left_Frame = Frame(self.registro_fun_apagar, width=198, height=300, bg='MIDNIGHTBLUE', relief='raised')
+        left_Frame.pack(side=LEFT)
+        right_Frame = Frame(self.registro_fun_apagar, width=400, height=300, bg='MIDNIGHTBLUE', relief='raised')
+        right_Frame.pack(side=RIGHT)
+
+        msg_dados_fun = Label(right_Frame, text='Insira os Dados \n Funcionario', font=('Century Gothic', 20),bg='MIDNIGHTBLUE',fg='white')
+        msg_dados_fun.place(x=100, y=1)
+
+        #  ======== Mensagem Registro Frame 1 Left =========
+        msg_registro_fun_esquerda = Label(left_Frame, font=('Century Gothic', 20), text='Apagar Registro \nFuncionarios',bg='MIDNIGHTBLUE',fg='white')
+        msg_registro_fun_esquerda.place(x=25, y=1)
+        # ======== Mensagem Abaixo da Informacao Frame 1 Left =========
+        msg_registro_info_esquerda = Label(left_Frame, font=('Century Gothic', 10), text='- voce ira apagar registro\n'
+                                                                                         '- de seus Funcionarios\n'
+                                                                                         '- seus dados estao protegidos'
+                                           , bg='MIDNIGHTBLUE', fg='white')
+        msg_registro_info_esquerda.place(x=15, y=110)
+        msg_registro_LTDA_esquerda = Label(left_Frame, font=('Century Gothic', 7), text='LTDA Fluxo de Caixa',bg='GREEN',fg='WHITE')
+        msg_registro_LTDA_esquerda.place(x=100, y=285)
+
+        # ========= Input Nome Funcionario ========
+        userLabel_user = Label(right_Frame, text='Nome Funcionario', font=('Century Gothic', 12), bg='MIDNIGHTBLUE', fg='white')
+        userLabel_user.place(x=1, y=92)
+        # Posicao
+        self.user_input_func = Entry(right_Frame, width=30)
+        self.user_input_func.place(x=138, y=98)
+
+
+        #Botao Confirmar Registro de Funcionario Banco de Dados
+        btn_confirmar_reg = Button(right_Frame, text='Apagar', font=('Century Gothic', 10), command=self.deletar_nome_func)
+        btn_confirmar_reg.place(x=145, y=230, width=130, height=30)
+
+        # ======== Button Voltar =========
+        btn_voltar = Button(right_Frame, text='Voltar', font=('Century Gothic', 10), command=self.destroy_tela_apagar_func)
+        btn_voltar.place(x=173, y=268, width=70, height=30)
+    def menu_valores(self):
+        self.valores = Tk()
+        self.valores.title('Valores a Registrar')
+        self.valores.resizable(False, False)
+        self.valores.geometry('600x300+600+153')
+
+        # =====Frames=====
+        # Frame Esquerdo
+        left_Frame = Frame(self.valores, width=198, height=300, bg='MIDNIGHTBLUE', relief='raised')
+        left_Frame.pack(side=LEFT)
+        # Frame Direito
+        right_Frame = Frame(self.valores, width=400, height=300, bg='MIDNIGHTBLUE', relief='raised')
+        right_Frame.pack(side=RIGHT)
+
+        msg_dados_fun = Label(right_Frame, text='Insira Valores das Caixa', font=('Century Gothic', 20),
+                              bg='MIDNIGHTBLUE', fg='white')
+        msg_dados_fun.place(x=50, y=1)
+
+        #  ======== Mensagem Registro Frame 1 Left =========
+        msg_registro_fun_esquerda = Label(left_Frame, font=('Century Gothic', 18), text='Registro Valores',
+                                          bg='MIDNIGHTBLUE',
+                                          fg='white')
+        msg_registro_fun_esquerda.place(x=1, y=1)
+        # ======== Mensagem Abaixo da Informacao Frame 1 Left =========
+        msg_registro_info_esquerda = Label(left_Frame, font=('Century Gothic', 10), text='Voce ira inserir VALORES\n'
+                                                                                         'das CAIXAS do seu produto\n'
+                                                                                         'todos os dados sao EDITAVEIS'
+                                           , bg='MIDNIGHTBLUE', fg='white')
+        msg_registro_info_esquerda.place(x=1, y=80)
+        msg_registro_LTDA_esquerda = Label(left_Frame, font=('Century Gothic', 7), text='LTDA Fluxo de Caixa',
+                                           bg='GREEN',
+                                           fg='WHITE')
+        msg_registro_LTDA_esquerda.place(x=100, y=285)
+
+        # MSG VALORES E ENTRY E BTN VALRES, R$
+        msg_reais_laranja = Label(right_Frame, font=('Century Gothic', 10), text='R$', bg='MIDNIGHTBLUE', fg='white')
+        msg_reais_laranja.place(x=207, y=80)
+
+        msg_reais_limao = Label(right_Frame, font=('Century Gothic', 10), text='R$', bg='MIDNIGHTBLUE', fg='white')
+        msg_reais_limao.place(x=207, y=115)
+
+        msg_reais_tomate = Label(right_Frame, font=('Century Gothic', 10), text='R$', bg='MIDNIGHTBLUE', fg='white')
+        msg_reais_tomate.place(x=207, y=150)
+
+        # Caixa Laranja
+        caixa_laranja = Label(right_Frame, font=('Century Gothic', 10), text='Caixa LARANJA:', bg='MIDNIGHTBLUE', fg='white')
+        caixa_laranja.place(x=1, y=80)
+        self.caixa_laranja_input = Entry(right_Frame, width=15)
+        self.caixa_laranja_input.place(x=110, y=80)
+
+        # ======== Button Salvar LARANJA =========
+        btn_laranja_salvar = Button(right_Frame, text='Salvar', font=('Century Gothic', 10), command=self.salvar)
+        btn_laranja_salvar.place(x=230, y=80, width=70, height=20)
+
+        # ======== Button Atualizar Valores CX LARANJA =========
+        btn_laranja_update = Button(right_Frame, text='EDITAR R$', font=('Century Gothic', 10), command=self.alterar_preco_laranja)
+        btn_laranja_update.place(x=320, y=80, width=70, height=20)
+
+        # Caixa Limao
+        caixa_limao = Label(right_Frame, font=('Century Gothic', 10), text='Caixa LIMAO:', bg='MIDNIGHTBLUE', fg='white')
+        caixa_limao.place(x=1, y=115)
+        self.caixa_limao_input = Entry(right_Frame, width=15)
+        self.caixa_limao_input.place(x=110, y=115)
+
+        # ======== Button Salvar LIMAO =========
+        btn_limao_salvar = Button(right_Frame, text='Salvar', font=('Century Gothic', 10), command=self.salvar)
+        btn_limao_salvar.place(x=230, y=115, width=70, height=20)
+
+        # ======== Button Atualizar Valores CX LIMAO =========
+        btn_limao_update = Button(right_Frame, text='EDITAR R$', font=('Century Gothic', 10), command=self.update)
+        btn_limao_update.place(x=320, y=115, width=70, height=20)
+
+
+        # Caixa Tomate
+        caixa_tomate = Label(right_Frame, font=('Century Gothic', 10), text='Caixa TOMATE:', bg='MIDNIGHTBLUE', fg='white')
+        caixa_tomate.place(x=1, y=150)
+        self.caixa_tomate_input = Entry(right_Frame, width=15)
+        self.caixa_tomate_input.place(x=110, y=150)
+
+        # ======== Button Salvar TOMATE =========
+        btn_tomate_salvar = Button(right_Frame, text='Salvar', font=('Century Gothic', 10), command=self.salvar)
+        btn_tomate_salvar.place(x=230, y=150, width=70, height=20)
+
+        # ======== Button Atualizar Valores CX TOMATE =========
+        btn_tomate_update = Button(right_Frame, text='EDITAR R$', font=('Century Gothic', 10), command=self.update)
+        btn_tomate_update.place(x=320, y=150, width=70, height=20)
+
+
+
+        # ======== Button Salvar Grande Temporario =========
+        btn_voltar = Button(right_Frame, text='Inserir Todos Valores', font=('Century Gothic', 10), command=self.salvar)
+        btn_voltar.place(x=125, y=180, width=150, height=25)
+
+        # ======== Button Voltar =========
+        btn_voltar = Button(right_Frame, text='Voltar', font=('Century Gothic', 10), command=self.destroy_tela_valores)
+        btn_voltar.place(x=173, y=268, width=70, height=30)
+
+
+    # ======== BOTOES DE TODAS AS TELAS ========
+    # Tela de POPUP ID DELETADO
+    def tela_popup_deletar_id(self):
+        top = Toplevel(self.programa)
+        top.geometry('200x30+600+153')
+        top.title('DELECTED')
+        top.resizable(False, False)
+        Label(top, text=f'ID=: {self.btn_colocar_id_input.get()} , DELETADO COM SUCESSO!', bg='GREEN').place(x=1, y=1)
+        print(f'{RED} Dados Deletados', self.cursor.rowcount, "Mostrar Deletado")
+    def tela_popup_deletar_nome_func(self):
+        top = Toplevel(self.registro_fun_apagar)
+        top.geometry('200x45+600+153')
+        top.title('DELECTED')
+        top.resizable(False, False)
+        Label(top, text=f'ID=: {self.user_input_func.get()} , DELETADO COM SUCESSO!', bg='GREEN').place(x=1, y=1)
+        messagebox.showinfo(title='Funcionario Deletado', message='Funcionario Deletado')
+        print(f'{RED} Dados Deletados', self.cursor.rowcount, "Mostrar Deletado")
+    #Funcao DELETAR ID Table Clientes
+    def deletar_id(self):
+        self.banco_connect()
+        id = self.btn_colocar_id_input.get()
+        inteiro_id = int(id)
+        self.con.cursor()
+        deletar = """DELETE FROM pythonsql.clientes WHERE
+           id_usuario = %s"""
+        sql_delete = deletar
+        self.cursor.execute(sql_delete, ([inteiro_id]))
+        self.con.commit()
+        #Tela do POPUP
+        self.tela_popup_deletar_id()
+        # Tela Funcoes
 
 
         #Button CheckBox
         # self.btn_voltar = Button(self.programa, text='Voltar', font=('Century Gothic', 10), command="")
         # self.btn_voltar.place(x=173, y=268, width=70, height=30)
+    # Funcao Deletar Nome_Funcionario Table MYSQL funcionario
+    def deletar_nome_func(self):
+        self.banco_connect()
+        nome_funcionario = self.user_input_func.get()
+        # inteiro_id = int(id)
+        self.con.cursor()
+        deletar = """DELETE FROM pythonsql.funcionario WHERE
+                   nome_funcionario = %s"""
+        sql_delete = deletar
+        self.cursor.execute(sql_delete, ([nome_funcionario]))
+        self.con.commit()
+        # Tela do POPUP
+        self.tela_popup_deletar_nome_func()
+    #Funcao BTN _ VOLTAR
+    def destroy_tela_registro_func(self):
+        self.registro_fun.destroy()
+    def destroy_tela_apagar_func(self):
+        self.registro_fun_apagar.destroy()
+    def destroy_tela_valores(self):
+        self.valores.destroy()
+    # Botao Salvar Valores Produto
+    def salvar(self):
+        salvar_laranja = self.caixa_laranja_input.get()
+        salvar_limao = self.caixa_limao_input.get()
+        salvar_tomate = self.caixa_tomate_input.get()
+        dados = salvar_laranja + ',' + salvar_limao + ',' + salvar_tomate + ')'
+        inserir = """INSERT INTO valores(
+        caixa_laranja, caixa_limao, caixa_tomate)
+        VALUES("""
+        sql = inserir + dados
+        print(sql)
+        try:
+            if (salvar_laranja == "" and salvar_limao == "" and salvar_tomate == ""):
+                messagebox.showerror(title='Erro de Valores', message='Insira '"0"' aos valores, '
+                                                                       f'Em Branco Antes Salvar!')
+            else:
+                self.banco_connect()
+                inserirdados = sql
+                self.cursor.execute(inserirdados)  # self.admin
+                self.con.commit()
+                print(self.cursor.rowcount, f'{CYAN}')
+                self.banco_desconecta()
+                messagebox.showinfo(title="Informacoes do Registro", message="Valor Inserido!")
+        except Error as erro:
+            print("Falha de Dados MySQL:".format(erro))
+        finally:
+            if (self.con.is_connected()):
+                self.con.close()
+    def update(self):
+        salvar_laranja = self.caixa_laranja_input.get()
+        salvar_limao = self.caixa_limao_input.get()
+        salvar_tomate = self.caixa_tomate_input.get()
+        sql = "UPDATE pythonsql.valores SET caixa_laranja = """+ salvar_laranja +""" and caixa_limao = """+salvar_limao+""" and caixa_tomate = """+salvar_tomate+""" 
+            """
+        self.banco_connect()
+        self.cursor.execute(sql, [(salvar_laranja), (salvar_limao), (salvar_tomate)])
+        self.con.commit()
+        # resultado = self.cursor.fetchall()
+        sucess = f'{GREEN}Valor Alterado com Sucesso!'
+        print(f'{RED}''#' * len(sucess))  # Insere '#' multiplicado * len= tamanho(string)
+        print(sucess)
+        print(f'{RED}''#' * len(sucess))
+        # if resultado:
+        #     messagebox.showinfo(f'{self.nome_usuario}', 'Valor Alterado com Sucesso!!')
+        #     self.tela_menus()  # Abri Proxima tela
+        #     self.tela.destroy()  # Fecha a tela de Login
+        # else:
+        #     messagebox.showerror("", "Digite valor a ser alterado antes de Clicar")
+    def alterar_preco_laranja(self):
+        salvar_laranja = self.caixa_laranja_input.get()
+        salvar_limao = self.caixa_limao_input.get()
+        salvar_tomate = self.caixa_tomate_input.get()
+        try:
+            sql = "UPDATE pythonsql.valores SET caixa_laranja = %s and caixa_limao = %s and caixa_tomate = %s """  # Comando para Puxar os Dados do Cadastro
+            self.banco_connect()
+            inserirdados = sql
+            self.cursor.execute(inserirdados, [(salvar_laranja), (salvar_limao), (salvar_tomate)])  # self.admin
+            self.con.commit()
+            print(self.cursor.rowcount, f'{CYAN}')
+            self.banco_desconecta()
+            messagebox.showinfo(title="Informacoes do Novo Valor", message="Valor Alterado!")
+        except Error as erro:
+            print("Falha de Dados MySQL:".format(erro))
+        finally:
+            if (self.con.is_connected()):
+                self.con.close()
+    # def alterar_preco_limao(self):
+    # def alterar_preco_tomate(self):
+
+    # Botao Editar Valores
+
 
 
 
