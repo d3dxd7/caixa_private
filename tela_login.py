@@ -58,7 +58,7 @@ class telaTkinter:
         # admin = self.is_checked.get()
         # self.admin = admin
         self.dados = '\'' + nome_email + '\',''\'' + senha + '\',' '\'' + confirma_senha + '\'' ')'
-        self.declaracao = """INSERT INTO Clientes(
+        self.declaracao = """INSERT INTO pythonsql.Clientes(
         nome_usuario, senha, confirma_senha)
         VALUES("""  # , admin
         self.sql = self.declaracao + self.dados
@@ -91,11 +91,11 @@ class telaTkinter:
         # admin = self.is_checked.get()
         # self.admin = admin # ''\'' + data_nasc + '\''
         self.dados = '\'' + nome_func + '\',''\'' + data_nasc + '\''')'
-        self.declaracao = """INSERT INTO funcionario(
-                nome_funcionario, data_nascimento)
-                VALUES("""  # , admin
-        self.sql = self.declaracao + self.dados
-        print(self.sql)
+        self.declaracao = """INSERT INTO pythonsql.funcionario(
+        nome_funcionario, data_nascimento)
+        VALUES("""  # , admin
+        sql = self.declaracao + self.dados
+        print(sql)
         # Tentar conexao com Banco de Dados!
         try:
             if (nome_func == "" and data_nasc == ""):
@@ -103,18 +103,17 @@ class telaTkinter:
                                                                        f'Cadastro Invalido!')
             else:
                 self.banco_connect()
-                inserirdados = self.sql
+                inserirdados = sql
                 self.cursor.execute(inserirdados)  # self.admin
                 self.con.commit()
                 print(self.cursor.rowcount, f'{CYAN}')
                 self.banco_desconecta()
                 messagebox.showinfo(title="Informacoes do Registro", message="Funcionario Registrado com Sucesso!")
         except Error as erro:
-            print("Falha de Dados MySQL:".format(erro))
+            print(f'{RED}',"Falha de Dados MySQL:".format(erro))
         finally:
             if (self.con.is_connected()):
-                self.con.close()
-                self.tela_2.destroy()
+                self.con.close(); print(f'{RED}Descontado')
 
     #Frames
     def frames(self):
@@ -492,7 +491,7 @@ class telaTkinter:
         btn_limao_salvar.place(x=230, y=115, width=70, height=20)
 
         # ======== Button Atualizar Valores CX LIMAO =========
-        btn_limao_update = Button(right_Frame, text='EDITAR R$', font=('Century Gothic', 10), command=self.update)
+        btn_limao_update = Button(right_Frame, text='EDITAR R$', font=('Century Gothic', 10), command=self.alterar_preco_limao)
         btn_limao_update.place(x=320, y=115, width=70, height=20)
 
 
@@ -507,7 +506,7 @@ class telaTkinter:
         btn_tomate_salvar.place(x=230, y=150, width=70, height=20)
 
         # ======== Button Atualizar Valores CX TOMATE =========
-        btn_tomate_update = Button(right_Frame, text='EDITAR R$', font=('Century Gothic', 10), command=self.update)
+        btn_tomate_update = Button(right_Frame, text='EDITAR R$', font=('Century Gothic', 10), command=self.alterar_preco_tomate)
         btn_tomate_update.place(x=320, y=150, width=70, height=20)
 
 
@@ -539,7 +538,7 @@ class telaTkinter:
         messagebox.showinfo(title='Funcionario Deletado', message='Funcionario Deletado')
         print(f'{RED} Dados Deletados', self.cursor.rowcount, "Mostrar Deletado")
     #Funcao DELETAR ID Table Clientes
-    def deletar_id(self):
+    def deletar_id(self):# Funcao Deletar Nome_Funcionario Table MYSQL funcionario
         self.banco_connect()
         id = self.btn_colocar_id_input.get()
         inteiro_id = int(id)
@@ -556,8 +555,7 @@ class telaTkinter:
 
         #Button CheckBox
         # self.btn_voltar = Button(self.programa, text='Voltar', font=('Century Gothic', 10), command="")
-        # self.btn_voltar.place(x=173, y=268, width=70, height=30)
-    # Funcao Deletar Nome_Funcionario Table MYSQL funcionario
+        # self.btn_voltar.place(x=173, y=268, width=70, height=30) # Funcao Deletar Nome_Funcionario Table MYSQL funcionario
     def deletar_nome_func(self):
         self.banco_connect()
         nome_funcionario = self.user_input_func.get()
@@ -577,13 +575,13 @@ class telaTkinter:
         self.registro_fun_apagar.destroy()
     def destroy_tela_valores(self):
         self.valores.destroy()
-    # Botao Salvar Valores Produto
+    # Botao Salvar Valores Produto INSERT INTO
     def salvar(self):
         salvar_laranja = self.caixa_laranja_input.get()
         salvar_limao = self.caixa_limao_input.get()
         salvar_tomate = self.caixa_tomate_input.get()
         dados = salvar_laranja + ',' + salvar_limao + ',' + salvar_tomate + ')'
-        inserir = """INSERT INTO valores(
+        inserir = """INSERT INTO Valores(
         caixa_laranja, caixa_limao, caixa_tomate)
         VALUES("""
         sql = inserir + dados
@@ -599,21 +597,79 @@ class telaTkinter:
                 self.con.commit()
                 print(self.cursor.rowcount, f'{CYAN}')
                 self.banco_desconecta()
-                messagebox.showinfo(title="Informacoes do Registro", message="Valor Inserido!")
+                messagebox.showinfo(title="Informacoes do Registro", message="Valor Inserido CX Laranja!")
         except Error as erro:
             print("Falha de Dados MySQL:".format(erro))
         finally:
             if (self.con.is_connected()):
                 self.con.close()
+    def salvar_limao(self):
+        #salvar_laranja = self.caixa_laranja_input.get()
+        salvar_limao = self.caixa_limao_input.get()
+        #salvar_tomate = self.caixa_tomate_input.get()
+        dados =  salvar_limao + ')'
+        inserir = """INSERT INTO Valores(
+        caixa_limao)
+        VALUES("""
+        sql = inserir + dados
+        print(sql)
+        try:
+            if (salvar_limao == ""):
+                messagebox.showerror(title='Erro de Valores', message='Insira '"0"' aos valores, '
+                                                                       f'Em Branco Antes Salvar!')
+            else:
+                self.banco_connect()
+                inserirdados = sql
+                self.cursor.execute(inserirdados)  # self.admin
+                self.con.commit()
+                print(self.cursor.rowcount, f'{CYAN}')
+                self.banco_desconecta()
+                messagebox.showinfo(title="Informacoes do Registro", message="Valor Inserido CX Limao!")
+        except Error as erro:
+            print("Falha de Dados MySQL:".format(erro))
+        finally:
+            if (self.con.is_connected()):
+                self.con.close()
+    def salvar_tomate(self):
+        #salvar_laranja = self.caixa_laranja_input.get()
+        #salvar_limao = self.caixa_limao_input.get()
+        salvar_tomate = self.caixa_tomate_input.get()
+        dados =  salvar_tomate + ')'
+        inserir = """INSERT INTO Valores(
+        caixa_tomate)
+        VALUES("""
+        sql = inserir + dados
+        print(sql)
+        try:
+            if (salvar_tomate == ""):
+                messagebox.showerror(title='Erro de Valores', message='Insira '"0"' aos valores, '
+                                                                       f'Em Branco Antes Salvar!')
+            else:
+                self.banco_connect()
+                inserirdados = sql
+                self.cursor.execute(inserirdados)  # self.admin
+                self.con.commit()
+                print(self.cursor.rowcount, f'{CYAN}')
+                self.banco_desconecta()
+                messagebox.showinfo(title="Informacoes do Registro", message="Valor Inserido CX Tomate!")
+        except Error as erro:
+            print("Falha de Dados MySQL:".format(erro))
+        finally:
+            if (self.con.is_connected()):
+                self.con.close()
+
     def update(self):
         salvar_laranja = self.caixa_laranja_input.get()
         salvar_limao = self.caixa_limao_input.get()
         salvar_tomate = self.caixa_tomate_input.get()
-        sql = "UPDATE pythonsql.valores SET caixa_laranja = """+ salvar_laranja +""" and caixa_limao = """+salvar_limao+""" and caixa_tomate = """+salvar_tomate+""" 
-            """
+        dados = salvar_laranja + ',' + salvar_limao + ',' + salvar_tomate + ')'
+        sql = "UPDATE valores SET caixa_laranja = %s and caixa_limao = %s and caixa_tomate = %s WHERE id_valores = 1;"
+        inserir = sql + dados
+        print(inserir)
         self.banco_connect()
-        self.cursor.execute(sql, [(salvar_laranja), (salvar_limao), (salvar_tomate)])
+        self.cursor.execute(inserir)
         self.con.commit()
+
         # resultado = self.cursor.fetchall()
         sucess = f'{GREEN}Valor Alterado com Sucesso!'
         print(f'{RED}''#' * len(sucess))  # Insere '#' multiplicado * len= tamanho(string)
@@ -625,15 +681,21 @@ class telaTkinter:
         #     self.tela.destroy()  # Fecha a tela de Login
         # else:
         #     messagebox.showerror("", "Digite valor a ser alterado antes de Clicar")
+
+    #Atualizar Dados da Tabela de Cada Caixa UPDATE ? SET ? WHERE ?
     def alterar_preco_laranja(self):
         salvar_laranja = self.caixa_laranja_input.get()
-        salvar_limao = self.caixa_limao_input.get()
-        salvar_tomate = self.caixa_tomate_input.get()
+        # salvar_limao = self.caixa_limao_input.get()
+        # salvar_tomate = self.caixa_tomate_input.get()
         try:
-            sql = "UPDATE pythonsql.valores SET caixa_laranja = %s and caixa_limao = %s and caixa_tomate = %s """  # Comando para Puxar os Dados do Cadastro
+            sql = """UPDATE pythonsql.valores 
+            SET caixa_laranja = """+salvar_laranja+"""
+            WHERE id_Valores = 1;"""
+            print(f'{BLUE}{sql}')
+            # Comando para Puxar os Dados do Cadastro
             self.banco_connect()
             inserirdados = sql
-            self.cursor.execute(inserirdados, [(salvar_laranja), (salvar_limao), (salvar_tomate)])  # self.admin
+            self.cursor.execute(inserirdados)  # self.admin
             self.con.commit()
             print(self.cursor.rowcount, f'{CYAN}')
             self.banco_desconecta()
@@ -643,14 +705,50 @@ class telaTkinter:
         finally:
             if (self.con.is_connected()):
                 self.con.close()
-    # def alterar_preco_limao(self):
-    # def alterar_preco_tomate(self):
-
-    # Botao Editar Valores
-
-
-
-
+    def alterar_preco_limao(self):
+        #salvar_laranja = self.caixa_laranja_input.get()
+        salvar_limao = self.caixa_limao_input.get()
+        # salvar_tomate = self.caixa_tomate_input.get()
+        try:
+            sql = """UPDATE pythonsql.valores 
+            SET caixa_limao = """+salvar_limao+"""
+            WHERE id_Valores = 1;"""
+            print(f'{BLUE}{sql}')
+            # Comando para Puxar os Dados do Cadastro
+            self.banco_connect()
+            inserirdados = sql
+            self.cursor.execute(inserirdados)  # self.admin
+            self.con.commit()
+            print(self.cursor.rowcount, f'{CYAN}')
+            self.banco_desconecta()
+            messagebox.showinfo(title="Informacoes do Novo Valor", message="Valor Alterado!")
+        except Error as erro:
+            print("Falha de Dados MySQL:".format(erro))
+        finally:
+            if (self.con.is_connected()):
+                self.con.close()
+    def alterar_preco_tomate(self):
+        # salvar_laranja = self.caixa_laranja_input.get()
+        #salvar_limao = self.caixa_limao_input.get()
+        salvar_tomate = self.caixa_tomate_input.get()
+        try:
+            sql = """UPDATE pythonsql.valores 
+             SET caixa_limao = """ + salvar_tomate + """
+             WHERE id_Valores = 1;"""
+            print(f'{BLUE}{sql}')
+            # Comando para Puxar os Dados do Cadastro
+            self.banco_connect()
+            inserirdados = sql
+            self.cursor.execute(inserirdados)  # self.admin
+            self.con.commit()
+            print(self.cursor.rowcount, f'{CYAN}')
+            self.banco_desconecta()
+            messagebox.showinfo(title="Informacoes do Novo Valor", message="Valor Alterado!")
+        except Error as erro:
+            print("Falha de Dados MySQL:".format(erro))
+        finally:
+            if (self.con.is_connected()):
+                self.con.close()
 
 
 # Base 64 Imagens Global
