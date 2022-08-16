@@ -515,12 +515,47 @@ class telaTkinter:
         # btn_voltar = Button(right_Frame, text='Inserir Todos Valores', font=('Century Gothic', 10), command=self.salvar)
         # btn_voltar.place(x=125, y=180, width=150, height=25)
 
+        # ======== Button Mostrar Valores das Caixa =========
+        btn_voltar = Button(right_Frame, text='Valores das Caixas', font=('Century Gothic', 10), command=self.exibir_valores_atuais_cx)
+        btn_voltar.place(x=165, y=180, width=115, height=30)
         # ======== Button Voltar =========
         btn_voltar = Button(right_Frame, text='Voltar', font=('Century Gothic', 10), command=self.destroy_tela_valores)
         btn_voltar.place(x=173, y=268, width=70, height=30)
+    def exibir_valores_atuais_cx(self):
+        app = Tk()
+        app.title('Valores das Caixas Anteriores')
+        app.geometry('390x90+1200+153')
+        app.resizable(False, False)
+        tv = ttk.Treeview(app, columns=('R$ Caixa Laranja', 'R$ Caixa Limao', 'R$ Caixa Tomate'),
+                          show='headings')  # Visualizar valores Anteriores
+        tv.column('R$ Caixa Laranja', minwidth=0, width=130)
+        tv.column('R$ Caixa Limao', minwidth=0, width=130)
+        tv.column('R$ Caixa Tomate', minwidth=0, width=130)
+        tv.heading('R$ Caixa Laranja', text='R$ Caixa Laranja')
+        tv.heading('R$ Caixa Limao', text='R$ Caixa Limao')
+        tv.heading('R$ Caixa Tomate', text='R$ Caixa Tomate')
 
+        btn = Button(app, text='Atualizar Todos Valores', bg='GREEN', command="")
+        btn.place(x=130, y=63)
+        tv.pack()
 
     # ======== BOTOES DE TODAS AS TELAS ========
+    def select_sql_table_valores(self):
+        caixa_laranja = self.caixa_laranja_input.get()
+        caixa_limao = self.caixa_limao_input.get()
+        caixa_tomate = self.caixa_tomate_input.get()
+        sql = "select * from valores where caixa_laranja = %s and caixa_limao = %s and caixa_tomate = %s "  # Comando para Puxar os Dados do Cadastro
+        self.banco_connect()
+        self.cursor.execute(sql, [(caixa_laranja), (caixa_limao), (caixa_tomate)])
+        resultado = self.cursor.fetchall()
+        sucess =f'{GREEN}Valores Atuais Atualizados!'
+        print(f'{RED}''#' * len(sucess)) # Insere '#' multiplicado * len= tamanho(string)
+        print(sucess)
+        print(f'{RED}''#' * len(sucess))
+        if resultado:
+            messagebox.showinfo(f'{self.nome_usuario}','Valores Atuais Atualizados!')
+        else:
+            messagebox.showerror("","Usuario ou Senha Invalido")
     # Tela de POPUP ID DELETADO
     def tela_popup_deletar_id(self):
         top = Toplevel(self.programa)
