@@ -472,9 +472,9 @@ class telaTkinter:
         self.caixa_laranja_input = Entry(right_Frame, width=15)
         self.caixa_laranja_input.place(x=110, y=80)
 
-        # ======== Button Salvar LARANJA =========
-        btn_laranja_salvar = Button(right_Frame, text='Salvar', font=('Century Gothic', 10), command=self.salvar)
-        btn_laranja_salvar.place(x=230, y=80, width=70, height=20)
+        # # ======== Button Salvar LARANJA =========
+        # btn_laranja_salvar = Button(right_Frame, text='Salvar', font=('Century Gothic', 10), command=self.salvar_laranja)
+        # btn_laranja_salvar.place(x=230, y=80, width=70, height=20)
 
         # ======== Button Atualizar Valores CX LARANJA =========
         btn_laranja_update = Button(right_Frame, text='EDITAR R$', font=('Century Gothic', 10), command=self.alterar_preco_laranja)
@@ -487,8 +487,8 @@ class telaTkinter:
         self.caixa_limao_input.place(x=110, y=115)
 
         # ======== Button Salvar LIMAO =========
-        btn_limao_salvar = Button(right_Frame, text='Salvar', font=('Century Gothic', 10), command=self.salvar)
-        btn_limao_salvar.place(x=230, y=115, width=70, height=20)
+        # btn_limao_salvar = Button(right_Frame, text='Salvar', font=('Century Gothic', 10), command=self.salvar_limao)
+        # btn_limao_salvar.place(x=230, y=115, width=70, height=20)
 
         # ======== Button Atualizar Valores CX LIMAO =========
         btn_limao_update = Button(right_Frame, text='EDITAR R$', font=('Century Gothic', 10), command=self.alterar_preco_limao)
@@ -502,8 +502,8 @@ class telaTkinter:
         self.caixa_tomate_input.place(x=110, y=150)
 
         # ======== Button Salvar TOMATE =========
-        btn_tomate_salvar = Button(right_Frame, text='Salvar', font=('Century Gothic', 10), command=self.salvar)
-        btn_tomate_salvar.place(x=230, y=150, width=70, height=20)
+        # btn_tomate_salvar = Button(right_Frame, text='Salvar', font=('Century Gothic', 10), command=self.salvar_tomate)
+        # btn_tomate_salvar.place(x=230, y=150, width=70, height=20)
 
         # ======== Button Atualizar Valores CX TOMATE =========
         btn_tomate_update = Button(right_Frame, text='EDITAR R$', font=('Century Gothic', 10), command=self.alterar_preco_tomate)
@@ -512,8 +512,8 @@ class telaTkinter:
 
 
         # ======== Button Salvar Grande Temporario =========
-        btn_voltar = Button(right_Frame, text='Inserir Todos Valores', font=('Century Gothic', 10), command=self.salvar)
-        btn_voltar.place(x=125, y=180, width=150, height=25)
+        # btn_voltar = Button(right_Frame, text='Inserir Todos Valores', font=('Century Gothic', 10), command=self.salvar)
+        # btn_voltar.place(x=125, y=180, width=150, height=25)
 
         # ======== Button Voltar =========
         btn_voltar = Button(right_Frame, text='Voltar', font=('Century Gothic', 10), command=self.destroy_tela_valores)
@@ -576,18 +576,18 @@ class telaTkinter:
     def destroy_tela_valores(self):
         self.valores.destroy()
     # Botao Salvar Valores Produto INSERT INTO
-    def salvar(self):
+    def salvar_laranja(self):
         salvar_laranja = self.caixa_laranja_input.get()
-        salvar_limao = self.caixa_limao_input.get()
-        salvar_tomate = self.caixa_tomate_input.get()
-        dados = salvar_laranja + ',' + salvar_limao + ',' + salvar_tomate + ')'
+        # salvar_limao = self.caixa_limao_input.get()
+        # salvar_tomate = self.caixa_tomate_input.get()
+        dados = salvar_laranja + ')'
         inserir = """INSERT INTO Valores(
-        caixa_laranja, caixa_limao, caixa_tomate)
+        caixa_laranja)
         VALUES("""
         sql = inserir + dados
         print(sql)
         try:
-            if (salvar_laranja == "" and salvar_limao == "" and salvar_tomate == ""):
+            if (salvar_laranja == ""):
                 messagebox.showerror(title='Erro de Valores', message='Insira '"0"' aos valores, '
                                                                        f'Em Branco Antes Salvar!')
             else:
