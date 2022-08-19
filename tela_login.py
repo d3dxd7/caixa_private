@@ -182,11 +182,10 @@ class telaTkinter:
         register_btn = register_btn.subsample(5, 4)
 
         # ======== Button ==========
-        btn_login = Button(right_Frame, image=entrar_btn, text='Entrar', font=('Century Gothic', 10), command=self.login)
+        btn_login = Button(right_Frame, text='Entrar',font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2', command=self.login)
         btn_login.place(x=130, y=200, width=70, height=30)
 
-        btn_senha = Button(right_Frame, image=register_btn, text='Cadastrar', font=('Century Gothic', 10),
-                           command=self.tela_registro)
+        btn_senha = Button(right_Frame,text='Cadastrar', font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2', command=self.tela_registro)
         btn_senha.place(x=210, y=200, width=100, height=30)
 
         mainloop()
@@ -260,11 +259,11 @@ class telaTkinter:
 
         # ======== Button =========
         # ======== Button Confirmar register =========
-        self.btn_confirmar = Button(right_Frame, text='Confirmar Registro', font=('Century Gothic', 10), command=self.registrar)
+        self.btn_confirmar = Button(right_Frame, text='Confirmar Registro', font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2', command=self.registrar)
         self.btn_confirmar.place(x=145, y=230, width=130, height=30)
 
         # ======== Button Voltar =========
-        self.btn_voltar = Button(right_Frame, text='Voltar', font=('Century Gothic', 10), command=self.tela_2.destroy)
+        self.btn_voltar = Button(right_Frame, text='Voltar', font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2', command=self.tela_2.destroy)
         self.btn_voltar.place(x=173, y=268, width=70, height=30)
 
         # # ======== Button CheckBox ==========
@@ -298,50 +297,73 @@ class telaTkinter:
         msg_programa__.place(x=1, y=80, width=500, height=20)
         msg_programa = Label(left_Frame, text=f'User: ', font=('Century Gothic', 20), bg='MIDNIGHTBLUE',fg='white')
         msg_programa.place(x=1, y=38)
-        msg_programa_usuario = Label(left_Frame, text=f'{self.nome_usuario}', font=('Century Gothic', 20), bg='BLACK', fg='green')
-        msg_programa_usuario.place(x=68, y=38)
-        msg_programa_usuario = Label(left_Frame, text=f'Status ON', font=('Century Gothic', 20),bg='MIDNIGHTBLUE', fg='green')
+        msg_programa_usuario = Label(left_Frame, text=f'{self.nome_usuario}',bg='MIDNIGHTBLUE', font=('Arial', 10, 'italic', 'bold'), bd=2, fg='white',highlightthickness=2, highlightbackground="#107db2")
+        msg_programa_usuario.place(x=68, y=48)
+        msg_programa_usuario = Label(left_Frame, text=f'Status ON',bg='MIDNIGHTBLUE', font=('Arial', 15, 'italic', 'bold'), bd=2, fg='GREEN',highlightthickness=2, highlightbackground="GREEN")
         msg_programa_usuario.place(x=30, y=5)
 
         # ======== Base 64 Botao Entrar =========
         btn_confirmar = PhotoImage(data=base64.b64decode(btn_confirmar_img))
         btn_confirmar = btn_confirmar.subsample(5, 3)
 
-        btn_menu_reg_fun = Button(right_Frame, text='Registro Geral', command=self.programaFinal)
+        btn_menu_reg_fun = Button(right_Frame, text='Registro Geral',font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2', command=self.programaFinal)
         btn_menu_reg_fun.place(x=150, y=100)  # , width=500, height=20
 
         # ======== Button MENUS Cadastrar Funcionario =========
-        btn_menu_reg_fun = Button(right_Frame, text='Registrar Funcionario', command=self.menu_registro_funcionario)
-        btn_menu_reg_fun.place(x=1, y=100)#, width=500, height=20
+        btn_menu_reg_fun = Button(right_Frame, text='Registrar Funcionario',font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2', command=self.menu_registro_funcionario)
+        btn_menu_reg_fun.place(x=125, y=135)#, width=500, height=20
 
         # ======== Button MENUS Apagar Registro Funcionario=========
-        btn_menu_reg_fun = Button(right_Frame, text='Apagar Funcionario', command=self.menu_registro_funcioniario_apagar_func)
-        btn_menu_reg_fun.place(x=1, y=135)  # , width=500, height=20
+        btn_menu_reg_fun = Button(right_Frame, text='Apagar Funcionario',font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2', command=self.menu_registro_funcioniario_apagar_func)
+        btn_menu_reg_fun.place(x=135, y=170)  # , width=500, height=20
 
         # ======== Button MENUS Valores Caixa =========
-        btn_menu_reg_fun = Button(right_Frame, text='Valor Produto',
+        btn_menu_reg_fun = Button(right_Frame, text='Valor Produto',font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
                                   command=self.menu_valores)
-        btn_menu_reg_fun.place(x=1, y=170)  # , width=500, height=20
+        btn_menu_reg_fun.place(x=150, y=200)  # , width=500, height=20
 
 
         # BTN PARA INSERIR ID E DELETAR APENAS PARA TESTE
-        btn_colocar_id_msg = Label(right_Frame, text='CLEAR ID', bg='RED')
-        btn_colocar_id_msg.place(x=30, y=273, height=20)
-        self.btn_colocar_id_input = Entry(right_Frame,width=5 )
-        self.btn_colocar_id_input.place(x=88, y=273)
-        btn_colocar_id_click = Button(right_Frame,bg='RED',text='Confirmar', command=self.deletar_id)
-        btn_colocar_id_click.place(x=125, y=273, height=21)
+        btn_colocar_id_msg = Label(left_Frame, text='CLEAR ID', bg='RED',font=('Arial', 8, 'italic', 'bold'), bd=3, fg='white')
+        btn_colocar_id_msg.place(x=5, y=273, height=19)
+        self.btn_colocar_id_input = Entry(left_Frame,width=5 )
+        self.btn_colocar_id_input.place(x=65, y=273)
+        btn_colocar_id_click = Button(left_Frame,bg='RED',text='Confirmar' ,font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white',command=self.deletar_id)
+        btn_colocar_id_click.place(x=90, y=273, height=21)
 
+    # Funcao da Tela Programa Final
+    def pesquisar(self):
+        self.tree.delete(*self.tree.get_children())
+        nome_recebe = self.bt_nfuncionario_entry.get()
+        sql = "SELECT * FROM funcionario WHERE nome_funcionario = %s"
+        self.cursor.execute(sql, [(nome_recebe)])
+        mostrar = self.cursor.fetchall()
+        for exibir in mostrar:
+            self.tree.insert("", "end", values=exibir)
     def limpar_programaFinal(self):
         self.bt_data_entry.delete(0, END)
         self.bt_nfuncionario_entry.delete(0, END)
-
+    def valores_cx_atuais_bd(self):
+        self.banco_connect()
+        sql = "SELECT caixa_laranja, caixa_limao, caixa_tomate FROM valores"
+        self.cursor.execute(sql)
+        mostra = self.cursor.fetchall()
+        for exibir in mostra:
+            self.tv.insert("", "end", values=exibir)
+    def buscar_todos(self):
+        self.banco_connect()
+        self.tree.delete(*self.tree.get_children())
+        sql = "SELECT nome_funcionario, data_nascimento FROM funcionario"
+        self.cursor.execute(sql)
+        mostrar = self.cursor.fetchall()
+        for exibir in mostrar:
+            self.tree.insert("","end", values=exibir)
     def programaFinal(self):
         self.root = Tk()
         self.root.geometry('700x500+600+153')
-        self.root.title("TreeView Banco De Dados Text")
         self.root.configure(bg="#003153")
         self.root.resizable(False, False)
+        self.root.title(f' TreeView Banco De Dados - Usuario:[ {self.nome_usuario} ]')
         # =====Frames=====
         # Frame Esquerdo
         left_Frame = Frame(self.root, width=100, height=200, bg='#dfe3ee', relief='raised', highlightthickness=2,
@@ -355,17 +377,25 @@ class telaTkinter:
         btn_novo_msg = Button(text="Limpar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
                               command=self.limpar_programaFinal)
         btn_novo_msg.place(relx=0.1, rely=0.04, relheight=0.05, relwidth=0.074)
+
         btn_novo_msg = Button(text="Deletar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
                               command=self.deletar_nome_func)
         btn_novo_msg.place(relx=0.2, rely=0.04, relheight=0.05, relwidth=0.074)
+
         btn_novo_msg = Button(text="Alterar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
                               command="")
         btn_novo_msg.place(relx=0.5, rely=0.04, relheight=0.05, relwidth=0.074)
+
         btn_novo_msg = Button(text="Buscar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
-                              command="")
+                              command=self.buscar_todos)
         btn_novo_msg.place(relx=0.6, rely=0.04, relheight=0.05, relwidth=0.074)
+
+        btn_novo_msg = Button(text="Pesquisar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
+                              command=self.pesquisar)
+        btn_novo_msg.place(relx=0.7, rely=0.04, relheight=0.05, relwidth=0.095)
+
         btn_trazer_valores_cx_laranja = Button(left_Frame, text='Mostrar Valores R$',
-                                               font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2')
+                                               font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',command=self.valores_cx_atuais_bd)
         btn_trazer_valores_cx_laranja.place(relx=0.604, rely=0.31, relheight=0.09, relwidth=0.25)
         btn_nfuncionario_btn = Button(text="Inserir", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white',
                                       bg='#107db2', command=self.registrar_fun_bd)
@@ -387,50 +417,39 @@ class telaTkinter:
         btn_novo_msg = Button(text="Voltar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',command=self.destroy_programa_final)
         btn_novo_msg.place(relx=0.9, rely=0.04, relheight=0.05, relwidth=0.074)
 
-        # CX_LARANJA LABEL
-        bt_cx_laranja_lebel_recebe_valor = Label(left_Frame, font=('Arial', 8, 'italic'))
-        bt_cx_laranja_lebel_recebe_valor.place(relx=0.83, rely=0.42, relheight=0.07, relwidth=0.1)
-        # CX_LARANJA_LABEL
-        bt_cx_laranja = Label(text="VALOR CX LARANJA", bg='#107db2', font=('Arial', 8, 'italic', 'bold'), fg='white',
-                              highlightthickness=2, highlightbackground="#759fe6")
-        bt_cx_laranja.place(relx=0.6, rely=0.22, relheight=0.03, relwidth=0.2)
+        # Tela Exibir Apenas os Valores das Caixas produtos
+        self.tv = ttk.Treeview(left_Frame, columns=["col1","col2","col3"], show='headings')
+        self.tv.place(relx=0.55, rely=0.40, relheight=0.22, relwidth=0.4)
+        self.tv.heading("#1", text="Caixa Laranja",anchor=W)
+        self.tv.heading("#2", text="Caixa Limao",anchor=W)
+        self.tv.heading("#3", text="Caixa Tomate",anchor=W)
+        self.tv.column("#1", width=90, stretch=False) # Caixa Laranja
+        self.tv.column("#2", width=90, stretch=False)  # Caixa Limao
+        self.tv.column("#3", width=85, stretch=False)  # Caixa Tomate
 
-        # CX_LIMAO LABEL
-        bt_cx_limao_lebel_recebe_valor = Label(left_Frame, font=('Arial', 8, 'italic'))
-        bt_cx_limao_lebel_recebe_valor.place(relx=0.83, rely=0.51, relheight=0.07, relwidth=0.1)
-        # CX_LIMAO_LABEL
-        bt_cx_limao = Label(text="VALOR CX LIMAO", bg='#107db2', font=('Arial', 8, 'italic', 'bold'), fg='white',
-                            highlightthickness=2, highlightbackground="#759fe6")
-        bt_cx_limao.place(relx=0.6, rely=0.26, relheight=0.03, relwidth=0.2)
-
-        # CX_TOMATE LABEL
-        bt_cx_tomate_lebel_recebe_valor = Label(left_Frame, font=('Arial', 8, 'italic'))
-        bt_cx_tomate_lebel_recebe_valor.place(relx=0.83, rely=0.60, relheight=0.07, relwidth=0.1)
-        # CX_TOMATE_LABEL
-        bt_cx_tomate = Label(text="VALOR CX TOMATE", bg='#107db2', font=('Arial', 8, 'italic', 'bold'), fg='white',
-                             highlightthickness=2, highlightbackground="#759fe6")
-        bt_cx_tomate.place(relx=0.6, rely=0.30, relheight=0.03, relwidth=0.2)
-
-        tree = ttk.Treeview(right_Frame, height=2, columns=["col1", "col2", "col3", "col4", "col5"])
+        # Tela Exibir tudo Abaixo Tree View
+        self.tree = ttk.Treeview(right_Frame, columns=["col1", "col2", "col3", "col4","col5"], show='headings')
         # Barra Rolagem
         barra_rolagem = Scrollbar(right_Frame, orient='vertical')
-        tree.configure(yscrollcommand=barra_rolagem.set)
+        self.tree.configure(yscrollcommand=barra_rolagem.set)
         barra_rolagem.place(relx=0.967, rely=0.1, relwidth=0.03, relheight=0.88)
 
-        tree.place(width=668, height=220)  # (relx=-0.040, rely=-0.015, relheight=1, relwidth=1.2,height=3)
-        tree.heading("#0", text="ID")
-        tree.heading("#1", text="Nome Funcionario")
-        tree.heading("#2", text="Data Nascimento")
-        tree.heading("#3", text="CX Laranja")
-        tree.heading("#4", text="CX Limao")
-        tree.heading("#5", text="CX Tomate")
-        tree.column("#0", width=1)
-        tree.column("1", width=125)  # Nome Funcionario
-        tree.column("2", width=25)  # Data Nascimento
-        tree.column("#3", width=25)  # Laranja
-        tree.column("#4", width=25)  # Limao
-        tree.column("#5", width=25)  # Tomate
+        self.tree.place(width=668, height=220)  # (relx=-0.040, rely=-0.015, relheight=1, relwidth=1.2,height=3)
+        self.tree.heading("#0", text="ID")
+        self.tree.heading("#1", text="Nome Funcionario",anchor=W)
+        self.tree.heading("#2", text="Data Nascimento",anchor=W)
+        self.tree.heading("#3", text="CX Laranja",anchor=W)
+        self.tree.heading("#4", text="CX Limao",anchor=W)
+        self.tree.heading("#5", text="CX Tomate",anchor=W)
+        self.tree.column("#0", width=100)
+        self.tree.column("1", width=50)  # Nome Funcionario
+        self.tree.column("2", width=50)  # Data Nascimento
+        self.tree.column("#3", width=50)  # Laranja
+        self.tree.column("#4", width=50)  # Limao
+        self.tree.column("#5", width=50)  # Tomate
         self.root.mainloop()
+        self.tree.pack()
+        self.buscar_todos()
 
     # Telas do Menu
     def menu_registro_funcionario(self):
@@ -484,7 +503,7 @@ class telaTkinter:
         btn_voltar.place(x=173, y=268, width=70, height=30)
     def menu_registro_funcioniario_apagar_func(self):
         self.registro_fun_apagar = Tk()
-        self.registro_fun_apagar.title('Apgar Registro de Funcionario')
+        self.registro_fun_apagar.title('Apagar Registro de Funcionario')
         self.registro_fun_apagar.resizable(False, False)
         self.registro_fun_apagar.geometry('600x300+600+153')
 
@@ -519,11 +538,11 @@ class telaTkinter:
 
 
         #Botao Confirmar Registro de Funcionario Banco de Dados
-        btn_confirmar_reg = Button(right_Frame, text='Apagar', font=('Century Gothic', 10), command=self.deletar_nome_func)
+        btn_confirmar_reg = Button(right_Frame, text='Apagar', font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2', command=self.deletar_nome_func)
         btn_confirmar_reg.place(x=145, y=230, width=130, height=30)
 
         # ======== Button Voltar =========
-        btn_voltar = Button(right_Frame, text='Voltar', font=('Century Gothic', 10), command=self.destroy_tela_apagar_func)
+        btn_voltar = Button(right_Frame, text='Voltar', font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2', command=self.destroy_tela_apagar_func)
         btn_voltar.place(x=173, y=268, width=70, height=30)
     def menu_valores(self):
         self.valores = Tk()
@@ -609,20 +628,14 @@ class telaTkinter:
         # btn_tomate_salvar.place(x=230, y=150, width=70, height=20)
 
         # ======== Button Atualizar Valores CX TOMATE =========
-        btn_tomate_update = Button(right_Frame, text='EDITAR R$', font=('Century Gothic', 10), command=self.alterar_preco_tomate)
+        btn_tomate_update = Button(right_Frame, text='EDITAR R$', font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2', command=self.alterar_preco_tomate)
         btn_tomate_update.place(x=320, y=150, width=70, height=20)
 
-
-
-        # ======== Button Salvar Grande Temporario =========
-        # btn_voltar = Button(right_Frame, text='Inserir Todos Valores', font=('Century Gothic', 10), command=self.salvar)
-        # btn_voltar.place(x=125, y=180, width=150, height=25)
-
         # ======== Button Mostrar Valores das Caixa =========
-        btn_voltar = Button(right_Frame, text='Valores das Caixas', font=('Century Gothic', 10), command=self.exibir_valores_atuais_cx)
+        btn_voltar = Button(right_Frame, text='Valores das Caixas', font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2', command=self.exibir_valores_atuais_cx)
         btn_voltar.place(x=165, y=180, width=115, height=30)
         # ======== Button Voltar =========
-        btn_voltar = Button(right_Frame, text='Voltar', font=('Century Gothic', 10), command=self.destroy_tela_valores)
+        btn_voltar = Button(right_Frame, text='Voltar', font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2', command=self.destroy_tela_valores)
         btn_voltar.place(x=173, y=268, width=70, height=30)
 
     def consulta_valores_bd(self):
