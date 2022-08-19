@@ -86,8 +86,8 @@ class telaTkinter:
                 self.con.close()
                 self.tela_2.destroy()
     def registrar_fun_bd(self):
-        nome_func = self.user_input_func.get()
-        data_nasc = self.user_input_nascimento.get()
+        nome_func = self.bt_nfuncionario_entry.get()
+        data_nasc = self.bt_data_entry.get()
         # admin = self.is_checked.get()
         # self.admin = admin # ''\'' + data_nasc + '\''
         self.dados = '\'' + nome_func + '\',''\'' + data_nasc + '\''')'
@@ -307,6 +307,9 @@ class telaTkinter:
         btn_confirmar = PhotoImage(data=base64.b64decode(btn_confirmar_img))
         btn_confirmar = btn_confirmar.subsample(5, 3)
 
+        btn_menu_reg_fun = Button(right_Frame, text='Registro Geral', command=self.programaFinal)
+        btn_menu_reg_fun.place(x=150, y=100)  # , width=500, height=20
+
         # ======== Button MENUS Cadastrar Funcionario =========
         btn_menu_reg_fun = Button(right_Frame, text='Registrar Funcionario', command=self.menu_registro_funcionario)
         btn_menu_reg_fun.place(x=1, y=100)#, width=500, height=20
@@ -328,6 +331,106 @@ class telaTkinter:
         self.btn_colocar_id_input.place(x=88, y=273)
         btn_colocar_id_click = Button(right_Frame,bg='RED',text='Confirmar', command=self.deletar_id)
         btn_colocar_id_click.place(x=125, y=273, height=21)
+
+    def limpar_programaFinal(self):
+        self.bt_data_entry.delete(0, END)
+        self.bt_nfuncionario_entry.delete(0, END)
+
+    def programaFinal(self):
+        self.root = Tk()
+        self.root.geometry('700x500+600+153')
+        self.root.title("TreeView Banco De Dados Text")
+        self.root.configure(bg="#003153")
+        self.root.resizable(False, False)
+        # =====Frames=====
+        # Frame Esquerdo
+        left_Frame = Frame(self.root, width=100, height=200, bg='#dfe3ee', relief='raised', highlightthickness=2,
+                           highlightbackground="#759fe6")
+        left_Frame.place(relx=0.02, rely=0.03, relwidth=0.96, relheight=0.45)
+        # Frame Direito
+        right_Frame = Frame(self.root, width=400, height=300, bg='#dfe3ee', relief='raised', highlightthickness=2,
+                            highlightbackground="#759fe6")
+        right_Frame.place(relx=0.02, rely=0.52, relwidth=0.96, relheight=0.45)
+
+        btn_novo_msg = Button(text="Limpar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
+                              command=self.limpar_programaFinal)
+        btn_novo_msg.place(relx=0.1, rely=0.04, relheight=0.05, relwidth=0.074)
+        btn_novo_msg = Button(text="Deletar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
+                              command=self.deletar_nome_func)
+        btn_novo_msg.place(relx=0.2, rely=0.04, relheight=0.05, relwidth=0.074)
+        btn_novo_msg = Button(text="Alterar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
+                              command="")
+        btn_novo_msg.place(relx=0.5, rely=0.04, relheight=0.05, relwidth=0.074)
+        btn_novo_msg = Button(text="Buscar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
+                              command="")
+        btn_novo_msg.place(relx=0.6, rely=0.04, relheight=0.05, relwidth=0.074)
+        btn_trazer_valores_cx_laranja = Button(left_Frame, text='Mostrar Valores R$',
+                                               font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2')
+        btn_trazer_valores_cx_laranja.place(relx=0.604, rely=0.31, relheight=0.09, relwidth=0.25)
+        btn_nfuncionario_btn = Button(text="Inserir", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white',
+                                      bg='#107db2', command=self.registrar_fun_bd)
+        btn_nfuncionario_btn.place(relx=0.068, rely=0.37, relheight=0.05, relwidth=0.1)
+
+        # Nome Funcionario
+        bt_nfuncionario_lebel = Label(text="NOME FUNCIONARIO", font=('Arial', 10, 'italic', 'bold'), fg='white',bg='#107db2', highlightthickness=2, highlightbackground="#759fe6")
+        bt_nfuncionario_lebel.place(relx=0.07, rely=0.22, relheight=0.03, relwidth=0.2)
+        self.bt_nfuncionario_entry = Entry(left_Frame, font=('Arial', 10, 'italic'))
+        self.bt_nfuncionario_entry.place(relx=0.05, rely=0.50, relheight=0.08, relwidth=0.3)
+        # DATA
+        bt_data_lebel = Label(text="DATA NASCIMENTO", bg='#107db2', font=('Arial', 10, 'italic', 'bold'), fg='white',highlightthickness=2, highlightbackground="#759fe6")
+        bt_data_lebel.place(relx=0.07, rely=0.30, relheight=0.03, relwidth=0.2)
+
+        self.bt_data_entry = Entry(left_Frame, font=('Arial', 10, 'italic'))
+        self.bt_data_entry.place(relx=0.05, rely=0.67, relheight=0.08, relwidth=0.13)
+
+        #BTN VOLTAR
+        btn_novo_msg = Button(text="Voltar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',command=self.destroy_programa_final)
+        btn_novo_msg.place(relx=0.9, rely=0.04, relheight=0.05, relwidth=0.074)
+
+        # CX_LARANJA LABEL
+        bt_cx_laranja_lebel_recebe_valor = Label(left_Frame, font=('Arial', 8, 'italic'))
+        bt_cx_laranja_lebel_recebe_valor.place(relx=0.83, rely=0.42, relheight=0.07, relwidth=0.1)
+        # CX_LARANJA_LABEL
+        bt_cx_laranja = Label(text="VALOR CX LARANJA", bg='#107db2', font=('Arial', 8, 'italic', 'bold'), fg='white',
+                              highlightthickness=2, highlightbackground="#759fe6")
+        bt_cx_laranja.place(relx=0.6, rely=0.22, relheight=0.03, relwidth=0.2)
+
+        # CX_LIMAO LABEL
+        bt_cx_limao_lebel_recebe_valor = Label(left_Frame, font=('Arial', 8, 'italic'))
+        bt_cx_limao_lebel_recebe_valor.place(relx=0.83, rely=0.51, relheight=0.07, relwidth=0.1)
+        # CX_LIMAO_LABEL
+        bt_cx_limao = Label(text="VALOR CX LIMAO", bg='#107db2', font=('Arial', 8, 'italic', 'bold'), fg='white',
+                            highlightthickness=2, highlightbackground="#759fe6")
+        bt_cx_limao.place(relx=0.6, rely=0.26, relheight=0.03, relwidth=0.2)
+
+        # CX_TOMATE LABEL
+        bt_cx_tomate_lebel_recebe_valor = Label(left_Frame, font=('Arial', 8, 'italic'))
+        bt_cx_tomate_lebel_recebe_valor.place(relx=0.83, rely=0.60, relheight=0.07, relwidth=0.1)
+        # CX_TOMATE_LABEL
+        bt_cx_tomate = Label(text="VALOR CX TOMATE", bg='#107db2', font=('Arial', 8, 'italic', 'bold'), fg='white',
+                             highlightthickness=2, highlightbackground="#759fe6")
+        bt_cx_tomate.place(relx=0.6, rely=0.30, relheight=0.03, relwidth=0.2)
+
+        tree = ttk.Treeview(right_Frame, height=2, columns=["col1", "col2", "col3", "col4", "col5"])
+        # Barra Rolagem
+        barra_rolagem = Scrollbar(right_Frame, orient='vertical')
+        tree.configure(yscrollcommand=barra_rolagem.set)
+        barra_rolagem.place(relx=0.967, rely=0.1, relwidth=0.03, relheight=0.88)
+
+        tree.place(width=668, height=220)  # (relx=-0.040, rely=-0.015, relheight=1, relwidth=1.2,height=3)
+        tree.heading("#0", text="ID")
+        tree.heading("#1", text="Nome Funcionario")
+        tree.heading("#2", text="Data Nascimento")
+        tree.heading("#3", text="CX Laranja")
+        tree.heading("#4", text="CX Limao")
+        tree.heading("#5", text="CX Tomate")
+        tree.column("#0", width=1)
+        tree.column("1", width=125)  # Nome Funcionario
+        tree.column("2", width=25)  # Data Nascimento
+        tree.column("#3", width=25)  # Laranja
+        tree.column("#4", width=25)  # Limao
+        tree.column("#5", width=25)  # Tomate
+        self.root.mainloop()
 
     # Telas do Menu
     def menu_registro_funcionario(self):
@@ -521,24 +624,59 @@ class telaTkinter:
         # ======== Button Voltar =========
         btn_voltar = Button(right_Frame, text='Voltar', font=('Century Gothic', 10), command=self.destroy_tela_valores)
         btn_voltar.place(x=173, y=268, width=70, height=30)
+
+    def consulta_valores_bd(self):
+        try:
+            self.banco_connect()
+            consulta_sql = "select * from pythonsql.valores;"
+            self.cursor.execute(consulta_sql)
+            self.linhas = self.cursor.fetchall()
+            print("Número total de registros retornados: ", self.cursor.rowcount)
+            print("\nMostrando os Registros cadastrados")
+            for linha in self.linhas:
+                print("Caixa Laranja:", linha[1])
+                print("Caixa Limao:", linha[2])
+                print("Caixa Tomate:", linha[3], "\n")
+        except Error as erro:
+            print(f'{RED}', "Falha de Dados MySQL:".format(erro))
+        finally:
+            if (self.con.is_connected()):
+                self.con.close()
+                print(f'{RED}Descontado')
     def exibir_valores_atuais_cx(self):
         app = Tk()
         app.title('Valores das Caixas Anteriores')
         app.geometry('390x90+1200+153')
         app.resizable(False, False)
-        tv = ttk.Treeview(app, columns=('R$ Caixa Laranja', 'R$ Caixa Limao', 'R$ Caixa Tomate'),
-                          show='headings')  # Visualizar valores Anteriores
+        tv = ttk.Treeview(app, columns=('R$ Caixa Laranja', 'R$ Caixa Limao', 'R$ Caixa Tomate'), show='headings')  # Visualizar valores Anteriores
+
+        result_laranja = StringVar()
+        tv_caixa_laranja = Label(app,bg='yellow', textvariable=result_laranja)
+        result_laranja.set(str(self.linhas[1]))
+        tv_caixa_laranja_lb = Label(app, text='R$ Caixa Laranja')
+        tv_caixa_laranja.grid(column=0, row=1,pady=10,sticky='w')
+        tv_caixa_laranja_lb.grid(column=0, row=0,sticky='w')
+
+
+        tv_caixa_limao = Label(app, bg='yellow')
+        tv_caixa_limao.grid(column=1, row=1,sticky='w')
+        tv_caixa_limao_lb = Label(app, text="R$ Caixa Limao")
+        tv_caixa_limao_lb.grid(column=1, row=0,sticky='w')
+
+        tv_caixa_tomate = Label(app,bg='yellow')
+        tv_caixa_tomate.grid(column=3, row=1,sticky='w')
+        tv_caixa_tomate_lb = Label(app, text="R$ Caixa Tomate")
+        tv_caixa_tomate_lb.grid(column=3, row=0,sticky='w')
+
+
         tv.column('R$ Caixa Laranja', minwidth=0, width=130)
         tv.column('R$ Caixa Limao', minwidth=0, width=130)
         tv.column('R$ Caixa Tomate', minwidth=0, width=130)
         tv.heading('R$ Caixa Laranja', text='R$ Caixa Laranja')
         tv.heading('R$ Caixa Limao', text='R$ Caixa Limao')
         tv.heading('R$ Caixa Tomate', text='R$ Caixa Tomate')
-
-        btn = Button(app, text='Atualizar Todos Valores', bg='GREEN', command="")
+        btn = Button(app, text='Atualizar Todos Valores', bg='GREEN', command=self.consulta_valores_bd)
         btn.place(x=130, y=63)
-        tv.pack()
-
     # ======== BOTOES DE TODAS AS TELAS ========
     def select_sql_table_valores(self):
         caixa_laranja = self.caixa_laranja_input.get()
@@ -562,14 +700,15 @@ class telaTkinter:
         top.geometry('200x30+600+153')
         top.title('DELECTED')
         top.resizable(False, False)
-        Label(top, text=f'ID=: {self.btn_colocar_id_input.get()} , DELETADO COM SUCESSO!', bg='GREEN').place(x=1, y=1)
+        Label(self.root, text=f'ID=: {self.btn_colocar_id_input.get()} , DELETADO COM SUCESSO!', bg='GREEN').place(x=1, y=1)
         print(f'{RED} Dados Deletados', self.cursor.rowcount, "Mostrar Deletado")
     def tela_popup_deletar_nome_func(self):
-        top = Toplevel(self.registro_fun_apagar)
+        top = Toplevel(self.root)
         top.geometry('200x45+600+153')
         top.title('DELECTED')
         top.resizable(False, False)
-        Label(top, text=f'ID=: {self.user_input_func.get()} , DELETADO COM SUCESSO!', bg='GREEN').place(x=1, y=1)
+        Label(top, text=f'{self.bt_nfuncionario_entry.get().upper()} , DELETADO COM SUCESSO!', bg='GREEN').\
+            place(relx=0.05, rely=0.30, relheight=0.8, relwidth=0.90)
         messagebox.showinfo(title='Funcionario Deletado', message='Funcionario Deletado')
         print(f'{RED} Dados Deletados', self.cursor.rowcount, "Mostrar Deletado")
     #Funcao DELETAR ID Table Clientes
@@ -593,7 +732,7 @@ class telaTkinter:
         # self.btn_voltar.place(x=173, y=268, width=70, height=30) # Funcao Deletar Nome_Funcionario Table MYSQL funcionario
     def deletar_nome_func(self):
         self.banco_connect()
-        nome_funcionario = self.user_input_func.get()
+        nome_funcionario = self.bt_nfuncionario_entry.get()
         # inteiro_id = int(id)
         self.con.cursor()
         deletar = """DELETE FROM pythonsql.funcionario WHERE
@@ -610,6 +749,8 @@ class telaTkinter:
         self.registro_fun_apagar.destroy()
     def destroy_tela_valores(self):
         self.valores.destroy()
+    def destroy_programa_final(self):
+        self.root.destroy()
     # Botao Salvar Valores Produto INSERT INTO
     def salvar_laranja(self):
         salvar_laranja = self.caixa_laranja_input.get()
