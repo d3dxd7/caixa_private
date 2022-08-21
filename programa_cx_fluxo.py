@@ -39,11 +39,21 @@ class telaTkinter:
         print(sucess)
         print(f'{RED}''#' * len(sucess))
         if resultado:
-            messagebox.showinfo(f'{self.nome_usuario}','Logado Com Sucesso!')
             self.tela_menus() # Abri Proxima tela
             self.tela.destroy() # Fecha a tela de Login
         else:
             messagebox.showerror("","Usuario ou Senha Invalido")
+
+    def truncate_table_admin(self):
+        self.banco_connect()
+        self.vqueryTRUNCATE = "truncate table pythonsql.funcionario"
+        self.cursor.execute(self.vqueryTRUNCATE)
+        self.con.commit()
+        if self.truncate_table_admin :
+            messagebox.showinfo(title=f'TRUNCATE TABLE', message='Tabela Truncada Sucesso')
+        else:
+            messagebox.showinfo(title=f'Error Table Truncate', message='Nao Foi Possivel Truncar a Tabela')
+
     def open_popup(self):
         msg_pop=Toplevel()
         msg_pop.geometry('600x300+600+153')
@@ -70,6 +80,9 @@ class telaTkinter:
                                                                        f'Cadastro Invalido!')
             elif (senha != confirma_senha):
                 messagebox.showwarning(title='Erro Senha Invalida', message='As Senhas Nao Conferem')
+            elif (nome_email == 'admin'):
+                messagebox.showwarning(title='Contate Suporte', message='Usuario Admin nao Pode ser Registrado')
+                messagebox.showwarning(title='Contate Suporte', message='Insira um Usuario valido')
             else:
                 self.banco_connect()
                 inserirdados = self.sql
@@ -85,14 +98,90 @@ class telaTkinter:
             if (self.con.is_connected()):
                 self.con.close()
                 self.tela_2.destroy()
+    def inserir_cx_pego_laranja(self):
+        ncx_pego = self.bt_cx_hj_entry.get()
+        posicao_cx = self.btn_posicao_entry.get()
+        try:
+            if (ncx_pego == "" and posicao_cx == ""):
+                messagebox.showwarning(title="ERROR AO INSERIR DADOS", message="Coloque ID do Funcionario, Coloque Quantidade de Caixa que Pegou Hoje")
+            else:
+                sql = """UPDATE pythonsql.funcionario 
+                 SET qtd_laranja = """ + ncx_pego + """
+                 WHERE posicao = """ +posicao_cx+ """;"""
+                print(f'{BLUE}{sql}')
+                # Comando para Puxar os Dados do Cadastro
+                self.banco_connect()
+                inserirdados = sql
+                self.cursor.execute(inserirdados)  # self.admin
+                self.con.commit()
+                print(self.cursor.rowcount, f'{CYAN}')
+                self.banco_desconecta()
+                # messagebox.showinfo(title="Informacoes Caixa Inserido", message="!")
+        except Error as erro:
+            print("Falha de Dados MySQL:".format(erro))
+        finally:
+            if (self.con.is_connected()):
+                self.con.close()
+    def inserir_cx_pego_limao(self):
+        ncx_pego = self.bt_cx_hj_entry.get()
+        posicao_cx = self.btn_posicao_entry.get()
+        try:
+            if (ncx_pego == "" and posicao_cx == ""):
+                messagebox.showwarning(title="ERROR AO INSERIR DADOS", message="Coloque ID do Funcionario, Coloque Quantidade de Caixa que Pegou Hoje")
+            else:
+                sql = """UPDATE pythonsql.funcionario 
+                 SET qtd_limao = """ + ncx_pego + """
+                 WHERE posicao = """ +posicao_cx+ """;"""
+                print(f'{BLUE}{sql}')
+                # Comando para Puxar os Dados do Cadastro
+                self.banco_connect()
+                inserirdados = sql
+                self.cursor.execute(inserirdados)  # self.admin
+                self.con.commit()
+                print(self.cursor.rowcount, f'{CYAN}')
+                self.banco_desconecta()
+                # messagebox.showinfo(title="Informacoes Caixa Inserido", message="!")
+        except Error as erro:
+            print("Falha de Dados MySQL:".format(erro))
+        finally:
+            if (self.con.is_connected()):
+                self.con.close()
+    def inserir_cx_pego_tomate(self):
+        ncx_pego = self.bt_cx_hj_entry.get()
+        posicao_cx = self.btn_posicao_entry.get()
+        try:
+            if (ncx_pego == "" and posicao_cx == ""):
+                messagebox.showwarning(title="ERROR AO INSERIR DADOS", message="Coloque ID do Funcionario, Coloque Quantidade de Caixa que Pegou Hoje")
+            else:
+                sql = """UPDATE pythonsql.funcionario  
+                 SET qtd_tomate = """ + ncx_pego + """
+                 WHERE id_funcionario = """ +posicao_cx+ """;"""
+                print(f'{BLUE}{sql}')
+                # Comando para Puxar os Dados do Cadastro
+                self.banco_connect()
+                inserirdados = sql
+                self.cursor.execute(inserirdados)  # self.admin
+                self.con.commit()
+                print(self.cursor.rowcount, f'{CYAN}')
+                self.banco_desconecta()
+                # messagebox.showinfo(title="Informacoes Caixa Inserido", message="!")
+
+        except Error as erro:
+            print("Falha de Dados MySQL:".format(erro))
+        finally:
+            if (self.con.is_connected()):
+                self.con.close()
     def registrar_fun_bd(self):
-        nome_func = self.bt_nfuncionario_entry.get()
-        data_nasc = self.bt_data_entry.get()
+        nome_func = self.user_input_func.get()
+        data_nasc = self.user_input_nascimento.get()
+        cx_laranja = self.label_zerado.get()
+        cx_limao = self.label_zerado.get()
+        cx_tomate = self.label_zerado.get()
         # admin = self.is_checked.get()
         # self.admin = admin # ''\'' + data_nasc + '\''
-        self.dados = '\'' + nome_func + '\',''\'' + data_nasc + '\''')'
+        self.dados = '\'' + nome_func + '\',''\'' + data_nasc + '\',' + cx_laranja + ',' + cx_limao + ',' + cx_tomate + ')'
         self.declaracao = """INSERT INTO pythonsql.funcionario(
-        nome_funcionario, data_nascimento)
+        nome_funcionario, data_nascimento, qtd_laranja, qtd_limao, qtd_tomate)
         VALUES("""  # , admin
         sql = self.declaracao + self.dados
         print(sql)
@@ -109,6 +198,9 @@ class telaTkinter:
                 print(self.cursor.rowcount, f'{CYAN}')
                 self.banco_desconecta()
                 messagebox.showinfo(title="Informacoes do Registro", message="Funcionario Registrado com Sucesso!")
+                # Label(self.registro_fun, text=f'Funcionario {self.bt_cx_nfuncionario_entry.get().upper()} Cadastrado!',
+                #       bg='GREEN'). \
+                #     place(relx=0.025, rely=0.42, relheight=0.03, relwidth=0.25)
         except Error as erro:
             print(f'{RED}',"Falha de Dados MySQL:".format(erro))
         finally:
@@ -283,66 +375,68 @@ class telaTkinter:
         self.programa.geometry('600x300+600+153')
         self.programa.resizable(False,False)
         self.programa.title(f'Nome Usuario:[ {self.nome_usuario} ] Programa de Caixa Fluxo ')
-        left_Frame = Frame(self.programa, width=198, height=300, bg='MIDNIGHTBLUE', relief='raised')
-        left_Frame.pack(side=LEFT)
-        right_Frame = Frame(self.programa, width=400, height=300, bg='MIDNIGHTBLUE', relief='raised')
-        right_Frame.pack(side=RIGHT)
+        left_Frame_programa = Frame(self.programa, width=198, height=300, bg='MIDNIGHTBLUE', relief='raised')
+        left_Frame_programa.pack(side=LEFT)
+        self.right_Frame_programa = Frame(self.programa, width=400, height=300, bg='MIDNIGHTBLUE', relief='raised')
+        self.right_Frame_programa.pack(side=RIGHT)
         tamanho_nome_usuario = len(self.nome_usuario)
         # ========= Tela Quando o Usuario esta Logado Programa ========
-        msg_programa_bemvindo = Label(right_Frame, text=f'Sistema Fluxo Caixa', font=('Century Gothic', 30), bg='MIDNIGHTBLUE',fg='white')
+        msg_programa_bemvindo = Label(self.right_Frame_programa, text=f'Sistema Fluxo Caixa', font=('Century Gothic', 30), bg='MIDNIGHTBLUE',fg='white')
         msg_programa_bemvindo.place(x=1, y=1)
-        msg_programa_modulo = Label(right_Frame, text=f'Modulos de Acesso', font=('Century Gothic', 15), bg='MIDNIGHTBLUE', fg='white')
+        msg_programa_modulo = Label(self.right_Frame_programa, text=f'Modulos de Acesso', font=('Century Gothic', 15), bg='MIDNIGHTBLUE', fg='white')
         msg_programa_modulo.place(x=85, y=53,width=200, height=40)
-        msg_programa__ = Label(right_Frame, text=(f'--'*100), font=('Century Gothic', 30),bg='MIDNIGHTBLUE', fg='white')
+        msg_programa__ = Label(self.right_Frame_programa, text=(f'--'*100), font=('Century Gothic', 30),bg='MIDNIGHTBLUE', fg='white')
         msg_programa__.place(x=1, y=80, width=500, height=20)
-        msg_programa = Label(left_Frame, text=f'User: ', font=('Century Gothic', 20), bg='MIDNIGHTBLUE',fg='white')
+        msg_programa = Label(left_Frame_programa, text=f'User: ', font=('Century Gothic', 20), bg='MIDNIGHTBLUE',fg='white')
         msg_programa.place(x=1, y=38)
-        msg_programa_usuario = Label(left_Frame, text=f'{self.nome_usuario}',bg='MIDNIGHTBLUE', font=('Arial', 10, 'italic', 'bold'), bd=2, fg='white',highlightthickness=2, highlightbackground="#107db2")
+        msg_programa_usuario = Label(left_Frame_programa, text=f'{self.nome_usuario}',bg='MIDNIGHTBLUE', font=('Arial', 10, 'italic', 'bold'), bd=2, fg='white',highlightthickness=2, highlightbackground="#107db2")
         msg_programa_usuario.place(x=68, y=48)
-        msg_programa_usuario = Label(left_Frame, text=f'Status ON',bg='MIDNIGHTBLUE', font=('Arial', 15, 'italic', 'bold'), bd=2, fg='GREEN',highlightthickness=2, highlightbackground="GREEN")
+        msg_programa_usuario = Label(left_Frame_programa, text=f'Status ON',bg='MIDNIGHTBLUE', font=('Arial', 15, 'italic', 'bold'), bd=2, fg='GREEN',highlightthickness=2, highlightbackground="GREEN")
         msg_programa_usuario.place(x=30, y=5)
 
         # ======== Base 64 Botao Entrar =========
         btn_confirmar = PhotoImage(data=base64.b64decode(btn_confirmar_img))
         btn_confirmar = btn_confirmar.subsample(5, 3)
 
-        btn_menu_reg_fun = Button(right_Frame, text='Registro Geral',font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2', command=self.programaFinal)
+        btn_menu_reg_fun = Button(self.right_Frame_programa, text='Registro Geral',font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2', command=self.programaFinal)
         btn_menu_reg_fun.place(x=150, y=100)  # , width=500, height=20
 
         # ======== Button MENUS Cadastrar Funcionario =========
-        btn_menu_reg_fun = Button(right_Frame, text='Registrar Funcionario',font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2', command=self.menu_registro_funcionario)
+        btn_menu_reg_fun = Button(self.right_Frame_programa, text='Registrar Funcionario',font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2', command=self.menu_registro_funcionario)
         btn_menu_reg_fun.place(x=125, y=135)#, width=500, height=20
 
         # ======== Button MENUS Apagar Registro Funcionario=========
-        btn_menu_reg_fun = Button(right_Frame, text='Apagar Funcionario',font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2', command=self.menu_registro_funcioniario_apagar_func)
+        btn_menu_reg_fun = Button(self.right_Frame_programa, text='Apagar Funcionario',font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2', command=self.menu_registro_funcioniario_apagar_func)
         btn_menu_reg_fun.place(x=135, y=170)  # , width=500, height=20
 
         # ======== Button MENUS Valores Caixa =========
-        btn_menu_reg_fun = Button(right_Frame, text='Valor Produto',font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
+        btn_menu_reg_fun = Button(self.right_Frame_programa, text='Valor Produto',font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
                                   command=self.menu_valores)
         btn_menu_reg_fun.place(x=150, y=200)  # , width=500, height=20
 
 
         # BTN PARA INSERIR ID E DELETAR APENAS PARA TESTE
-        btn_colocar_id_msg = Label(left_Frame, text='CLEAR ID', bg='RED',font=('Arial', 8, 'italic', 'bold'), bd=3, fg='white')
+        btn_colocar_id_msg = Label(left_Frame_programa, text='CLEAR ID', bg='RED',font=('Arial', 8, 'italic', 'bold'), bd=3, fg='white')
         btn_colocar_id_msg.place(x=5, y=273, height=19)
-        self.btn_colocar_id_input = Entry(left_Frame,width=5 )
+        self.btn_colocar_id_input = Entry(left_Frame_programa,width=5 )
         self.btn_colocar_id_input.place(x=65, y=273)
-        btn_colocar_id_click = Button(left_Frame,bg='RED',text='Confirmar' ,font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white',command=self.deletar_id)
+        btn_colocar_id_click = Button(left_Frame_programa,bg='RED',text='Confirmar' ,font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white',command=self.deletar_id)
         btn_colocar_id_click.place(x=90, y=273, height=21)
 
     # Funcao da Tela Programa Final
     def pesquisar(self):
         self.tree.delete(*self.tree.get_children())
-        nome_recebe = self.bt_nfuncionario_entry.get()
+        nome_recebe = self.bt_cx_nfuncionario_entry.get()
         sql = "SELECT * FROM funcionario WHERE nome_funcionario = %s"
         self.cursor.execute(sql, [(nome_recebe)])
         mostrar = self.cursor.fetchall()
         for exibir in mostrar:
             self.tree.insert("", "end", values=exibir)
     def limpar_programaFinal(self):
-        self.bt_data_entry.delete(0, END)
-        self.bt_nfuncionario_entry.delete(0, END)
+        self.bt_cx_hj_entry.delete(0, END)
+        self.bt_cx_nfuncionario_entry.delete(0, END)
+        self.btn_posicao_entry.delete(0, END)
+        self.btn_novo_msg.delete(0, END)
     def valores_cx_atuais_bd(self):
         self.banco_connect()
         sql = "SELECT caixa_laranja, caixa_limao, caixa_tomate FROM valores"
@@ -350,10 +444,18 @@ class telaTkinter:
         mostra = self.cursor.fetchall()
         for exibir in mostra:
             self.tv.insert("", "end", values=exibir)
+
+    def qtd_cx_atuais_por_func(self):
+        self.banco_connect()
+        sql = "SELECT qtd_laranja, qtd_limao, qtd_tomate FROM valores"
+        self.cursor.execute(sql)
+        mostra = self.cursor.fetchall()
+        for exibir in mostra:
+            self.tv.insert("", "end", values=exibir)
     def buscar_todos(self):
         self.banco_connect()
         self.tree.delete(*self.tree.get_children())
-        sql = "SELECT nome_funcionario, data_nascimento FROM funcionario"
+        sql = "SELECT id_funcionario,nome_funcionario, data_nascimento, qtd_laranja, qtd_limao, qtd_tomate FROM funcionario"
         self.cursor.execute(sql)
         mostrar = self.cursor.fetchall()
         for exibir in mostrar:
@@ -374,45 +476,68 @@ class telaTkinter:
                             highlightbackground="#759fe6")
         right_Frame.place(relx=0.02, rely=0.52, relwidth=0.96, relheight=0.45)
 
-        btn_novo_msg = Button(text="Limpar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
+        btn_novo_msg = Button(text="Limpar Dados da Tela", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
                               command=self.limpar_programaFinal)
-        btn_novo_msg.place(relx=0.1, rely=0.04, relheight=0.05, relwidth=0.074)
+        btn_novo_msg.place(relx=0.025, rely=0.04, relheight=0.05, relwidth=0.2)
 
-        btn_novo_msg = Button(text="Deletar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
+        btn_novo_msg = Button(text="Excluir Funcionario", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
                               command=self.deletar_nome_func)
-        btn_novo_msg.place(relx=0.2, rely=0.04, relheight=0.05, relwidth=0.074)
+        btn_novo_msg.place(relx=0.25, rely=0.04, relheight=0.05, relwidth=0.2)
+        self.btn_novo_msg = Entry()
+        self.btn_novo_msg.place(relx=0.46, rely=0.045, relheight=0.04, relwidth=0.2)
 
         btn_novo_msg = Button(text="Alterar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
                               command="")
-        btn_novo_msg.place(relx=0.5, rely=0.04, relheight=0.05, relwidth=0.074)
+        btn_novo_msg.place(relx=0.7, rely=0.04, relheight=0.05, relwidth=0.074)
 
         btn_novo_msg = Button(text="Buscar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
                               command=self.buscar_todos)
-        btn_novo_msg.place(relx=0.6, rely=0.04, relheight=0.05, relwidth=0.074)
+        btn_novo_msg.place(relx=0.8, rely=0.04, relheight=0.05, relwidth=0.074)
 
-        btn_novo_msg = Button(text="Pesquisar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
-                              command=self.pesquisar)
-        btn_novo_msg.place(relx=0.7, rely=0.04, relheight=0.05, relwidth=0.095)
+        # btn_novo_msg = Button(text="Pesquisar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
+        #                       command=self.pesquisar)
+        # btn_novo_msg.place(relx=0.7, rely=0.04, relheight=0.05, relwidth=0.095)
 
         btn_trazer_valores_cx_laranja = Button(left_Frame, text='Mostrar Valores R$',
                                                font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',command=self.valores_cx_atuais_bd)
         btn_trazer_valores_cx_laranja.place(relx=0.604, rely=0.31, relheight=0.09, relwidth=0.25)
-        btn_nfuncionario_btn = Button(text="Inserir", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white',
-                                      bg='#107db2', command=self.registrar_fun_bd)
-        btn_nfuncionario_btn.place(relx=0.068, rely=0.37, relheight=0.05, relwidth=0.1)
+        btn_nfuncionario_btn = Button(text="Filtrar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white',
+                                      bg='#107db2', command=self.pesquisar)
+        btn_nfuncionario_btn.place(relx=0.55, rely=0.40, relheight=0.05, relwidth=0.15)
 
+        #Funcao Usuario Administrador
+        if self.nome_usuario == 'admin' and self.senha == '123':
+            truncate_table = Button(self.root, text='Limpar Tabela Funcionarios',font=('Arial', 8, 'italic', 'bold'), bd=3, fg='white',
+                                      bg='#107db2',command=self.truncate_table_admin)
+            truncate_table.place(relx=0.35, rely=0.485, relheight=0.033, relwidth=0.3)
         # Nome Funcionario
-        bt_nfuncionario_lebel = Label(text="NOME FUNCIONARIO", font=('Arial', 10, 'italic', 'bold'), fg='white',bg='#107db2', highlightthickness=2, highlightbackground="#759fe6")
-        bt_nfuncionario_lebel.place(relx=0.07, rely=0.22, relheight=0.03, relwidth=0.2)
-        self.bt_nfuncionario_entry = Entry(left_Frame, font=('Arial', 10, 'italic'))
-        self.bt_nfuncionario_entry.place(relx=0.05, rely=0.50, relheight=0.08, relwidth=0.3)
-        # DATA
-        bt_data_lebel = Label(text="DATA NASCIMENTO", bg='#107db2', font=('Arial', 10, 'italic', 'bold'), fg='white',highlightthickness=2, highlightbackground="#759fe6")
-        bt_data_lebel.place(relx=0.07, rely=0.30, relheight=0.03, relwidth=0.2)
+        bt_nfuncionario_lebel = Label(text="FILTRAR PELO NOME DO FUNCIONARIO", font=('Arial', 8, 'italic', 'bold'), fg='white',bg='#107db2', highlightthickness=2, highlightbackground="#759fe6")
+        bt_nfuncionario_lebel.place(relx=0.553, rely=0.32, relheight=0.03, relwidth=0.33)
+        self.bt_cx_nfuncionario_entry = Entry(left_Frame, font=('Arial', 10, 'italic'))
+        self.bt_cx_nfuncionario_entry.place(relx=0.555, rely=0.72, relheight=0.08, relwidth=0.3)
 
-        self.bt_data_entry = Entry(left_Frame, font=('Arial', 10, 'italic'))
-        self.bt_data_entry.place(relx=0.05, rely=0.67, relheight=0.08, relwidth=0.13)
+        # NUMERO CX PEGO HOJE
+        bt_cx_lebel = Label(text="PEGOU QUANTAS CAIXAS HOJE", bg='#107db2', font=('Arial', 9, 'italic', 'bold'), fg='white',highlightthickness=2, highlightbackground="#759fe6")
+        bt_cx_lebel.place(relx=0.15, rely=0.30, relheight=0.035, relwidth=0.3)
+        self.bt_cx_hj_entry = Entry(left_Frame, font=('Arial', 10, 'italic'))
+        self.bt_cx_hj_entry.place(relx=0.05, rely=0.6, relheight=0.08, relwidth=0.08)
 
+        # NUMERO DA POSICAO FUNCIONARIO
+        label_cx_hj_lebel = Label(text="Nº Registro FUNCIONARIO", bg='#107db2', font=('Arial', 9, 'italic', 'bold'), fg='white',highlightthickness=2, highlightbackground="#759fe6")
+        label_cx_hj_lebel.place(relx=0.15, rely=0.234, relheight=0.035, relwidth=0.23)
+        self.btn_posicao_entry = Entry(left_Frame, font=('Arial', 10, 'italic'))
+        self.btn_posicao_entry.place(relx=0.05, rely=0.45, relheight=0.08, relwidth=0.08)
+
+        # BOTAO INSERIR + 1 CAIXA PARA FUNCIONARIO = POSICAO DECLARADA
+        btn_cx_laranja_btn_mais_1=Button(left_Frame, text="CX LARANJA",font=('Arial', 7, 'italic', 'bold'), bd=3, fg='white',bg='#107db2',command=self.inserir_cx_pego_laranja)
+        btn_cx_laranja_btn_mais_1.place(relx=0.05, rely=0.7, relheight=0.08, relwidth=0.13)
+
+        btn_cx_limao_mais_1=Button(left_Frame, text="CX LIMAO",font=('Arial', 7, 'italic', 'bold'), bd=3, fg='white',bg='#107db2',command=self.inserir_cx_pego_limao)
+        btn_cx_limao_mais_1.place(relx=0.18, rely=0.7, relheight=0.08, relwidth=0.13)
+
+        btn_cx_tomate_mais_1 = Button(left_Frame, text="CX TOMATE",font=('Arial', 7, 'italic', 'bold'), bd=3, fg='white',bg='#107db2',command=self.inserir_cx_pego_tomate)
+        btn_cx_tomate_mais_1.place(relx=0.31, rely=0.7, relheight=0.08, relwidth=0.13)
+        #
         #BTN VOLTAR
         btn_novo_msg = Button(text="Voltar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',command=self.destroy_programa_final)
         btn_novo_msg.place(relx=0.9, rely=0.04, relheight=0.05, relwidth=0.074)
@@ -428,25 +553,25 @@ class telaTkinter:
         self.tv.column("#3", width=85, stretch=False)  # Caixa Tomate
 
         # Tela Exibir tudo Abaixo Tree View
-        self.tree = ttk.Treeview(right_Frame, columns=["col1", "col2", "col3", "col4","col5"], show='headings')
+        self.tree = ttk.Treeview(right_Frame, columns=["col1", "col2", "col3", "col4","col5","col6"], show='headings')
         # Barra Rolagem
         barra_rolagem = Scrollbar(right_Frame, orient='vertical')
         self.tree.configure(yscrollcommand=barra_rolagem.set)
         barra_rolagem.place(relx=0.967, rely=0.1, relwidth=0.03, relheight=0.88)
 
         self.tree.place(width=668, height=220)  # (relx=-0.040, rely=-0.015, relheight=1, relwidth=1.2,height=3)
-        self.tree.heading("#0", text="ID")
-        self.tree.heading("#1", text="Nome Funcionario",anchor=W)
-        self.tree.heading("#2", text="Data Nascimento",anchor=W)
-        self.tree.heading("#3", text="CX Laranja",anchor=W)
-        self.tree.heading("#4", text="CX Limao",anchor=W)
-        self.tree.heading("#5", text="CX Tomate",anchor=W)
-        self.tree.column("#0", width=100)
-        self.tree.column("1", width=50)  # Nome Funcionario
-        self.tree.column("2", width=50)  # Data Nascimento
+        self.tree.heading("#1", text="Nº Registro",anchor=W)
+        self.tree.heading("#2", text="Nome Funcionario",anchor=W)
+        self.tree.heading("#3", text="Data Nascimento",anchor=W)
+        self.tree.heading("#4", text="QTD Laranja",anchor=W)
+        self.tree.heading("#5", text="QTD Limao",anchor=W)
+        self.tree.heading("#6", text="QTD Tomate",anchor=W)
+        self.tree.column("#1", width=5)  # Nome Funcionario
+        self.tree.column("#2", width=50)  # Data Nascimento
         self.tree.column("#3", width=50)  # Laranja
         self.tree.column("#4", width=50)  # Limao
         self.tree.column("#5", width=50)  # Tomate
+        self.tree.column("#6", width=20) # POSICAO
         self.root.mainloop()
         self.tree.pack()
         self.buscar_todos()
@@ -493,6 +618,9 @@ class telaTkinter:
         # Posicao
         self.user_input_nascimento = Entry(right_Frame, width=30)
         self.user_input_nascimento.place(x=138, y=141, width=70)
+
+        self.label_zerado = Entry(right_Frame)
+        self.label_zerado.insert(0,"0")
 
         #Botao Confirmar Registro de Funcionario Banco de Dados
         btn_confirmar_reg = Button(right_Frame, text='Confirmar Registro', font=('Century Gothic', 10), command=self.registrar_fun_bd)
@@ -716,12 +844,12 @@ class telaTkinter:
         Label(self.root, text=f'ID=: {self.btn_colocar_id_input.get()} , DELETADO COM SUCESSO!', bg='GREEN').place(x=1, y=1)
         print(f'{RED} Dados Deletados', self.cursor.rowcount, "Mostrar Deletado")
     def tela_popup_deletar_nome_func(self):
-        top = Toplevel(self.root)
-        top.geometry('200x45+600+153')
-        top.title('DELECTED')
-        top.resizable(False, False)
-        Label(top, text=f'{self.bt_nfuncionario_entry.get().upper()} , DELETADO COM SUCESSO!', bg='GREEN').\
-            place(relx=0.05, rely=0.30, relheight=0.8, relwidth=0.90)
+        # top = Toplevel(self.root)
+        # top.geometry('200x45+600+153')
+        # top.title('DELECTED')
+        # top.resizable(False, False)
+        Label(self.root, text=f'Funcionario {self.bt_cx_nfuncionario_entry.get().upper()} Excluido!', bg='GREEN'). \
+            place(relx=0.025, rely=0.42, relheight=0.03, relwidth=0.25)
         messagebox.showinfo(title='Funcionario Deletado', message='Funcionario Deletado')
         print(f'{RED} Dados Deletados', self.cursor.rowcount, "Mostrar Deletado")
     #Funcao DELETAR ID Table Clientes
@@ -745,7 +873,7 @@ class telaTkinter:
         # self.btn_voltar.place(x=173, y=268, width=70, height=30) # Funcao Deletar Nome_Funcionario Table MYSQL funcionario
     def deletar_nome_func(self):
         self.banco_connect()
-        nome_funcionario = self.bt_nfuncionario_entry.get()
+        nome_funcionario = self.btn_novo_msg.get()
         # inteiro_id = int(id)
         self.con.cursor()
         deletar = """DELETE FROM pythonsql.funcionario WHERE
