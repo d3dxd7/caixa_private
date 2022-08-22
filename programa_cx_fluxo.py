@@ -225,45 +225,46 @@ class telaTkinter:
 
         #Variaveis de imagens code64_Base64
 
-        left_Frame = Frame(self.tela, width=198, height=300, bg='MIDNIGHTBLUE', relief='raised')
+        left_Frame = Frame(self.tela, width=198, height=300, bg='#dfe3ee', relief='raised',highlightthickness=3, highlightbackground="#107db2")
         left_Frame.pack(side=LEFT)
-        right_Frame = Frame(self.tela, width=400, height=300, bg='MIDNIGHTBLUE', relief='raised')
+        right_Frame = Frame(self.tela, width=400, height=300, bg='#dfe3ee', relief='raised',highlightthickness=2, highlightbackground="#107db2")
         right_Frame.pack(side=RIGHT)
         # ========= Bem Vindo ========
-        bemvindo_Label = Label(right_Frame, text='Tela Login', font=('Century Gothic', 30), bg='MIDNIGHTBLUE',
-                               fg='white')
+        bemvindo_Label = Label(right_Frame, text='Tela Login', font=('Century Gothic', 30, 'italic', 'bold',),bg='#dfe3ee',highlightthickness=0, highlightbackground="#107db2",
+                               fg='#107db2')
         bemvindo_Label.place(x=100, y=15)
 
         # ======== Logo Base64 ==========
         #  ======== Base 64 Brasao =========
         logo_base64_banner = PhotoImage(data=base64.b64decode(logoBanner))
         logo_base64_banner = logo_base64_banner.subsample(2, 2)
-        logo_base64_1 = Label(left_Frame, image=logo_base64_banner, bg='MIDNIGHTBLUE')
+        logo_base64_1 = Label(left_Frame, image=logo_base64_banner, bg='#dfe3ee')
         logo_base64_1.place(x=50, y=53, )
 
         # ========= Input Usuario =======
         #    ========= Usuario ========
-        userLabel_user = Label(right_Frame, text='Usuario/email', font=('Century Gothic', 15), bg='MIDNIGHTBLUE',
-                               fg='white')
+        userLabel_user = Label(right_Frame, text='Usuario/email', font=('Century Gothic', 13), bg='#dfe3ee',highlightthickness=0, highlightbackground="#107db2",
+                               fg='#107db2')
         userLabel_user.place(x=1, y=86)
         # Posicao
         self.user_input_user_log = Entry(right_Frame, width=30)
-        self.user_input_user_log.place(x=138, y=92)
+        self.user_input_user_log.place(x=135, y=92)
 
         #    ========= Senha ========
-        userLabel_pass = Label(right_Frame, text='Senha', font=('Century Gothic', 15), bg='MIDNIGHTBLUE', fg='white')
+        userLabel_pass = Label(right_Frame, text='Senha', font=('Century Gothic', 15), bg='#dfe3ee',highlightthickness=0, highlightbackground="#107db2",
+                               fg='#107db2')
         userLabel_pass.place(x=27, y=137)
         # Posicao
         self.user_input_pass_log = Entry(right_Frame, width=30, show='*')
-        self.user_input_pass_log.place(x=138, y=142)
+        self.user_input_pass_log.place(x=135, y=142)
 
 
     # Config dos Botoes IMAGEN E FUNCOES
         #  ======== Base 64 Frase =========
         logo_base64_frase = PhotoImage(data=base64.b64decode(logoFrase))
         logo_base64_frase = logo_base64_frase.subsample(2, 2)
-        logo_base64_2 = Label(left_Frame, image=logo_base64_frase, bg='MIDNIGHTBLUE')
-        logo_base64_2.place(x=10, y=155, )
+        logo_base64_2 = Label(left_Frame, image=logo_base64_frase, bg='#dfe3ee')
+        logo_base64_2.place(x=7, y=155, )
 
         # ======== Base 64 Botao Entrar =========
         entrar_btn = PhotoImage(data=base64.b64decode(btn_entrar_img))
@@ -274,7 +275,7 @@ class telaTkinter:
         register_btn = register_btn.subsample(5, 4)
 
         # ======== Button ==========
-        btn_login = Button(right_Frame, text='Entrar',font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2', command=self.login)
+        btn_login = Button(right_Frame, text='Entrar',font=('Arial', 10, 'italic', 'bold'),bd=3, fg='white', bg='#107db2', command=self.login)
         btn_login.place(x=130, y=200, width=70, height=30)
 
         btn_senha = Button(right_Frame,text='Cadastrar', font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2', command=self.tela_registro)
@@ -290,22 +291,22 @@ class telaTkinter:
         self.tela_2.transient(self.tela)
 
         # ======== widgets ==========
-        left_Frame = Frame(self.tela_2, width=198, height=300, bg='MIDNIGHTBLUE', relief='raised')
+        left_Frame = Frame(self.tela_2, width=198, height=300, bg='#dfe3ee', relief='raised',highlightthickness=3, highlightbackground="#107db2")
         left_Frame.pack(side=LEFT)
-        right_Frame = Frame(self.tela_2, width=400, height=300, bg='MIDNIGHTBLUE', relief='raised')
+        right_Frame = Frame(self.tela_2, width=400, height=300, bg='#dfe3ee', relief='raised',highlightthickness=2, highlightbackground="#107db2")
         right_Frame.pack(side=RIGHT)
 
         # ======== Logo Base64 ==========
         #  ======== Base 64 Brasao =========
         logo_base64_banner = PhotoImage(data=base64.b64decode(logoBanner))
         logo_base64_banner = logo_base64_banner.subsample(2, 2)
-        logo_base64_1 = Label(left_Frame, image=logo_base64_banner, bg='MIDNIGHTBLUE')
+        logo_base64_1 = Label(left_Frame, image=logo_base64_banner, bg='#dfe3ee')
         logo_base64_1.place(x=50, y=53, )
 
         #  ======== Base 64 Frase =========
         logo_base64_frase = PhotoImage(data=base64.b64decode(logoFrase))
         logo_base64_frase = logo_base64_frase.subsample(2, 2)
-        logo_base64_2 = Label(left_Frame, image=logo_base64_frase, bg='MIDNIGHTBLUE')
+        logo_base64_2 = Label(left_Frame, image=logo_base64_frase, bg='#dfe3ee')
         logo_base64_2.place(x=10, y=155, )
 
         # ========= Tela Registro ========
@@ -375,23 +376,23 @@ class telaTkinter:
         self.programa.geometry('600x300+600+153')
         self.programa.resizable(False,False)
         self.programa.title(f'Nome Usuario:[ {self.nome_usuario} ] Programa de Caixa Fluxo ')
-        left_Frame_programa = Frame(self.programa, width=198, height=300, bg='MIDNIGHTBLUE', relief='raised')
+        left_Frame_programa = Frame(self.programa, width=198, height=300, bg='#dfe3ee', relief='raised',highlightthickness=3, highlightbackground="#107db2")
         left_Frame_programa.pack(side=LEFT)
-        self.right_Frame_programa = Frame(self.programa, width=400, height=300, bg='MIDNIGHTBLUE', relief='raised')
+        self.right_Frame_programa = Frame(self.programa, width=400, height=300, bg='#dfe3ee', relief='raised',highlightthickness=3, highlightbackground="#107db2")
         self.right_Frame_programa.pack(side=RIGHT)
         tamanho_nome_usuario = len(self.nome_usuario)
         # ========= Tela Quando o Usuario esta Logado Programa ========
-        msg_programa_bemvindo = Label(self.right_Frame_programa, text=f'Sistema Fluxo Caixa', font=('Century Gothic', 30), bg='MIDNIGHTBLUE',fg='white')
+        msg_programa_bemvindo = Label(self.right_Frame_programa, text=f'Sistema Fluxo Caixa', font=('Century Gothic', 30), bg='#dfe3ee',fg='#107db2')
         msg_programa_bemvindo.place(x=1, y=1)
-        msg_programa_modulo = Label(self.right_Frame_programa, text=f'Modulos de Acesso', font=('Century Gothic', 15), bg='MIDNIGHTBLUE', fg='white')
+        msg_programa_modulo = Label(self.right_Frame_programa, text=f'Modulos de Acesso', font=('Century Gothic', 15), bg='#dfe3ee', fg='#107db2')
         msg_programa_modulo.place(x=85, y=53,width=200, height=40)
-        msg_programa__ = Label(self.right_Frame_programa, text=(f'--'*100), font=('Century Gothic', 30),bg='MIDNIGHTBLUE', fg='white')
+        msg_programa__ = Label(self.right_Frame_programa, text=(f'--'*100), font=('Century Gothic', 30),bg='#dfe3ee', fg='#107db2')
         msg_programa__.place(x=1, y=80, width=500, height=20)
-        msg_programa = Label(left_Frame_programa, text=f'User: ', font=('Century Gothic', 20), bg='MIDNIGHTBLUE',fg='white')
+        msg_programa = Label(left_Frame_programa, text=f'User: ', font=('Century Gothic', 20), bg='#dfe3ee',fg='#107db2')
         msg_programa.place(x=1, y=38)
-        msg_programa_usuario = Label(left_Frame_programa, text=f'{self.nome_usuario}',bg='MIDNIGHTBLUE', font=('Arial', 10, 'italic', 'bold'), bd=2, fg='white',highlightthickness=2, highlightbackground="#107db2")
+        msg_programa_usuario = Label(left_Frame_programa, text=f'{self.nome_usuario}',bg='#dfe3ee', font=('Arial', 10, 'italic', 'bold'), bd=2, fg='GREEN',highlightthickness=2, highlightbackground="#107db2")
         msg_programa_usuario.place(x=68, y=48)
-        msg_programa_usuario = Label(left_Frame_programa, text=f'Status ON',bg='MIDNIGHTBLUE', font=('Arial', 15, 'italic', 'bold'), bd=2, fg='GREEN',highlightthickness=2, highlightbackground="GREEN")
+        msg_programa_usuario = Label(left_Frame_programa, text=f'Status ON',bg='#dfe3ee', font=('Arial', 15, 'italic', 'bold'), bd=2, fg='GREEN',highlightthickness=2, highlightbackground="GREEN")
         msg_programa_usuario.place(x=30, y=5)
 
         # ======== Base 64 Botao Entrar =========
@@ -422,7 +423,141 @@ class telaTkinter:
         self.btn_colocar_id_input.place(x=65, y=273)
         btn_colocar_id_click = Button(left_Frame_programa,bg='RED',text='Confirmar' ,font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white',command=self.deletar_id)
         btn_colocar_id_click.place(x=90, y=273, height=21)
+        
+    def tela_somar_resultado_funcionario(self):
+        self.root_delete = Tk()
+        self.root_delete.geometry('700x500+200+153')
+        self.root_delete.title("TreeView Banco De Dados Text")
+        self.root_delete.configure(bg="#003153")
 
+        # =====Frames=====
+        # Frame Esquerdo
+        self.left_Frame_delete = Frame(self.root_delete, width=100, height=200, bg='#C0C0C0', relief='raised', highlightthickness=2,
+                           highlightbackground="#0fe3ee")
+        self.left_Frame_delete.place(relx=0.02, rely=0.03, relwidth=0.96, relheight=0.45)
+      
+        # Frame Direito
+        self.right_Frame_delete = Frame(self.root_delete, width=400, height=300, bg='#C0C0C0', relief='raised', highlightthickness=2,
+                            highlightbackground="#0fe3ee")
+        self.right_Frame_delete.place(relx=0.02, rely=0.52, relwidth=0.96, relheight=0.45)
+
+        ############# RESULTADO A PAGAR #############
+        resultado_soma_lb = Label(self.left_Frame_delete, text=f'Resultado a Pagar: ', font=('Arial', 9, 'italic', 'bold'),
+                                  fg='#107db2',
+                                  bg='#dfe3ee', highlightthickness=1, highlightbackground="#759fe6", anchor=W)
+        resultado_soma_lb.place(relx=0.05, rely=0.8, relheight=0.07, relwidth=0.17)
+
+        resultado_soma_lb_entry = Entry(self.left_Frame_delete, fg='BLUE', bg='#dfe3ee')
+        resultado_soma_lb_entry.place(relx=0.22, rely=0.8, relheight=0.07, relwidth=0.3)
+        #############################################
+
+        ############ BOTOES DA TELA ##################
+        btn_novo_msg = Button(text="Limpar Dados da Tela", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white',
+                              bg='#107db2',
+                              command="self.limpar_programaFinal")
+        btn_novo_msg.place(relx=0.025, rely=0.04, relheight=0.05, relwidth=0.215)
+
+        btn_novo_msg = Button(text="Buscar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
+                              command="self.buscar_todos")
+        btn_novo_msg.place(relx=0.8, rely=0.04, relheight=0.05, relwidth=0.074)
+        #############################################
+
+        # NUMERO DA POSICAO FUNCIONARIO
+        label_cx_hj_lebel = Label(text="Nº Registro FUNCIONARIO", font=('Arial', 9, 'italic', 'bold'), fg='#107db2',
+                                  bg='#dfe3ee', highlightthickness=1, highlightbackground="#759fe6")
+        label_cx_hj_lebel.place(relx=0.15, rely=0.234, relheight=0.035, relwidth=0.23)
+        btn_posicao_entry = Entry(self.left_Frame_delete, font=('Arial', 10, 'italic'))
+        btn_posicao_entry.place(relx=0.05, rely=0.45, relheight=0.08, relwidth=0.08)
+
+        bt_cx_lebel = Label(text="QUANTAS CAIXAS TOTAL", font=('Arial', 9, 'italic', 'bold'), fg='#107db2',
+                            bg='#dfe3ee',
+                            highlightthickness=1, highlightbackground="#759fe6")
+        bt_cx_lebel.place(relx=0.15, rely=0.30, relheight=0.035, relwidth=0.23)
+        self.bt_cx_hj_entry = Entry(self.left_Frame_delete, font=('Arial', 10, 'italic'))
+        self.bt_cx_hj_entry.place(relx=0.05, rely=0.6, relheight=0.08, relwidth=0.08)
+
+        btn_cx_laranja_btn_mais_1 = Button(self.left_Frame_delete, text="SOMAR LARANJA", font=('Arial', 7, 'italic', 'bold'), bd=3,
+                                           fg='white',
+                                           bg='#107db2', command=self.Somar_Laranja)
+        btn_cx_laranja_btn_mais_1.place(relx=0.05, rely=0.7, relheight=0.08, relwidth=0.15)
+
+        btn_cx_limao_mais_1 = Button(self.left_Frame_delete, text="SOMAR LIMAO", font=('Arial', 7, 'italic', 'bold'), bd=3,
+                                     fg='white',
+                                     bg='#107db2', command='self.inserir_cx_pego_limao')
+        btn_cx_limao_mais_1.place(relx=0.2, rely=0.7, relheight=0.08, relwidth=0.15)
+
+        btn_cx_tomate_mais_1 = Button(self.left_Frame_delete, text="SOMAR TOMATE", font=('Arial', 7, 'italic', 'bold'), bd=3,
+                                      fg='white',
+                                      bg='#107db2', command="self.inserir_cx_pego_tomate")
+        btn_cx_tomate_mais_1.place(relx=0.35, rely=0.7, relheight=0.08, relwidth=0.15)
+
+        btn_trazer_valores_cx_laranja = Button(self.left_Frame_delete, text='Mostrar Valores R$',
+                                               font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
+                                               command="self.valores_cx_atuais_bd")
+        btn_trazer_valores_cx_laranja.place(relx=0.604, rely=0.31, relheight=0.09, relwidth=0.25)
+        # BTN VOLTAR
+        btn_novo_msg = Button(text="Voltar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
+                              command='self.destroy_programa_final')
+        btn_novo_msg.place(relx=0.9, rely=0.04, relheight=0.05, relwidth=0.074)
+
+        # Tela Exibir Apenas os Valores das Caixas produtos
+        tv = ttk.Treeview(self.left_Frame_delete, columns=["col1", "col2", "col3"], show='headings')
+        tv.place(relx=0.55, rely=0.40, relheight=0.22, relwidth=0.4)
+        tv.heading("#1", text="Caixa Laranja", anchor=W)
+        tv.heading("#2", text="Caixa Limao", anchor=W)
+        tv.heading("#3", text="Caixa Tomate", anchor=W)
+        tv.column("#1", width=90, stretch=False)  # Caixa Laranja
+        tv.column("#2", width=90, stretch=False)  # Caixa Limao
+        tv.column("#3", width=85, stretch=False)  # Caixa Tomate
+
+        self.tree = ttk.Treeview(self.right_Frame_delete, columns=["col1", "col2", "col3", "col4", "col5", "col6"], show='headings')
+        barra_rolagem = Scrollbar(self.right_Frame_delete, orient='vertical')
+        self.tree.configure(yscrollcommand=barra_rolagem.set)
+        barra_rolagem.place(relx=0.967, rely=0.1, relwidth=0.03, relheight=0.88)
+
+        self.tree.place(width=668, height=220)  # (relx=-0.040, rely=-0.015, relheight=1, relwidth=1.2,height=3)
+        self.tree.heading("#1", text="Nº Registro", anchor=W)
+        self.tree.heading("#2", text="Nome Funcionario", anchor=W)
+        self.tree.heading("#3", text="Data Nascimento", anchor=W)
+        self.tree.heading("#4", text="QTD Laranja", anchor=W)
+        self.tree.heading("#5", text="QTD Limao", anchor=W)
+        self.tree.heading("#6", text="QTD Tomate", anchor=W)
+        self.tree.column("#1", width=5)  # Nome Funcionario
+        self.tree.column("#2", width=50)  # Data Nascimento
+        self.tree.column("#3", width=50)  # Laranja
+        self.tree.column("#4", width=50)  # Limao
+        self.tree.column("#5", width=50)  # Tomate
+        self.tree.column("#6", width=20)  # POSICAO
+
+        self.root_delete.mainloop()
+
+    def Somar_Laranja(self):
+        qtd_caixa_total = int(self.bt_cx_hj_entry.get())
+        valor_cx_atuai = 2.5
+        resultado = valor_cx_atuai * qtd_caixa_total
+        n_funcionario_bd = 'testeaaaaaaaaaa'
+        result_valor = Label(self.left_Frame_delete, text=f'{n_funcionario_bd} {resultado}0 R$', fg='GREEN', bg='#dfe3ee',
+                             anchor=W)
+        result_valor.place(relx=0.22, rely=0.81, relheight=0.05, relwidth=0.3)
+
+    def Somar_Limao(self):
+        qtd_caixa_total = int(self.bt_cx_hj_entry.get())
+        valor_cx_atuai = 2.5
+        resultado = valor_cx_atuai * qtd_caixa_total
+        n_funcionario_bd = 'testeaaaaaaaaaa'
+        result_valor = Label(self.left_Frame_delete, text=f'{n_funcionario_bd} {resultado}0 R$', fg='GREEN', bg='#dfe3ee',
+                             anchor=W)
+        result_valor.place(relx=0.22, rely=0.81, relheight=0.05, relwidth=0.3)
+
+    def Somar_Tomate(self):
+        qtd_caixa_total = int(self.bt_cx_hj_entry.get())
+        valor_cx_atuai = 2.5
+        resultado = valor_cx_atuai * qtd_caixa_total
+        n_funcionario_bd = 'testeaaaaaaaaaa'
+        result_valor = Label(self.left_Frame_delete, text=f'{n_funcionario_bd} {resultado}0 R$', fg='GREEN', bg='#dfe3ee',
+                             anchor=W)
+        result_valor.place(relx=0.22, rely=0.81, relheight=0.05, relwidth=0.3)
+        
     # Funcao da Tela Programa Final
     def pesquisar(self):
         self.tree.delete(*self.tree.get_children())
@@ -511,19 +646,19 @@ class telaTkinter:
                                       bg='#107db2',command=self.truncate_table_admin)
             truncate_table.place(relx=0.35, rely=0.485, relheight=0.033, relwidth=0.3)
         # Nome Funcionario
-        bt_nfuncionario_lebel = Label(text="FILTRAR PELO NOME DO FUNCIONARIO", font=('Arial', 8, 'italic', 'bold'), fg='white',bg='#107db2', highlightthickness=2, highlightbackground="#759fe6")
+        bt_nfuncionario_lebel = Label(text="FILTRAR PELO NOME DO FUNCIONARIO", font=('Arial', 8, 'italic', 'bold'), fg='#107db2',bg='#dfe3ee', highlightthickness=2, highlightbackground="#759fe6")
         bt_nfuncionario_lebel.place(relx=0.553, rely=0.32, relheight=0.03, relwidth=0.33)
         self.bt_cx_nfuncionario_entry = Entry(left_Frame, font=('Arial', 10, 'italic'))
         self.bt_cx_nfuncionario_entry.place(relx=0.555, rely=0.72, relheight=0.08, relwidth=0.3)
 
         # NUMERO CX PEGO HOJE
-        bt_cx_lebel = Label(text="PEGOU QUANTAS CAIXAS HOJE", bg='#107db2', font=('Arial', 9, 'italic', 'bold'), fg='white',highlightthickness=2, highlightbackground="#759fe6")
+        bt_cx_lebel = Label(text="PEGOU QUANTAS CAIXAS HOJE",  font=('Arial', 9, 'italic', 'bold'), fg='#107db2',bg='#dfe3ee', highlightthickness=2, highlightbackground="#759fe6")
         bt_cx_lebel.place(relx=0.15, rely=0.30, relheight=0.035, relwidth=0.3)
         self.bt_cx_hj_entry = Entry(left_Frame, font=('Arial', 10, 'italic'))
         self.bt_cx_hj_entry.place(relx=0.05, rely=0.6, relheight=0.08, relwidth=0.08)
 
         # NUMERO DA POSICAO FUNCIONARIO
-        label_cx_hj_lebel = Label(text="Nº Registro FUNCIONARIO", bg='#107db2', font=('Arial', 9, 'italic', 'bold'), fg='white',highlightthickness=2, highlightbackground="#759fe6")
+        label_cx_hj_lebel = Label(text="Nº Registro FUNCIONARIO",  font=('Arial', 9, 'italic', 'bold'), fg='#107db2',bg='#dfe3ee', highlightthickness=2, highlightbackground="#759fe6")
         label_cx_hj_lebel.place(relx=0.15, rely=0.234, relheight=0.035, relwidth=0.23)
         self.btn_posicao_entry = Entry(left_Frame, font=('Arial', 10, 'italic'))
         self.btn_posicao_entry.place(relx=0.05, rely=0.45, relheight=0.08, relwidth=0.08)
@@ -585,35 +720,35 @@ class telaTkinter:
 
         # Frames
         # Frame Esquerdo
-        left_Frame = Frame(self.registro_fun, width=198, height=300, bg='MIDNIGHTBLUE', relief='raised')
+        left_Frame = Frame(self.registro_fun, width=198, height=300,bg='#dfe3ee', relief='raised',highlightthickness=3, highlightbackground="#107db2")
         left_Frame.pack(side=LEFT)
-        right_Frame = Frame(self.registro_fun, width=400, height=300, bg='MIDNIGHTBLUE', relief='raised')
+        right_Frame = Frame(self.registro_fun, width=400, height=300,bg='#dfe3ee', relief='raised',highlightthickness=3, highlightbackground="#107db2")
         right_Frame.pack(side=RIGHT)
 
-        msg_dados_fun = Label(right_Frame, text='Insira os Dados \n Funcionario', font=('Century Gothic', 20),bg='MIDNIGHTBLUE',fg='white')
+        msg_dados_fun = Label(right_Frame, text='Insira os Dados \n Funcionario', font=('Century Gothic', 20),bg='#dfe3ee',fg='#107db2')
         msg_dados_fun.place(x=100, y=1)
 
         #  ======== Mensagem Registro Frame 1 Left =========
-        msg_registro_fun_esquerda = Label(left_Frame, font=('Century Gothic', 20), text='Registro \nFuncionarios',bg='MIDNIGHTBLUE',fg='white')
-        msg_registro_fun_esquerda.place(x=25, y=1)
+        msg_registro_fun_esquerda = Label(left_Frame, font=('Century Gothic', 20,'italic'), text='Registro \nFuncionarios',bg='#dfe3ee',fg='#107db2')
+        msg_registro_fun_esquerda.place(x=20, y=1)
         # ======== Mensagem Abaixo da Informacao Frame 1 Left =========
-        msg_registro_info_esquerda = Label(left_Frame, font=('Century Gothic', 10), text='- voce ira efetuar registro\n'
+        msg_registro_info_esquerda = Label(left_Frame, font=('Century Gothic', 9), text='- voce ira efetuar registro\n'
                                                                                          '- seus Funcionarios\n'
                                                                                          '- seus dados estao protegidos'
-                                           , bg='MIDNIGHTBLUE', fg='white')
-        msg_registro_info_esquerda.place(x=15, y=110)
+                                           , bg='#dfe3ee', fg='#107db2', anchor=W)
+        msg_registro_info_esquerda.place(x=7, y=110)
         msg_registro_LTDA_esquerda = Label(left_Frame, font=('Century Gothic', 7), text='LTDA Fluxo de Caixa',bg='GREEN',fg='WHITE')
-        msg_registro_LTDA_esquerda.place(x=100, y=285)
+        msg_registro_LTDA_esquerda.place(x=99.3, y=277)
 
         # ========= Input Nome Funcionario ========
-        userLabel_user = Label(right_Frame, text='Nome Funcionario', font=('Century Gothic', 12), bg='MIDNIGHTBLUE', fg='white')
+        userLabel_user = Label(right_Frame, text='Nome Funcionario', font=('Century Gothic', 9), bg='#dfe3ee', fg='#107db2')
         userLabel_user.place(x=1, y=92)
         # Posicao
         self.user_input_func = Entry(right_Frame, width=30)
         self.user_input_func.place(x=138, y=98)
 
         #    ========= Input Data Nascimento ========
-        userLabel_nascimento = Label(right_Frame, text='Data Nascimento', font=('Century Gothic', 12), bg='MIDNIGHTBLUE', fg='white')
+        userLabel_nascimento = Label(right_Frame, text='Data Nascimento', font=('Century Gothic', 9), bg='#dfe3ee', fg='#107db2')
         userLabel_nascimento.place(x=1, y=137)
         # Posicao
         self.user_input_nascimento = Entry(right_Frame, width=30)
@@ -623,12 +758,12 @@ class telaTkinter:
         self.label_zerado.insert(0,"0")
 
         #Botao Confirmar Registro de Funcionario Banco de Dados
-        btn_confirmar_reg = Button(right_Frame, text='Confirmar Registro', font=('Century Gothic', 10), command=self.registrar_fun_bd)
-        btn_confirmar_reg.place(x=145, y=230, width=130, height=30)
+        btn_confirmar_reg = Button(right_Frame, text='Confirmar Registro', font=('Century Gothic', 10), bd=3, fg='white', bg='#107db2', command=self.registrar_fun_bd)
+        btn_confirmar_reg.place(x=145, y=225, width=130, height=30)
 
         # ======== Button Voltar =========
-        btn_voltar = Button(right_Frame, text='Voltar', font=('Century Gothic', 10), command=self.destroy_tela_registro_func)
-        btn_voltar.place(x=173, y=268, width=70, height=30)
+        btn_voltar = Button(right_Frame, text='Voltar', font=('Century Gothic', 10), bd=3, fg='white', bg='#107db2', command=self.destroy_tela_registro_func)
+        btn_voltar.place(x=173, y=260, width=70, height=30)
     def menu_registro_funcioniario_apagar_func(self):
         self.registro_fun_apagar = Tk()
         self.registro_fun_apagar.title('Apagar Registro de Funcionario')
@@ -637,32 +772,32 @@ class telaTkinter:
 
         # Frames
         # Frame Esquerdo
-        left_Frame = Frame(self.registro_fun_apagar, width=198, height=300, bg='MIDNIGHTBLUE', relief='raised')
+        left_Frame = Frame(self.registro_fun_apagar, width=198, height=300, bg='#dfe3ee', relief='raised',highlightthickness=2, highlightbackground="#107db2")
         left_Frame.pack(side=LEFT)
-        right_Frame = Frame(self.registro_fun_apagar, width=400, height=300, bg='MIDNIGHTBLUE', relief='raised')
+        right_Frame = Frame(self.registro_fun_apagar, width=400, height=300,bg='#dfe3ee', relief='raised',highlightthickness=2, highlightbackground="#107db2")
         right_Frame.pack(side=RIGHT)
 
-        msg_dados_fun = Label(right_Frame, text='Insira os Dados \n Funcionario', font=('Century Gothic', 20),bg='MIDNIGHTBLUE',fg='white')
-        msg_dados_fun.place(x=100, y=1)
+        msg_dados_fun = Label(right_Frame, text='Insira os Dados do \n Funcionario', font=('Century Gothic', 25,'italic'),bg='#dfe3ee',fg='#107db2')
+        msg_dados_fun.place(x=20, y=1)
 
         #  ======== Mensagem Registro Frame 1 Left =========
-        msg_registro_fun_esquerda = Label(left_Frame, font=('Century Gothic', 20), text='Apagar Registro \nFuncionarios',bg='MIDNIGHTBLUE',fg='white')
-        msg_registro_fun_esquerda.place(x=25, y=1)
+        msg_registro_fun_esquerda = Label(left_Frame, font=('Century Gothic', 13), text='Apagar Registro \nFuncionarios',bg='#dfe3ee',fg='blue')
+        msg_registro_fun_esquerda.place(x=20, y=1)
         # ======== Mensagem Abaixo da Informacao Frame 1 Left =========
-        msg_registro_info_esquerda = Label(left_Frame, font=('Century Gothic', 10), text='- voce ira apagar registro\n'
+        msg_registro_info_esquerda = Label(left_Frame, font=('Century Gothic', 9), text='- voce ira apagar registro\n'
                                                                                          '- de seus Funcionarios\n'
                                                                                          '- seus dados estao protegidos'
-                                           , bg='MIDNIGHTBLUE', fg='white')
-        msg_registro_info_esquerda.place(x=15, y=110)
+                                           , bg='#dfe3ee', fg='#107db2')
+        msg_registro_info_esquerda.place(x=1, y=110)
         msg_registro_LTDA_esquerda = Label(left_Frame, font=('Century Gothic', 7), text='LTDA Fluxo de Caixa',bg='GREEN',fg='WHITE')
-        msg_registro_LTDA_esquerda.place(x=100, y=285)
+        msg_registro_LTDA_esquerda.place(x=99.3, y=277)
 
         # ========= Input Nome Funcionario ========
-        userLabel_user = Label(right_Frame, text='Nome Funcionario', font=('Century Gothic', 12), bg='MIDNIGHTBLUE', fg='white')
+        userLabel_user = Label(right_Frame, text='Nome Funcionario', font=('Century Gothic', 12), bg='#dfe3ee', fg='#107db2')
         userLabel_user.place(x=1, y=92)
         # Posicao
         self.user_input_func = Entry(right_Frame, width=30)
-        self.user_input_func.place(x=138, y=98)
+        self.user_input_func.place(x=147, y=98)
 
 
         #Botao Confirmar Registro de Funcionario Banco de Dados
@@ -671,7 +806,7 @@ class telaTkinter:
 
         # ======== Button Voltar =========
         btn_voltar = Button(right_Frame, text='Voltar', font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2', command=self.destroy_tela_apagar_func)
-        btn_voltar.place(x=173, y=268, width=70, height=30)
+        btn_voltar.place(x=173, y=265, width=70, height=30)
     def menu_valores(self):
         self.valores = Tk()
         self.valores.title('Valores a Registrar')
@@ -680,44 +815,44 @@ class telaTkinter:
 
         # =====Frames=====
         # Frame Esquerdo
-        left_Frame = Frame(self.valores, width=198, height=300, bg='MIDNIGHTBLUE', relief='raised')
+        left_Frame = Frame(self.valores, width=198, height=300, bg='#dfe3ee', relief='raised',highlightthickness=2, highlightbackground="#107db2")
         left_Frame.pack(side=LEFT)
         # Frame Direito
-        right_Frame = Frame(self.valores, width=400, height=300, bg='MIDNIGHTBLUE', relief='raised')
+        right_Frame = Frame(self.valores, width=400, height=300, bg='#dfe3ee', relief='raised',highlightthickness=2, highlightbackground="#107db2")
         right_Frame.pack(side=RIGHT)
 
-        msg_dados_fun = Label(right_Frame, text='Insira Valores das Caixa', font=('Century Gothic', 20),
-                              bg='MIDNIGHTBLUE', fg='white')
-        msg_dados_fun.place(x=50, y=1)
+        msg_dados_fun = Label(right_Frame, text='Insira Valores das Caixa', font=('Century Gothic', 25,'italic', 'bold'),
+                              bg='#dfe3ee', fg='#107db2')
+        msg_dados_fun.place(x=1, y=1)
 
         #  ======== Mensagem Registro Frame 1 Left =========
-        msg_registro_fun_esquerda = Label(left_Frame, font=('Century Gothic', 18), text='Registro Valores',
-                                          bg='MIDNIGHTBLUE',
-                                          fg='white')
+        msg_registro_fun_esquerda = Label(left_Frame, font=('Century Gothic', 17, 'italic','bold'), text='Registro Valores',
+                                          bg='#dfe3ee',
+                                          fg='#107db2')
         msg_registro_fun_esquerda.place(x=1, y=1)
         # ======== Mensagem Abaixo da Informacao Frame 1 Left =========
-        msg_registro_info_esquerda = Label(left_Frame, font=('Century Gothic', 10), text='Voce ira inserir VALORES\n'
+        msg_registro_info_esquerda = Label(left_Frame, font=('Century Gothic', 9), text='Voce ira inserir VALORES\n'
                                                                                          'das CAIXAS do seu produto\n'
                                                                                          'todos os dados sao EDITAVEIS'
-                                           , bg='MIDNIGHTBLUE', fg='white')
+                                           , bg='#dfe3ee', fg='#107db2')
         msg_registro_info_esquerda.place(x=1, y=80)
         msg_registro_LTDA_esquerda = Label(left_Frame, font=('Century Gothic', 7), text='LTDA Fluxo de Caixa',
                                            bg='GREEN',
                                            fg='WHITE')
-        msg_registro_LTDA_esquerda.place(x=100, y=285)
+        msg_registro_LTDA_esquerda.place(x=99.3, y=277)
 
         # MSG VALORES E ENTRY E BTN VALRES, R$
-        msg_reais_laranja = Label(right_Frame, font=('Century Gothic', 10), text='R$', bg='MIDNIGHTBLUE', fg='white')
+        msg_reais_laranja = Label(right_Frame, font=('Century Gothic', 10), text='R$', bg='#dfe3ee', fg='blue')
         msg_reais_laranja.place(x=207, y=80)
 
-        msg_reais_limao = Label(right_Frame, font=('Century Gothic', 10), text='R$', bg='MIDNIGHTBLUE', fg='white')
+        msg_reais_limao = Label(right_Frame, font=('Century Gothic', 10), text='R$', bg='#dfe3ee', fg='blue')
         msg_reais_limao.place(x=207, y=115)
 
-        msg_reais_tomate = Label(right_Frame, font=('Century Gothic', 10), text='R$', bg='MIDNIGHTBLUE', fg='white')
+        msg_reais_tomate = Label(right_Frame, font=('Century Gothic', 10), text='R$', bg='#dfe3ee', fg='blue')
         msg_reais_tomate.place(x=207, y=150)
 
         # Caixa Laranja
-        caixa_laranja = Label(right_Frame, font=('Century Gothic', 10), text='Caixa LARANJA:', bg='MIDNIGHTBLUE', fg='white')
+        caixa_laranja = Label(right_Frame, font=('Century Gothic', 10), text='Caixa LARANJA:', bg='#dfe3ee', fg='#107db2')
         caixa_laranja.place(x=1, y=80)
         self.caixa_laranja_input = Entry(right_Frame, width=15)
         self.caixa_laranja_input.place(x=110, y=80)
@@ -727,11 +862,11 @@ class telaTkinter:
         # btn_laranja_salvar.place(x=230, y=80, width=70, height=20)
 
         # ======== Button Atualizar Valores CX LARANJA =========
-        btn_laranja_update = Button(right_Frame, text='EDITAR R$', font=('Century Gothic', 10), command=self.alterar_preco_laranja)
-        btn_laranja_update.place(x=320, y=80, width=70, height=20)
+        btn_laranja_update = Button(right_Frame, text='Inserir R$', font=('Century Gothic', 10, 'italic'), bd=3, fg='white', bg='#107db2', command=self.alterar_preco_laranja)
+        btn_laranja_update.place(x=230, y=80, width=70, height=20)
 
         # Caixa Limao
-        caixa_limao = Label(right_Frame, font=('Century Gothic', 10), text='Caixa LIMAO:', bg='MIDNIGHTBLUE', fg='white')
+        caixa_limao = Label(right_Frame, font=('Century Gothic', 10), text='Caixa LIMAO:', bg='#dfe3ee', fg='#107db2')
         caixa_limao.place(x=1, y=115)
         self.caixa_limao_input = Entry(right_Frame, width=15)
         self.caixa_limao_input.place(x=110, y=115)
@@ -741,12 +876,12 @@ class telaTkinter:
         # btn_limao_salvar.place(x=230, y=115, width=70, height=20)
 
         # ======== Button Atualizar Valores CX LIMAO =========
-        btn_limao_update = Button(right_Frame, text='EDITAR R$', font=('Century Gothic', 10), command=self.alterar_preco_limao)
-        btn_limao_update.place(x=320, y=115, width=70, height=20)
+        btn_limao_update = Button(right_Frame, text='Inserir R$', font=('Century Gothic', 10, 'italic'), bd=3, fg='white', bg='#107db2', command=self.alterar_preco_limao)
+        btn_limao_update.place(x=230, y=115, width=70, height=20)
 
 
         # Caixa Tomate
-        caixa_tomate = Label(right_Frame, font=('Century Gothic', 10), text='Caixa TOMATE:', bg='MIDNIGHTBLUE', fg='white')
+        caixa_tomate = Label(right_Frame, font=('Century Gothic', 10), text='Caixa TOMATE:', bg='#dfe3ee', fg='#107db2')
         caixa_tomate.place(x=1, y=150)
         self.caixa_tomate_input = Entry(right_Frame, width=15)
         self.caixa_tomate_input.place(x=110, y=150)
@@ -756,8 +891,8 @@ class telaTkinter:
         # btn_tomate_salvar.place(x=230, y=150, width=70, height=20)
 
         # ======== Button Atualizar Valores CX TOMATE =========
-        btn_tomate_update = Button(right_Frame, text='EDITAR R$', font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2', command=self.alterar_preco_tomate)
-        btn_tomate_update.place(x=320, y=150, width=70, height=20)
+        btn_tomate_update = Button(right_Frame, text='Inserir R$', font=('Arial', 10, 'italic'), bd=3, fg='white', bg='#107db2', command=self.alterar_preco_tomate)
+        btn_tomate_update.place(x=230, y=150, width=70, height=20)
 
         # ======== Button Mostrar Valores das Caixa =========
         btn_voltar = Button(right_Frame, text='Valores das Caixas', font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2', command=self.exibir_valores_atuais_cx)
