@@ -423,7 +423,7 @@ class telaTkinter:
         self.btn_colocar_id_input.place(x=65, y=273)
         btn_colocar_id_click = Button(left_Frame_programa,bg='RED',text='Confirmar' ,font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white',command=self.deletar_id)
         btn_colocar_id_click.place(x=90, y=273, height=21)
-        
+
     def tela_somar_resultado_funcionario(self):
         self.root_delete = Tk()
         self.root_delete.geometry('700x500+200+153')
@@ -435,7 +435,7 @@ class telaTkinter:
         self.left_Frame_delete = Frame(self.root_delete, width=100, height=200, bg='#C0C0C0', relief='raised', highlightthickness=2,
                            highlightbackground="#0fe3ee")
         self.left_Frame_delete.place(relx=0.02, rely=0.03, relwidth=0.96, relheight=0.45)
-      
+
         # Frame Direito
         self.right_Frame_delete = Frame(self.root_delete, width=400, height=300, bg='#C0C0C0', relief='raised', highlightthickness=2,
                             highlightbackground="#0fe3ee")
@@ -447,34 +447,38 @@ class telaTkinter:
                                   bg='#dfe3ee', highlightthickness=1, highlightbackground="#759fe6", anchor=W)
         resultado_soma_lb.place(relx=0.05, rely=0.8, relheight=0.07, relwidth=0.17)
 
-        resultado_soma_lb_entry = Entry(self.left_Frame_delete, fg='BLUE', bg='#dfe3ee')
-        resultado_soma_lb_entry.place(relx=0.22, rely=0.8, relheight=0.07, relwidth=0.3)
+        self.resultado_soma_lb_entry_pagamento = Entry(self.left_Frame_delete, fg='BLUE', bg='#dfe3ee')
+        self.resultado_soma_lb_entry_pagamento.place(relx=0.22, rely=0.8, relheight=0.07, relwidth=0.3)
         #############################################
 
         ############ BOTOES DA TELA ##################
-        btn_novo_msg = Button(text="Limpar Dados da Tela", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white',
+        btn_novo_msg = Button(self.root_delete, text="Limpar Dados da Tela", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white',
                               bg='#107db2',
-                              command="self.limpar_programaFinal")
+                              command=self.limpar_tela_pagamento)
         btn_novo_msg.place(relx=0.025, rely=0.04, relheight=0.05, relwidth=0.215)
 
-        btn_novo_msg = Button(text="Buscar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
-                              command="self.buscar_todos")
+        btn_novo_msg = Button(self.root_delete, text="Buscar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
+                              command=self.buscar_todos_pagamento)
         btn_novo_msg.place(relx=0.8, rely=0.04, relheight=0.05, relwidth=0.074)
+
+        btn_novo_msg = Button(self.root_delete, text="Voltar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
+                              command=self.root_delete.destroy)
+        btn_novo_msg.place(relx=0.9, rely=0.04, relheight=0.05, relwidth=0.074)
         #############################################
 
         # NUMERO DA POSICAO FUNCIONARIO
-        label_cx_hj_lebel = Label(text="Nº Registro FUNCIONARIO", font=('Arial', 9, 'italic', 'bold'), fg='#107db2',
+        label_cx_hj_lebel = Label(self.root_delete, text="Nº Registro FUNCIONARIO", font=('Arial', 9, 'italic', 'bold'), fg='#107db2',
                                   bg='#dfe3ee', highlightthickness=1, highlightbackground="#759fe6")
         label_cx_hj_lebel.place(relx=0.15, rely=0.234, relheight=0.035, relwidth=0.23)
-        btn_posicao_entry = Entry(self.left_Frame_delete, font=('Arial', 10, 'italic'))
-        btn_posicao_entry.place(relx=0.05, rely=0.45, relheight=0.08, relwidth=0.08)
+        self.btn_posicao_entry_pagamento = Entry(self.left_Frame_delete, font=('Arial', 10, 'italic'))
+        self.btn_posicao_entry_pagamento.place(relx=0.05, rely=0.45, relheight=0.08, relwidth=0.08)
 
-        bt_cx_lebel = Label(text="QUANTAS CAIXAS TOTAL", font=('Arial', 9, 'italic', 'bold'), fg='#107db2',
+        bt_cx_lebel = Label(self.root_delete, text="QUANTAS CAIXAS TOTAL", font=('Arial', 9, 'italic', 'bold'), fg='#107db2',
                             bg='#dfe3ee',
                             highlightthickness=1, highlightbackground="#759fe6")
         bt_cx_lebel.place(relx=0.15, rely=0.30, relheight=0.035, relwidth=0.23)
-        self.bt_cx_hj_entry = Entry(self.left_Frame_delete, font=('Arial', 10, 'italic'))
-        self.bt_cx_hj_entry.place(relx=0.05, rely=0.6, relheight=0.08, relwidth=0.08)
+        self.bt_cx_hj_entry_pagamento = Entry(self.left_Frame_delete, font=('Arial', 10, 'italic'))
+        self.bt_cx_hj_entry_pagamento.place(relx=0.05, rely=0.6, relheight=0.08, relwidth=0.08)
 
         btn_cx_laranja_btn_mais_1 = Button(self.left_Frame_delete, text="SOMAR LARANJA", font=('Arial', 7, 'italic', 'bold'), bd=3,
                                            fg='white',
@@ -488,52 +492,52 @@ class telaTkinter:
 
         btn_cx_tomate_mais_1 = Button(self.left_Frame_delete, text="SOMAR TOMATE", font=('Arial', 7, 'italic', 'bold'), bd=3,
                                       fg='white',
-                                      bg='#107db2', command="self.inserir_cx_pego_tomate")
+                                      bg='#107db2', command=self.Somar_Tomate)
         btn_cx_tomate_mais_1.place(relx=0.35, rely=0.7, relheight=0.08, relwidth=0.15)
 
         btn_trazer_valores_cx_laranja = Button(self.left_Frame_delete, text='Mostrar Valores R$',
                                                font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
-                                               command="self.valores_cx_atuais_bd")
+                                               command=self.valores_cx_atuais_bd_pagamento)
         btn_trazer_valores_cx_laranja.place(relx=0.604, rely=0.31, relheight=0.09, relwidth=0.25)
         # BTN VOLTAR
         btn_novo_msg = Button(text="Voltar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
-                              command='self.destroy_programa_final')
+                              command=self.destroy_programa_final)
         btn_novo_msg.place(relx=0.9, rely=0.04, relheight=0.05, relwidth=0.074)
 
         # Tela Exibir Apenas os Valores das Caixas produtos
-        tv = ttk.Treeview(self.left_Frame_delete, columns=["col1", "col2", "col3"], show='headings')
-        tv.place(relx=0.55, rely=0.40, relheight=0.22, relwidth=0.4)
-        tv.heading("#1", text="Caixa Laranja", anchor=W)
-        tv.heading("#2", text="Caixa Limao", anchor=W)
-        tv.heading("#3", text="Caixa Tomate", anchor=W)
-        tv.column("#1", width=90, stretch=False)  # Caixa Laranja
-        tv.column("#2", width=90, stretch=False)  # Caixa Limao
-        tv.column("#3", width=85, stretch=False)  # Caixa Tomate
+        self.tv_pagamento = ttk.Treeview(self.left_Frame_delete, columns=["col1", "col2", "col3"], show='headings')
+        self.tv_pagamento.place(relx=0.55, rely=0.40, relheight=0.22, relwidth=0.4)
+        self.tv_pagamento.heading("#1", text="Caixa Laranja", anchor=W)
+        self.tv_pagamento.heading("#2", text="Caixa Limao", anchor=W)
+        self.tv_pagamento.heading("#3", text="Caixa Tomate", anchor=W)
+        self.tv_pagamento.column("#1", width=90, stretch=False)  # Caixa Laranja
+        self.tv_pagamento.column("#2", width=90, stretch=False)  # Caixa Limao
+        self.tv_pagamento.column("#3", width=85, stretch=False)  # Caixa Tomate
 
-        self.tree = ttk.Treeview(self.right_Frame_delete, columns=["col1", "col2", "col3", "col4", "col5", "col6"], show='headings')
+        self.tree_pagamento = ttk.Treeview(self.right_Frame_delete, columns=["col1", "col2", "col3", "col4", "col5", "col6"], show='headings')
         barra_rolagem = Scrollbar(self.right_Frame_delete, orient='vertical')
-        self.tree.configure(yscrollcommand=barra_rolagem.set)
+        self.tree_pagamento.configure(yscrollcommand=barra_rolagem.set)
         barra_rolagem.place(relx=0.967, rely=0.1, relwidth=0.03, relheight=0.88)
 
-        self.tree.place(width=668, height=220)  # (relx=-0.040, rely=-0.015, relheight=1, relwidth=1.2,height=3)
-        self.tree.heading("#1", text="Nº Registro", anchor=W)
-        self.tree.heading("#2", text="Nome Funcionario", anchor=W)
-        self.tree.heading("#3", text="Data Nascimento", anchor=W)
-        self.tree.heading("#4", text="QTD Laranja", anchor=W)
-        self.tree.heading("#5", text="QTD Limao", anchor=W)
-        self.tree.heading("#6", text="QTD Tomate", anchor=W)
-        self.tree.column("#1", width=5)  # Nome Funcionario
-        self.tree.column("#2", width=50)  # Data Nascimento
-        self.tree.column("#3", width=50)  # Laranja
-        self.tree.column("#4", width=50)  # Limao
-        self.tree.column("#5", width=50)  # Tomate
-        self.tree.column("#6", width=20)  # POSICAO
+        self.tree_pagamento.place(width=668, height=220)  # (relx=-0.040, rely=-0.015, relheight=1, relwidth=1.2,height=3)
+        self.tree_pagamento.heading("#1", text="Nº Registro", anchor=W)
+        self.tree_pagamento.heading("#2", text="Nome Funcionario", anchor=W)
+        self.tree_pagamento.heading("#3", text="Data Nascimento", anchor=W)
+        self.tree_pagamento.heading("#4", text="QTD Laranja", anchor=W)
+        self.tree_pagamento.heading("#5", text="QTD Limao", anchor=W)
+        self.tree_pagamento.heading("#6", text="QTD Tomate", anchor=W)
+        self.tree_pagamento.column("#1", width=5)  # Nome Funcionario
+        self.tree_pagamento.column("#2", width=50)  # Data Nascimento
+        self.tree_pagamento.column("#3", width=50)  # Laranja
+        self.tree_pagamento.column("#4", width=50)  # Limao
+        self.tree_pagamento.column("#5", width=50)  # Tomate
+        self.tree_pagamento.column("#6", width=20)  # POSICAO
 
         self.root_delete.mainloop()
 
     def Somar_Laranja(self):
-        qtd_caixa_total = int(self.bt_cx_hj_entry.get())
-        valor_cx_atuai = 2.5
+        qtd_caixa_total = self.bt_cx_hj_entry.get()
+        valor_cx_atuai = self.linhas.fetchone()[1]
         resultado = valor_cx_atuai * qtd_caixa_total
         n_funcionario_bd = 'testeaaaaaaaaaa'
         result_valor = Label(self.left_Frame_delete, text=f'{n_funcionario_bd} {resultado}0 R$', fg='GREEN', bg='#dfe3ee',
@@ -541,23 +545,27 @@ class telaTkinter:
         result_valor.place(relx=0.22, rely=0.81, relheight=0.05, relwidth=0.3)
 
     def Somar_Limao(self):
-        qtd_caixa_total = int(self.bt_cx_hj_entry.get())
-        valor_cx_atuai = 2.5
+        qtd_caixa_total = self.bt_cx_hj_entry_pagamento.getint()
+        self.banco_connect()
+        result_sql = "select * from python.valores WHERE caixa_laranja"
+        self.cursor.execute(result_sql)
+        valor_cx_atuai = 2.5  # Puxar valor da caixa do Banco de Dados
         resultado = valor_cx_atuai * qtd_caixa_total
-        n_funcionario_bd = 'testeaaaaaaaaaa'
+
+    def Somar_Tomate(self):
+        qtd_caixa_total = self.bt_cx_hj_entry.get()
+        self.banco_connect()
+        sql_tomate = "SELECT SUM(caixa_tomate) FROM python.valores WHERE id_valores=1"
+        self.cursor.execute(sql_tomate)
+        dados = self.cursor.fetchone()[0]
+        print(dados)
+        valor_cx_atuai = dados
+        resultado = valor_cx_atuai * qtd_caixa_total
+        n_funcionario_bd = self.nome_usuario
         result_valor = Label(self.left_Frame_delete, text=f'{n_funcionario_bd} {resultado}0 R$', fg='GREEN', bg='#dfe3ee',
                              anchor=W)
         result_valor.place(relx=0.22, rely=0.81, relheight=0.05, relwidth=0.3)
 
-    def Somar_Tomate(self):
-        qtd_caixa_total = int(self.bt_cx_hj_entry.get())
-        valor_cx_atuai = 2.5
-        resultado = valor_cx_atuai * qtd_caixa_total
-        n_funcionario_bd = 'testeaaaaaaaaaa'
-        result_valor = Label(self.left_Frame_delete, text=f'{n_funcionario_bd} {resultado}0 R$', fg='GREEN', bg='#dfe3ee',
-                             anchor=W)
-        result_valor.place(relx=0.22, rely=0.81, relheight=0.05, relwidth=0.3)
-        
     # Funcao da Tela Programa Final
     def pesquisar(self):
         self.tree.delete(*self.tree.get_children())
@@ -572,6 +580,12 @@ class telaTkinter:
         self.bt_cx_nfuncionario_entry.delete(0, END)
         self.btn_posicao_entry.delete(0, END)
         self.btn_novo_msg.delete(0, END)
+
+    def limpar_tela_pagamento(self):
+        self.bt_cx_hj_entry_pagamento.delete(0, END)
+        self.resultado_soma_lb_entry_pagamento.delete(0, END)
+        self.btn_posicao_entry_pagamento.delete(0, END)
+
     def valores_cx_atuais_bd(self):
         self.banco_connect()
         sql = "SELECT caixa_laranja, caixa_limao, caixa_tomate FROM valores"
@@ -579,6 +593,14 @@ class telaTkinter:
         mostra = self.cursor.fetchall()
         for exibir in mostra:
             self.tv.insert("", "end", values=exibir)
+
+    def valores_cx_atuais_bd_pagamento(self):
+        self.banco_connect()
+        sql = "SELECT caixa_laranja, caixa_limao, caixa_tomate FROM valores"
+        self.cursor.execute(sql)
+        mostra = self.cursor.fetchall()
+        for exibir in mostra:
+            self.tv_pagamento.insert("", "end", values=exibir)
 
     def qtd_cx_atuais_por_func(self):
         self.banco_connect()
@@ -594,7 +616,18 @@ class telaTkinter:
         self.cursor.execute(sql)
         mostrar = self.cursor.fetchall()
         for exibir in mostrar:
-            self.tree.insert("","end", values=exibir)
+            self.tree.insert("", "end", values=exibir)
+
+    def buscar_todos_pagamento(self):
+        self.banco_connect()
+        self.tree.delete(*self.tree.get_children())
+        sql = "SELECT id_funcionario,nome_funcionario, data_nascimento, qtd_laranja, qtd_limao, qtd_tomate FROM funcionario"
+        self.cursor.execute(sql)
+        mostrar = self.cursor.fetchall()
+        for exibir in mostrar:
+            self.tree_pagamento.insert("", "end", values=exibir)
+
+
     def programaFinal(self):
         self.root = Tk()
         self.root.geometry('700x500+600+153')
@@ -621,9 +654,9 @@ class telaTkinter:
         self.btn_novo_msg = Entry()
         self.btn_novo_msg.place(relx=0.46, rely=0.045, relheight=0.04, relwidth=0.2)
 
-        btn_novo_msg = Button(text="Alterar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
-                              command="")
-        btn_novo_msg.place(relx=0.7, rely=0.04, relheight=0.05, relwidth=0.074)
+        btn_novo_msg = Button(text="Pagamento", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
+                              command=self.tela_somar_resultado_funcionario)
+        btn_novo_msg.place(relx=0.67, rely=0.04, relheight=0.05, relwidth=0.12)
 
         btn_novo_msg = Button(text="Buscar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
                               command=self.buscar_todos)
