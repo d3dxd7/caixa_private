@@ -107,7 +107,7 @@ class telaTkinter:
             else:
                 sql = """UPDATE pythonsql.funcionario 
                  SET qtd_laranja = """ + ncx_pego + """
-                 WHERE posicao = """ +posicao_cx+ """;"""
+                 WHERE id_funcionario = """ +posicao_cx+ """;"""
                 print(f'{BLUE}{sql}')
                 # Comando para Puxar os Dados do Cadastro
                 self.banco_connect()
@@ -131,7 +131,7 @@ class telaTkinter:
             else:
                 sql = """UPDATE pythonsql.funcionario 
                  SET qtd_limao = """ + ncx_pego + """
-                 WHERE posicao = """ +posicao_cx+ """;"""
+                 WHERE id_funcionario = """ +posicao_cx+ """;"""
                 print(f'{BLUE}{sql}')
                 # Comando para Puxar os Dados do Cadastro
                 self.banco_connect()
@@ -535,37 +535,103 @@ class telaTkinter:
 
         self.root_delete.mainloop()
 
-    def Somar_Laranja(self):
+
+
+
         qtd_caixa_total = self.bt_cx_hj_entry.get()
         valor_cx_atuai = self.linhas.fetchone()[1]
         resultado = valor_cx_atuai * qtd_caixa_total
         n_funcionario_bd = 'testeaaaaaaaaaa'
-        result_valor = Label(self.left_Frame_delete, text=f'{n_funcionario_bd} {resultado}0 R$', fg='GREEN', bg='#dfe3ee',
-                             anchor=W)
-        result_valor.place(relx=0.22, rely=0.81, relheight=0.05, relwidth=0.3)
+
+    def Somar_Laranja(self):
+         quantidade_caixa = self.bt_cx_hj_entry_pagamento.get()
+         posicao_id = self.btn_posicao_entry_pagamento.get()
+         # if posicao_id == "":
+         #     messagebox.showwarning(title='Atencao!', message='Insira quantidade de caixa para calcular valor! ')
+         # else:
+         #     sql_nome_func = "SELECT nome_funcionario FROM pythonsql.funcionario WHERE id_funcionario = %s"
+         #     extrair_nome = self.btn_posicao_entry_pagamento.get()
+         #     self.cursor.execute(sql_nome_func, ([extrair_nome]))
+         #     self.result_pesquisa_nome = self.cursor.fetchone()[0]
+         #     print(self.result_pesquisa_nome)
+         #     self.con.commit()
+
+         try:
+             if quantidade_caixa == "":
+                 messagebox.showwarning(title='Atencao!', message='Insira quantidade de caixa para calcular valor! ')
+             else:
+                 query = "SELECT caixa_laranja FROM pythonsql.valores WHERE id_valores = 1"
+                 self.banco_connect()
+                 self.cursor.execute(query)
+                 resultado_query = self.cursor.fetchone()[0]
+                 soma = resultado_query * float(quantidade_caixa)
+                 result_valor = Label(self.left_Frame_delete, text=f'Funcionario Numero:{posicao_id} Recebe: {soma}0 R$', fg='GREEN',bg='#dfe3ee',anchor=W)
+                 result_valor.place(relx=0.22, rely=0.81, relheight=0.05, relwidth=0.3)
+         except Error as err:
+            print(f"{RED}Error Ao Somar: '{err}'")
+         finally:
+             self.con.close()
 
     def Somar_Limao(self):
-        qtd_caixa_total = self.bt_cx_hj_entry_pagamento.getint()
-        self.banco_connect()
-        result_sql = "select * from python.valores WHERE caixa_laranja"
-        self.cursor.execute(result_sql)
-        valor_cx_atuai = 2.5  # Puxar valor da caixa do Banco de Dados
-        resultado = valor_cx_atuai * qtd_caixa_total
+        quantidade_caixa = self.bt_cx_hj_entry_pagamento.get()
+        posicao_id = self.btn_posicao_entry_pagamento.get()
+        # if posicao_id == "":
+        #     messagebox.showwarning(title='Atencao!', message='Insira quantidade de caixa para calcular valor! ')
+        # else:
+        #     sql_nome_func = "SELECT nome_funcionario FROM pythonsql.funcionario WHERE id_funcionario = %s"
+        #     extrair_nome = self.btn_posicao_entry_pagamento.get()
+        #     self.cursor.execute(sql_nome_func, ([extrair_nome]))
+        #     self.result_pesquisa_nome = self.cursor.fetchone()[0]
+        #     print(self.result_pesquisa_nome)
+        #     self.con.commit()
+
+        try:
+
+            if quantidade_caixa == "":
+                messagebox.showwarning(title='Atencao!', message='Insira quantidade de caixa para calcular valor! ')
+            else:
+                query = "SELECT caixa_limao FROM pythonsql.valores WHERE id_valores = 1"
+                self.banco_connect()
+                self.cursor.execute(query)
+                resultado_query = self.cursor.fetchone()[0]
+                soma = resultado_query * float(quantidade_caixa)
+                result_valor = Label(self.left_Frame_delete, text=f'Funcionario Numero:{posicao_id} Recebe: {soma}0 R$',
+                                     fg='GREEN', bg='#dfe3ee', anchor=W)
+                result_valor.place(relx=0.22, rely=0.81, relheight=0.05, relwidth=0.3)
+        except Error as err:
+            print(f"{RED}Error Ao Somar: '{err}'")
+        finally:
+            self.con.close()
 
     def Somar_Tomate(self):
-        qtd_caixa_total = self.bt_cx_hj_entry.get()
-        self.banco_connect()
-        sql_tomate = "SELECT SUM(caixa_tomate) FROM python.valores WHERE id_valores=1"
-        self.cursor.execute(sql_tomate)
-        dados = self.cursor.fetchone()[0]
-        print(dados)
-        valor_cx_atuai = dados
-        resultado = valor_cx_atuai * qtd_caixa_total
-        n_funcionario_bd = self.nome_usuario
-        result_valor = Label(self.left_Frame_delete, text=f'{n_funcionario_bd} {resultado}0 R$', fg='GREEN', bg='#dfe3ee',
-                             anchor=W)
-        result_valor.place(relx=0.22, rely=0.81, relheight=0.05, relwidth=0.3)
+        quantidade_caixa = self.bt_cx_hj_entry_pagamento.get()
+        posicao_id = self.btn_posicao_entry_pagamento.get()
+        # if posicao_id == "":
+        #     messagebox.showwarning(title='Atencao!', message='Insira quantidade de caixa para calcular valor! ')
+        # else:
+        #     sql_nome_func = "SELECT nome_funcionario FROM pythonsql.funcionario WHERE id_funcionario = %s"
+        #     extrair_nome = self.btn_posicao_entry_pagamento.get()
+        #     self.cursor.execute(sql_nome_func, ([extrair_nome]))
+        #     self.result_pesquisa_nome = self.cursor.fetchone()[0]
+        #     print(self.result_pesquisa_nome)
+        #     self.con.commit()
 
+        try:
+            if quantidade_caixa == "":
+                messagebox.showwarning(title='Atencao!', message='Insira quantidade de caixa para calcular valor! ')
+            else:
+                query = "SELECT caixa_tomate FROM pythonsql.valores WHERE id_valores = 1"
+                self.banco_connect()
+                self.cursor.execute(query)
+                resultado_query = self.cursor.fetchone()[0]
+                soma = resultado_query * float(quantidade_caixa)
+                result_valor = Label(self.left_Frame_delete, text=f'Funcionario Numero:{posicao_id} Recebe: {soma}0 R$',
+                                     fg='GREEN', bg='#dfe3ee', anchor=W)
+                result_valor.place(relx=0.22, rely=0.81, relheight=0.05, relwidth=0.3)
+        except Error as err:
+            print(f"{RED}Error Ao Somar: '{err}'")
+        finally:
+            self.con.close()
     # Funcao da Tela Programa Final
     def pesquisar(self):
         self.tree.delete(*self.tree.get_children())
@@ -741,7 +807,6 @@ class telaTkinter:
         self.tree.column("#5", width=50)  # Tomate
         self.tree.column("#6", width=20) # POSICAO
         self.root.mainloop()
-        self.tree.pack()
         self.buscar_todos()
 
     # Telas do Menu
@@ -1175,7 +1240,7 @@ class telaTkinter:
         try:
             sql = """UPDATE pythonsql.valores 
             SET caixa_laranja = """+salvar_laranja+"""
-            WHERE id_Valores = 1;"""
+            WHERE id_valores = 1;"""
             print(f'{BLUE}{sql}')
             # Comando para Puxar os Dados do Cadastro
             self.banco_connect()
