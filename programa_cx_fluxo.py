@@ -98,63 +98,17 @@ class telaTkinter:
             if (self.con.is_connected()):
                 self.con.close()
                 self.tela_2.destroy()
-    def inserir_cx_pego_laranja(self):
+    def inserir_cx_pego_laranja_zerar(self):
         ncx_pego = self.bt_cx_hj_entry.get()
         posicao_cx = self.btn_posicao_entry.get()
         try:
             if (ncx_pego == "" and posicao_cx == ""):
-                messagebox.showwarning(title="ERROR AO INSERIR DADOS", message="Coloque ID do Funcionario, Coloque Quantidade de Caixa que Pegou Hoje")
+                messagebox.showwarning(title="ERROR AO INSERIR DADOS", message="Coloque ID do Funcionario, Coloque 0 para Zerar As caixas")
+            elif ncx_pego != 0 and posicao_cx != "":
+                messagebox.showwarning(title="Erro Insira Valor Valido", message="Apena Valor Zero e Aceito")
             else:
                 sql = """UPDATE pythonsql.funcionario 
                  SET qtd_laranja = """ + ncx_pego + """
-                 WHERE id_funcionario = """ +posicao_cx+ """;"""
-                print(f'{BLUE}{sql}')
-                # Comando para Puxar os Dados do Cadastro
-                self.banco_connect()
-                inserirdados = sql
-                self.cursor.execute(inserirdados)  # self.admin
-                self.con.commit()
-                print(self.cursor.rowcount, f'{CYAN}')
-                self.banco_desconecta()
-                # messagebox.showinfo(title="Informacoes Caixa Inserido", message="!")
-        except Error as erro:
-            print("Falha de Dados MySQL:".format(erro))
-        finally:
-            if (self.con.is_connected()):
-                self.con.close()
-    def inserir_cx_pego_limao(self):
-        ncx_pego = self.bt_cx_hj_entry.get()
-        posicao_cx = self.btn_posicao_entry.get()
-        try:
-            if (ncx_pego == "" and posicao_cx == ""):
-                messagebox.showwarning(title="ERROR AO INSERIR DADOS", message="Coloque ID do Funcionario, Coloque Quantidade de Caixa que Pegou Hoje")
-            else:
-                sql = """UPDATE pythonsql.funcionario 
-                 SET qtd_limao = """ + ncx_pego + """
-                 WHERE id_funcionario = """ +posicao_cx+ """;"""
-                print(f'{BLUE}{sql}')
-                # Comando para Puxar os Dados do Cadastro
-                self.banco_connect()
-                inserirdados = sql
-                self.cursor.execute(inserirdados)  # self.admin
-                self.con.commit()
-                print(self.cursor.rowcount, f'{CYAN}')
-                self.banco_desconecta()
-                # messagebox.showinfo(title="Informacoes Caixa Inserido", message="!")
-        except Error as erro:
-            print("Falha de Dados MySQL:".format(erro))
-        finally:
-            if (self.con.is_connected()):
-                self.con.close()
-    def inserir_cx_pego_tomate(self):
-        ncx_pego = self.bt_cx_hj_entry.get()
-        posicao_cx = self.btn_posicao_entry.get()
-        try:
-            if (ncx_pego == "" and posicao_cx == ""):
-                messagebox.showwarning(title="ERROR AO INSERIR DADOS", message="Coloque ID do Funcionario, Coloque Quantidade de Caixa que Pegou Hoje")
-            else:
-                sql = """UPDATE pythonsql.funcionario  
-                 SET qtd_tomate = """ + ncx_pego + """
                  WHERE id_funcionario = """ +posicao_cx+ """;"""
                 print(f'{BLUE}{sql}')
                 # Comando para Puxar os Dados do Cadastro
@@ -171,6 +125,137 @@ class telaTkinter:
         finally:
             if (self.con.is_connected()):
                 self.con.close()
+    def inserir_cx_pego_limao_zerar(self):
+        ncx_pego = self.bt_cx_hj_entry.get()
+        posicao_cx = self.btn_posicao_entry.get()
+        try:
+            if (ncx_pego == "" and posicao_cx == ""):
+                messagebox.showwarning(title="ERROR AO INSERIR DADOS", message="Coloque ID do Funcionario, Coloque 0 para Zerar As caixas")
+            elif ncx_pego != 0 and posicao_cx != "":
+                 messagebox.showwarning(title="Erro Insira Valor Valido", message="Apena Valor Zero e Aceito")
+            else:
+                sql = """UPDATE pythonsql.funcionario 
+                 SET qtd_limao = """ + ncx_pego + """
+                 WHERE id_funcionario = """ +posicao_cx+ """;"""
+                print(f'{BLUE}{sql}')
+                # Comando para Puxar os Dados do Cadastro
+                self.banco_connect()
+                inserirdados = sql
+                self.cursor.execute(inserirdados)  # self.admin
+                self.con.commit()
+                print(self.cursor.rowcount, f'{CYAN}')
+                self.banco_desconecta()
+                messagebox.showinfo(title="VALOR ZERADO", message="Quantidade De Caixas Funcionario Foi Zerado")
+        except Error as erro:
+            print("Falha de Dados MySQL:".format(erro))
+        finally:
+            if (self.con.is_connected()):
+                self.con.close()
+    def inserir_cx_pego_tomate_zerar(self):
+        ncx_pego = self.bt_cx_hj_entry.get()
+        posicao_cx = self.btn_posicao_entry.get()
+        try:
+            if (ncx_pego == "" and posicao_cx == ""):
+                messagebox.showwarning(title="ERROR AO INSERIR DADOS", message="Coloque ID do Funcionario, Coloque 0 para Zerar As caixas")
+            elif ncx_pego != 0 and posicao_cx != "":
+                 messagebox.showwarning(title="Erro Insira Valor Valido", message="Apena Valor Zero e Aceito")
+            else:
+                sql = """UPDATE pythonsql.funcionario  
+                 SET qtd_tomate = """ + ncx_pego + """
+                 WHERE id_funcionario = """ +posicao_cx+ """;"""
+                print(f'{BLUE}{sql}')
+                # Comando para Puxar os Dados do Cadastro
+                self.banco_connect()
+                inserirdados = sql
+                self.cursor.execute(inserirdados)  # self.admin
+                self.con.commit()
+                print(self.cursor.rowcount, f'{CYAN}')
+                self.banco_desconecta()
+                messagebox.showinfo(title="VALOR ZERADO", message="Quantidade De Caixas Funcionario Foi Zerado")
+
+        except Error as erro:
+            print("Falha de Dados MySQL:".format(erro))
+        finally:
+            if (self.con.is_connected()):
+                self.con.close()
+    def inserir_cx_pego_laranja_sum(self):
+        ncx_pego = float(self.bt_cx_hj_entry.get())
+        posicao_cx = self.btn_posicao_entry.get()
+        procura_valor = """SELECT qtd_laranja FROM pythonsql.funcionario WHERE id_funcionario = """+posicao_cx+"""
+        """
+        self.banco_connect()
+        self.cursor.execute(procura_valor)
+        resultado_query = self.cursor.fetchone()[0]
+        calculo = int(resultado_query) + int(ncx_pego)
+        soma_result = str(calculo)
+        print(f'{BLUE}{type(resultado_query)}, {type(calculo)}, {calculo}')
+        try:
+            if (ncx_pego == "" and posicao_cx == ""):
+                messagebox.showwarning(title="ERROR AO INSERIR DADOS", message="Coloque ID do Funcionario, Coloque Quantidade de Caixa que Pegou Hoje")
+            else:
+                sql = """UPDATE pythonsql.funcionario SET qtd_laranja = """+soma_result+""" WHERE id_funcionario = """+posicao_cx+"""
+                """
+                print(f'{BLUE}{sql}')
+                self.banco_connect()
+                inserirdados = sql
+                self.cursor.execute(inserirdados)
+                self.con.commit()
+                print(self.cursor.rowcount, f'{CYAN}')
+        except Error as erro:
+            print("Falha de Dados MySQL:".format(erro))
+
+    def inserir_cx_pego_limao_sum(self):
+        ncx_pego = float(self.bt_cx_hj_entry.get())
+        posicao_cx = self.btn_posicao_entry.get()
+        procura_valor = """SELECT qtd_limao FROM pythonsql.funcionario WHERE id_funcionario = """+posicao_cx+"""
+        """
+        self.banco_connect()
+        self.cursor.execute(procura_valor)
+        resultado_query = self.cursor.fetchone()[0]
+        calculo = int(resultado_query) + int(ncx_pego)
+        soma_result = str(calculo)
+        print(f'{BLUE}{type(resultado_query)}, {type(calculo)}, {calculo}')
+        try:
+            if (ncx_pego == "" and posicao_cx == ""):
+                messagebox.showwarning(title="ERROR AO INSERIR DADOS", message="Coloque ID do Funcionario, Coloque Quantidade de Caixa que Pegou Hoje")
+            else:
+                sql = """UPDATE pythonsql.funcionario SET qtd_laranja = """+soma_result+""" WHERE id_funcionario = """+posicao_cx+"""
+                """
+                print(f'{BLUE}{sql}')
+                self.banco_connect()
+                inserirdados = sql
+                self.cursor.execute(inserirdados)
+                self.con.commit()
+                print(self.cursor.rowcount, f'{CYAN}')
+        except Error as erro:
+            print("Falha de Dados MySQL:".format(erro))
+
+    def inserir_cx_pego_tomate_sum(self):
+        ncx_pego = float(self.bt_cx_hj_entry.get())
+        posicao_cx = self.btn_posicao_entry.get()
+        procura_valor = """SELECT qtd_tomate FROM pythonsql.funcionario WHERE id_funcionario = """+posicao_cx+"""
+        """
+        self.banco_connect()
+        self.cursor.execute(procura_valor)
+        resultado_query = self.cursor.fetchone()[0]
+        calculo = int(resultado_query) + int(ncx_pego)
+        soma_result = str(calculo)
+        print(f'{BLUE}{type(resultado_query)}, {type(calculo)}, {calculo}')
+        try:
+            if (ncx_pego == "" and posicao_cx == ""):
+                messagebox.showwarning(title="ERROR AO INSERIR DADOS", message="Coloque ID do Funcionario, Coloque Quantidade de Caixa que Pegou Hoje")
+            else:
+                sql = """UPDATE pythonsql.funcionario SET qtd_laranja = """+soma_result+""" WHERE id_funcionario = """+posicao_cx+"""
+                """
+                print(f'{BLUE}{sql}')
+                self.banco_connect()
+                inserirdados = sql
+                self.cursor.execute(inserirdados)
+                self.con.commit()
+                print(self.cursor.rowcount, f'{CYAN}')
+        except Error as erro:
+            print("Falha de Dados MySQL:".format(erro))
+
     def registrar_fun_bd(self):
         nome_func = self.user_input_func.get()
         data_nasc = self.user_input_nascimento.get()
@@ -359,12 +444,6 @@ class telaTkinter:
         self.btn_voltar = Button(right_Frame, text='Voltar', font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2', command=self.tela_2.destroy)
         self.btn_voltar.place(x=173, y=268, width=70, height=30)
 
-        # # ======== Button CheckBox ==========
-        # self.is_checked = tkinter.IntVar()
-
-        # def check_checkbox():
-        #     if self.is_checked.get() == 1:
-        #         print(f'{GREEN}E UM ADM')                                  , variable=self.is_checked
         self.checkbox_admin = tkinter.Checkbutton(right_Frame, onvalue=1, offvalue=0, command="check_checkbox",bg='MIDNIGHTBLUE')
         self.checkbox_admin.place(x=138, y=200)
         self.msg_check_admin = Label(right_Frame, text='E ADM?', font=('Century Gothic', 10), bg='MIDNIGHTBLUE',
@@ -728,10 +807,6 @@ class telaTkinter:
                               command=self.buscar_todos)
         btn_novo_msg.place(relx=0.8, rely=0.04, relheight=0.05, relwidth=0.074)
 
-        # btn_novo_msg = Button(text="Pesquisar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',
-        #                       command=self.pesquisar)
-        # btn_novo_msg.place(relx=0.7, rely=0.04, relheight=0.05, relwidth=0.095)
-
         btn_trazer_valores_cx_laranja = Button(left_Frame, text='Mostrar Valores R$',
                                                font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',command=self.valores_cx_atuais_bd)
         btn_trazer_valores_cx_laranja.place(relx=0.604, rely=0.31, relheight=0.09, relwidth=0.25)
@@ -751,27 +826,45 @@ class telaTkinter:
         self.bt_cx_nfuncionario_entry.place(relx=0.555, rely=0.72, relheight=0.08, relwidth=0.3)
 
         # NUMERO CX PEGO HOJE
-        bt_cx_lebel = Label(text="PEGOU QUANTAS CAIXAS HOJE",  font=('Arial', 9, 'italic', 'bold'), fg='#107db2',bg='#dfe3ee', highlightthickness=2, highlightbackground="#759fe6")
+        bt_cx_lebel = Label(text="PEGOU QUANTAS CAIXAS HOJE",  font=('Arial', 8, 'italic', 'bold'), fg='#107db2',bg='#dfe3ee', highlightthickness=2, highlightbackground="#759fe6")
         bt_cx_lebel.place(relx=0.15, rely=0.30, relheight=0.035, relwidth=0.3)
         self.bt_cx_hj_entry = Entry(left_Frame, font=('Arial', 10, 'italic'))
         self.bt_cx_hj_entry.place(relx=0.05, rely=0.6, relheight=0.08, relwidth=0.08)
 
         # NUMERO DA POSICAO FUNCIONARIO
-        label_cx_hj_lebel = Label(text="Nº Registro FUNCIONARIO",  font=('Arial', 9, 'italic', 'bold'), fg='#107db2',bg='#dfe3ee', highlightthickness=2, highlightbackground="#759fe6")
+        label_cx_hj_lebel = Label(text="Nº Registro FUNCIONARIO",  font=('Arial', 8, 'italic', 'bold'), fg='#107db2',bg='#dfe3ee', highlightthickness=2, highlightbackground="#759fe6")
         label_cx_hj_lebel.place(relx=0.15, rely=0.234, relheight=0.035, relwidth=0.23)
         self.btn_posicao_entry = Entry(left_Frame, font=('Arial', 10, 'italic'))
         self.btn_posicao_entry.place(relx=0.05, rely=0.45, relheight=0.08, relwidth=0.08)
 
         # BOTAO INSERIR + 1 CAIXA PARA FUNCIONARIO = POSICAO DECLARADA
-        btn_cx_laranja_btn_mais_1=Button(left_Frame, text="CX LARANJA",font=('Arial', 7, 'italic', 'bold'), bd=3, fg='white',bg='#107db2',command=self.inserir_cx_pego_laranja)
+        btn_cx_laranja_btn_mais_1=Button(left_Frame, text="CX LARANJA",font=('Arial', 7, 'italic', 'bold'), bd=3, fg='white',bg='#107db2',command=self.inserir_cx_pego_laranja_sum)
         btn_cx_laranja_btn_mais_1.place(relx=0.05, rely=0.7, relheight=0.08, relwidth=0.13)
 
-        btn_cx_limao_mais_1=Button(left_Frame, text="CX LIMAO",font=('Arial', 7, 'italic', 'bold'), bd=3, fg='white',bg='#107db2',command=self.inserir_cx_pego_limao)
+        btn_cx_limao_mais_1=Button(left_Frame, text="CX LIMAO",font=('Arial', 7, 'italic', 'bold'), bd=3, fg='white',bg='#107db2',command=self.inserir_cx_pego_limao_sum)
         btn_cx_limao_mais_1.place(relx=0.18, rely=0.7, relheight=0.08, relwidth=0.13)
 
-        btn_cx_tomate_mais_1 = Button(left_Frame, text="CX TOMATE",font=('Arial', 7, 'italic', 'bold'), bd=3, fg='white',bg='#107db2',command=self.inserir_cx_pego_tomate)
+        btn_cx_tomate_mais_1 = Button(left_Frame, text="CX TOMATE", font=('Arial', 7, 'italic', 'bold'), bd=3, fg='white', bg='#107db2', command=self.inserir_cx_pego_tomate_sum)
         btn_cx_tomate_mais_1.place(relx=0.31, rely=0.7, relheight=0.08, relwidth=0.13)
-        #
+
+        # BOTAO UPDATE TROCA VALOR DA TABELA SEM CALCULO (USADO MAIS PARA ZERAR)
+        bt_cx_lebel = Label(text="PARA ZERAR DIGITE 0 E CLICK EM ZERAR",  font=('Arial', 8, 'italic', 'bold'), fg='#107db2',bg='#dfe3ee', highlightthickness=2, highlightbackground="#759fe6")
+        bt_cx_lebel.place(relx=0.15, rely=0.39, relheight=0.035, relwidth=0.3)
+        self.btn_posicao_entry_zerar = Entry(left_Frame, font=('Arial', 10, 'italic'))
+        self.btn_posicao_entry_zerar.place(relx=0.05, rely=0.82, relheight=0.08, relwidth=0.08)
+
+        btn_cx_laranja_btn_mais_1=Button(left_Frame, text="ZERAR CX LARANJA",font=('Arial', 7, 'italic', 'bold'), bd=3, fg='white',bg='#107db2',command=self.inserir_cx_pego_laranja_zerar)
+        btn_cx_laranja_btn_mais_1.place(relx=0.05, rely=0.9, relheight=0.08, relwidth=0.155)
+
+        btn_cx_limao_mais_1=Button(left_Frame, text="ZERAR CX LIMAO",font=('Arial', 7, 'italic', 'bold'), bd=3, fg='white',bg='#107db2',command=self.inserir_cx_pego_limao_zerar)
+        btn_cx_limao_mais_1.place(relx=0.205, rely=0.9, relheight=0.08, relwidth=0.145)
+
+        btn_cx_tomate_mais_1 = Button(left_Frame, text="ZERAR CX TOMATE", font=('Arial', 7, 'italic', 'bold'), bd=3, fg='white', bg='#107db2', command=self.inserir_cx_pego_tomate_zerar)
+        btn_cx_tomate_mais_1.place(relx=0.35, rely=0.9, relheight=0.08, relwidth=0.15)
+
+
+
+
         #BTN VOLTAR
         btn_novo_msg = Button(text="Voltar", font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2',command=self.destroy_programa_final)
         btn_novo_msg.place(relx=0.9, rely=0.04, relheight=0.05, relwidth=0.074)
@@ -955,10 +1048,6 @@ class telaTkinter:
         self.caixa_laranja_input = Entry(right_Frame, width=15)
         self.caixa_laranja_input.place(x=110, y=80)
 
-        # # ======== Button Salvar LARANJA =========
-        # btn_laranja_salvar = Button(right_Frame, text='Salvar', font=('Century Gothic', 10), command=self.salvar_laranja)
-        # btn_laranja_salvar.place(x=230, y=80, width=70, height=20)
-
         # ======== Button Atualizar Valores CX LARANJA =========
         btn_laranja_update = Button(right_Frame, text='Inserir R$', font=('Century Gothic', 10, 'italic'), bd=3, fg='white', bg='#107db2', command=self.alterar_preco_laranja)
         btn_laranja_update.place(x=230, y=80, width=70, height=20)
@@ -968,10 +1057,6 @@ class telaTkinter:
         caixa_limao.place(x=1, y=115)
         self.caixa_limao_input = Entry(right_Frame, width=15)
         self.caixa_limao_input.place(x=110, y=115)
-
-        # ======== Button Salvar LIMAO =========
-        # btn_limao_salvar = Button(right_Frame, text='Salvar', font=('Century Gothic', 10), command=self.salvar_limao)
-        # btn_limao_salvar.place(x=230, y=115, width=70, height=20)
 
         # ======== Button Atualizar Valores CX LIMAO =========
         btn_limao_update = Button(right_Frame, text='Inserir R$', font=('Century Gothic', 10, 'italic'), bd=3, fg='white', bg='#107db2', command=self.alterar_preco_limao)
@@ -983,10 +1068,6 @@ class telaTkinter:
         caixa_tomate.place(x=1, y=150)
         self.caixa_tomate_input = Entry(right_Frame, width=15)
         self.caixa_tomate_input.place(x=110, y=150)
-
-        # ======== Button Salvar TOMATE =========
-        # btn_tomate_salvar = Button(right_Frame, text='Salvar', font=('Century Gothic', 10), command=self.salvar_tomate)
-        # btn_tomate_salvar.place(x=230, y=150, width=70, height=20)
 
         # ======== Button Atualizar Valores CX TOMATE =========
         btn_tomate_update = Button(right_Frame, text='Inserir R$', font=('Arial', 10, 'italic'), bd=3, fg='white', bg='#107db2', command=self.alterar_preco_tomate)
@@ -1077,10 +1158,6 @@ class telaTkinter:
         Label(self.root, text=f'ID=: {self.btn_colocar_id_input.get()} , DELETADO COM SUCESSO!', bg='GREEN').place(x=1, y=1)
         print(f'{RED} Dados Deletados', self.cursor.rowcount, "Mostrar Deletado")
     def tela_popup_deletar_nome_func(self):
-        # top = Toplevel(self.root)
-        # top.geometry('200x45+600+153')
-        # top.title('DELECTED')
-        # top.resizable(False, False)
         Label(self.root, text=f'Funcionario {self.bt_cx_nfuncionario_entry.get().upper()} Excluido!', bg='GREEN'). \
             place(relx=0.025, rely=0.42, relheight=0.03, relwidth=0.25)
         messagebox.showinfo(title='Funcionario Deletado', message='Funcionario Deletado')
@@ -1100,10 +1177,6 @@ class telaTkinter:
         self.tela_popup_deletar_id()
         # Tela Funcoes
 
-
-        #Button CheckBox
-        # self.btn_voltar = Button(self.programa, text='Voltar', font=('Century Gothic', 10), command="")
-        # self.btn_voltar.place(x=173, y=268, width=70, height=30) # Funcao Deletar Nome_Funcionario Table MYSQL funcionario
     def deletar_nome_func(self):
         self.banco_connect()
         nome_funcionario = self.btn_novo_msg.get()
