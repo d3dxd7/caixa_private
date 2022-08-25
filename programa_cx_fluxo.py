@@ -99,16 +99,13 @@ class telaTkinter:
                 self.con.close()
                 self.tela_2.destroy()
     def inserir_cx_pego_laranja_zerar(self):
-        ncx_pego = self.bt_cx_hj_entry.get()
-        posicao_cx = self.btn_posicao_entry.get()
+        posicao_cx = self.btn_id_entry_zerar_cx.get()
         try:
-            if (ncx_pego == "" and posicao_cx == ""):
-                messagebox.showwarning(title="ERROR AO INSERIR DADOS", message="Coloque ID do Funcionario, Coloque 0 para Zerar As caixas")
-            elif ncx_pego != 0 and posicao_cx != "":
-                messagebox.showwarning(title="Erro Insira Valor Valido", message="Apena Valor Zero e Aceito")
+            if (posicao_cx == ""):
+                messagebox.showwarning(title="ERROR AO INSERIR DADOS", message="Coloque ID do Funcionario, Antes de Clicar Botao")
             else:
                 sql = """UPDATE pythonsql.funcionario 
-                 SET qtd_laranja = """ + ncx_pego + """
+                 SET qtd_laranja = 0
                  WHERE id_funcionario = """ +posicao_cx+ """;"""
                 print(f'{BLUE}{sql}')
                 # Comando para Puxar os Dados do Cadastro
@@ -126,16 +123,13 @@ class telaTkinter:
             if (self.con.is_connected()):
                 self.con.close()
     def inserir_cx_pego_limao_zerar(self):
-        ncx_pego = self.bt_cx_hj_entry.get()
-        posicao_cx = self.btn_posicao_entry.get()
+        posicao_cx = self.btn_id_entry_zerar_cx.get()
         try:
-            if (ncx_pego == "" and posicao_cx == ""):
-                messagebox.showwarning(title="ERROR AO INSERIR DADOS", message="Coloque ID do Funcionario, Coloque 0 para Zerar As caixas")
-            elif ncx_pego != 0 and posicao_cx != "":
-                 messagebox.showwarning(title="Erro Insira Valor Valido", message="Apena Valor Zero e Aceito")
+            if (posicao_cx == ""):
+                messagebox.showwarning(title="ERROR AO INSERIR DADOS", message="Coloque ID do Funcionario, Antes de Clicar Botao")
             else:
                 sql = """UPDATE pythonsql.funcionario 
-                 SET qtd_limao = """ + ncx_pego + """
+                 SET qtd_limao = 0
                  WHERE id_funcionario = """ +posicao_cx+ """;"""
                 print(f'{BLUE}{sql}')
                 # Comando para Puxar os Dados do Cadastro
@@ -152,16 +146,13 @@ class telaTkinter:
             if (self.con.is_connected()):
                 self.con.close()
     def inserir_cx_pego_tomate_zerar(self):
-        ncx_pego = self.bt_cx_hj_entry.get()
-        posicao_cx = self.btn_posicao_entry.get()
+        posicao_cx = self.btn_id_entry_zerar_cx.get()
         try:
-            if (ncx_pego == "" and posicao_cx == ""):
-                messagebox.showwarning(title="ERROR AO INSERIR DADOS", message="Coloque ID do Funcionario, Coloque 0 para Zerar As caixas")
-            elif ncx_pego != 0 and posicao_cx != "":
-                 messagebox.showwarning(title="Erro Insira Valor Valido", message="Apena Valor Zero e Aceito")
+            if (posicao_cx == ""):
+                messagebox.showwarning(title="ERROR AO INSERIR DADOS", message="Coloque ID do Funcionario, Antes de Clicar Botao")
             else:
                 sql = """UPDATE pythonsql.funcionario  
-                 SET qtd_tomate = """ + ncx_pego + """
+                 SET qtd_tomate = 0
                  WHERE id_funcionario = """ +posicao_cx+ """;"""
                 print(f'{BLUE}{sql}')
                 # Comando para Puxar os Dados do Cadastro
@@ -328,7 +319,7 @@ class telaTkinter:
 
         # ========= Input Usuario =======
         #    ========= Usuario ========
-        userLabel_user = Label(right_Frame, text='Usuario/email', font=('Century Gothic', 13), bg='#dfe3ee',highlightthickness=0, highlightbackground="#107db2",
+        userLabel_user = Label(right_Frame, text='Usuario/email', font=('Century Gothic', 13, 'bold'), bg='#dfe3ee',highlightthickness=0, highlightbackground="#107db2",
                                fg='#107db2')
         userLabel_user.place(x=1, y=86)
         # Posicao
@@ -336,8 +327,7 @@ class telaTkinter:
         self.user_input_user_log.place(x=135, y=92)
 
         #    ========= Senha ========
-        userLabel_pass = Label(right_Frame, text='Senha', font=('Century Gothic', 15), bg='#dfe3ee',highlightthickness=0, highlightbackground="#107db2",
-                               fg='#107db2')
+        userLabel_pass = Label(right_Frame, text='Senha', font=('Century Gothic', 15, 'bold'), bg='#dfe3ee',highlightthickness=0, highlightbackground="#107db2",fg='#107db2')
         userLabel_pass.place(x=27, y=137)
         # Posicao
         self.user_input_pass_log = Entry(right_Frame, width=30, show='*')
@@ -395,26 +385,24 @@ class telaTkinter:
         logo_base64_2.place(x=10, y=155, )
 
         # ========= Tela Registro ========
-        bemvindo_Label = Label(right_Frame, text='Tela Registro', font=('Century Gothic', 30), bg='MIDNIGHTBLUE',
-                               fg='white')
+        bemvindo_Label = Label(right_Frame, text='Tela Registro', font=('Century Gothic', 30, 'italic', 'bold',), bg='#dfe3ee',highlightthickness=0, highlightbackground="#107db2",
+                               fg='#107db2')
         bemvindo_Label.place(x=100, y=10)
         #  ======== Mensagem Registro Frame 1 Left =========
-        msg_registro = Label(left_Frame, font=('Century Gothic', 20), text='Informaçoes:', bg='MIDNIGHTBLUE',
-                             fg='white')
-        msg_registro.place(x=15, y=70)
+        msg_registro = Label(left_Frame, font=('Century Gothic', 20), text='Informaçoes:', bg='#dfe3ee',highlightthickness=0, highlightbackground="#107db2",fg='#107db2')
+        msg_registro.place(x=10, y=70)
         # ======== Mensagem Abaixo da Informacao Frame 1 Left =========
-        msg_registro_info = Label(left_Frame, font=('Century Gothic', 10), text='voce ira efetuar registro\n'
+        msg_registro_info = Label(left_Frame, font=('Century Gothic', 9), text='voce ira efetuar registro\n'
                                                                                  'seus dados estao protegidos'
-                                  , bg='MIDNIGHTBLUE', fg='white')
-        msg_registro_info.place(x=15, y=110)
+                                  , bg='#dfe3ee',highlightthickness=0, highlightbackground="#107db2",fg='#107db2')
+        msg_registro_info.place(x=1, y=107)
         msg_registro_LTDA = Label(left_Frame, font=('Century Gothic', 7), text='LTDA Fluxo de Caixa', bg='GREEN',
                                   fg='WHITE')
-        msg_registro_LTDA.place(x=100, y=285)
+        msg_registro_LTDA.place(x=99.3, y=275)
 
 
         # ======== Input Usuario/Email NOME_USUARIO =========
-        self.userLabel_user = Label(right_Frame, text='Usuario/email', font=('Century Gothic', 15), bg='MIDNIGHTBLUE',
-                               fg='white')
+        self.userLabel_user = Label(right_Frame, text='Usuario/email', font=('Century Gothic', 14, 'bold'), bg='#dfe3ee',highlightthickness=0, highlightbackground="#107db2",fg='#107db2')
         self.userLabel_user.place(x=1, y=92)
         # Posicao
         self.user_input_user = Entry(right_Frame, width=30)
@@ -422,14 +410,13 @@ class telaTkinter:
 
 
         #    ========= Senha SENHA ========
-        self.userLabel_pass = Label(right_Frame, text='Senha', font=('Century Gothic', 15), bg='MIDNIGHTBLUE', fg='white')
+        self.userLabel_pass = Label(right_Frame, text='Senha', font=('Century Gothic', 15,'bold'), bg='#dfe3ee',highlightthickness=0, highlightbackground="#107db2",fg='#107db2')
         self.userLabel_pass.place(x=27, y=137)
         # Posicao
         self.user_input_pass = Entry(right_Frame, width=30, show='*')
         self.user_input_pass.place(x=138, y=142)
         #    ========= Confirmar Senha ========
-        self.userLabel_pass_c = Label(right_Frame, text='Confirmar Senha', font=('Century Gothic', 12), bg='MIDNIGHTBLUE',
-                               fg='white')
+        self.userLabel_pass_c = Label(right_Frame, text='Confirmar Senha', font=('Century Gothic', 12, 'bold'), bg='#dfe3ee',highlightthickness=0, highlightbackground="#107db2",fg='#107db2')
         self.userLabel_pass_c.place(x=3, y=176)
         # Posicao
         self.user_input_pass_confirmar = Entry(right_Frame, width=30, show='*')
@@ -444,12 +431,11 @@ class telaTkinter:
         self.btn_voltar = Button(right_Frame, text='Voltar', font=('Arial', 10, 'italic', 'bold'), bd=3, fg='white', bg='#107db2', command=self.tela_2.destroy)
         self.btn_voltar.place(x=173, y=268, width=70, height=30)
 
-        self.checkbox_admin = tkinter.Checkbutton(right_Frame, onvalue=1, offvalue=0, command="check_checkbox",bg='MIDNIGHTBLUE')
-        self.checkbox_admin.place(x=138, y=200)
-        self.msg_check_admin = Label(right_Frame, text='E ADM?', font=('Century Gothic', 10), bg='MIDNIGHTBLUE',
-                               fg='white')
-        self.msg_check_admin.place(x=30, y=200)
-    # Tela Programa
+        # self.checkbox_admin = tkinter.Checkbutton(right_Frame, onvalue=1, offvalue=0, command="check_checkbox",bg='MIDNIGHTBLUE')
+        # self.checkbox_admin.place(x=138, y=200)
+    #     self.msg_check_admin = Label(right_Frame, text='E ADM?', font=('Century Gothic', 10), bg='#dfe3ee',highlightthickness=0, highlightbackground="#107db2",fg='#107db2')
+    #     self.msg_check_admin.place(x=30, y=200)
+    # # Tela Programa
     def tela_menus(self, tela_programa = None):   # TELA QUANDO LOGADO
         self.programa = Tk()
         self.programa.geometry('600x300+600+153')
@@ -511,12 +497,12 @@ class telaTkinter:
 
         # =====Frames=====
         # Frame Esquerdo
-        self.left_Frame_delete = Frame(self.root_delete, width=100, height=200, bg='#C0C0C0', relief='raised', highlightthickness=2,
+        self.left_Frame_delete = Frame(self.root_delete, width=100, height=200, bg='#dfe3ee', relief='raised', highlightthickness=2,
                            highlightbackground="#0fe3ee")
         self.left_Frame_delete.place(relx=0.02, rely=0.03, relwidth=0.96, relheight=0.45)
 
         # Frame Direito
-        self.right_Frame_delete = Frame(self.root_delete, width=400, height=300, bg='#C0C0C0', relief='raised', highlightthickness=2,
+        self.right_Frame_delete = Frame(self.root_delete, width=400, height=300, bg='#dfe3ee', relief='raised', highlightthickness=2,
                             highlightbackground="#0fe3ee")
         self.right_Frame_delete.place(relx=0.02, rely=0.52, relwidth=0.96, relheight=0.45)
 
@@ -625,15 +611,18 @@ class telaTkinter:
     def Somar_Laranja(self):
          quantidade_caixa = self.bt_cx_hj_entry_pagamento.get()
          posicao_id = self.btn_posicao_entry_pagamento.get()
-         # if posicao_id == "":
-         #     messagebox.showwarning(title='Atencao!', message='Insira quantidade de caixa para calcular valor! ')
-         # else:
-         #     sql_nome_func = "SELECT nome_funcionario FROM pythonsql.funcionario WHERE id_funcionario = %s"
-         #     extrair_nome = self.btn_posicao_entry_pagamento.get()
-         #     self.cursor.execute(sql_nome_func, ([extrair_nome]))
-         #     self.result_pesquisa_nome = self.cursor.fetchone()[0]
-         #     print(self.result_pesquisa_nome)
-         #     self.con.commit()
+         # try:
+         #     if posicao_id == "":
+         #         messagebox.showwarning(title='Atencao!', message='Insira quantidade de caixa para calcular valor! ')
+         #     else:
+         #         sql_nome_func = "SELECT nome_funcionario FROM pythonsql.funcionario WHERE id_funcionario = %s"
+         #         extrair_nome = self.btn_posicao_entry_pagamento.get()
+         #         self.cursor.execute(sql_nome_func, ([extrair_nome]))
+         #         self.result_pesquisa_nome = self.cursor.fetchone()[0]
+         #         print(self.result_pesquisa_nome)
+         #         self.con.commit()
+         # except:
+         #     ...
 
          try:
              if quantidade_caixa == "":
@@ -644,7 +633,7 @@ class telaTkinter:
                  self.cursor.execute(query)
                  resultado_query = self.cursor.fetchone()[0]
                  soma = resultado_query * float(quantidade_caixa)
-                 result_valor = Label(self.left_Frame_delete, text=f'Funcionario Numero:{posicao_id} Recebe: {soma}0 R$', fg='GREEN',bg='#dfe3ee',anchor=W)
+                 result_valor = Label(self.left_Frame_delete, text=f'Funcionario{posicao_id} Recebe: {soma}0 R$', fg='GREEN',bg='#dfe3ee',anchor=W)
                  result_valor.place(relx=0.22, rely=0.81, relheight=0.05, relwidth=0.3)
          except Error as err:
             print(f"{RED}Error Ao Somar: '{err}'")
@@ -765,7 +754,7 @@ class telaTkinter:
 
     def buscar_todos_pagamento(self):
         self.banco_connect()
-        self.tree.delete(*self.tree.get_children())
+        self.tree_pagamento.delete(*self.tree_pagamento.get_children())
         sql = "SELECT id_funcionario,nome_funcionario, data_nascimento, qtd_laranja, qtd_limao, qtd_tomate FROM funcionario"
         self.cursor.execute(sql)
         mostrar = self.cursor.fetchall()
@@ -848,10 +837,10 @@ class telaTkinter:
         btn_cx_tomate_mais_1.place(relx=0.31, rely=0.7, relheight=0.08, relwidth=0.13)
 
         # BOTAO UPDATE TROCA VALOR DA TABELA SEM CALCULO (USADO MAIS PARA ZERAR)
-        bt_cx_lebel = Label(text="PARA ZERAR DIGITE 0 E CLICK EM ZERAR",  font=('Arial', 8, 'italic', 'bold'), fg='#107db2',bg='#dfe3ee', highlightthickness=2, highlightbackground="#759fe6")
-        bt_cx_lebel.place(relx=0.15, rely=0.39, relheight=0.035, relwidth=0.3)
-        self.btn_posicao_entry_zerar = Entry(left_Frame, font=('Arial', 10, 'italic'))
-        self.btn_posicao_entry_zerar.place(relx=0.05, rely=0.82, relheight=0.08, relwidth=0.08)
+        bt_cx_lebel = Label(text="INSIRA ID FUNCIONARIO PARA ZERAR",  font=('Arial', 8, 'italic', 'bold'), fg='#107db2',bg='#dfe3ee', highlightthickness=2, highlightbackground="#759fe6")
+        bt_cx_lebel.place(relx=0.15, rely=0.395, relheight=0.035, relwidth=0.335)
+        self.btn_id_entry_zerar_cx = Entry(left_Frame, font=('Arial', 10, 'italic'))
+        self.btn_id_entry_zerar_cx.place(relx=0.05, rely=0.82, relheight=0.08, relwidth=0.08)
 
         btn_cx_laranja_btn_mais_1=Button(left_Frame, text="ZERAR CX LARANJA",font=('Arial', 7, 'italic', 'bold'), bd=3, fg='white',bg='#107db2',command=self.inserir_cx_pego_laranja_zerar)
         btn_cx_laranja_btn_mais_1.place(relx=0.05, rely=0.9, relheight=0.08, relwidth=0.155)
